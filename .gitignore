@@ -1,6 +1,8 @@
 *.pdf
+*.png
 *.txt
 *.root
 *~
 *~
 *#
+*.pyc
