@@ -19,6 +19,7 @@ def main(args):
     #then for each gen tau, we add to the denominator for the higgs pt
     #then we look at the boosted tau collection
     #and try to find a match within whatever cone-size
+    #same thing for HPS taus
     
     overallTaus = 0.0
     reconstructedBoostedTaus = 0.0
@@ -39,7 +40,7 @@ def main(args):
                                        theTree.genHiggs_phi[0],
                                        theTree.genHiggs_m[0])
 
-        #if for some reason, we have not two gen taus, let's get rid of the event
+        #if for some reason, we have not have two gen taus, let's get rid of the event
         if theTree.ngenTau != 2:
             continue
             
@@ -121,7 +122,7 @@ def main(args):
     theCanvas.SaveAs('reconstructionEfficiency_coneSize_'+str(args.coneSize).replace('.','p')+'.pdf')
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='prupose built script for examining the miniAOD ntuple output')
+    parser = argparse.ArgumentParser(description='purpose built script for examining the miniAOD ntuple output')
     parser.add_argument('--inputFile',help='name of the input file',required=True)
     parser.add_argument('--coneSize',help='size of the cone to try to match taus to gen tau',type=float,default=0.1)
     args = parser.parse_args()
