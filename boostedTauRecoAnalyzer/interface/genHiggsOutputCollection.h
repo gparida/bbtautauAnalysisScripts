@@ -29,7 +29,7 @@ class genHiggsOutputCollection
   std::vector<float> genHiggs_m;
   std::vector<int> genHiggs_status;
   std::vector<UInt_t> genHiggs_ndaughterParticles;
-  std::vector<std::vector<UInt_t>> genHiggs_daughterParticles_pdgCodes;
+  std::vector<std::vector<int>> genHiggs_daughterParticles_pdgCodes;
 };
 
 #endif

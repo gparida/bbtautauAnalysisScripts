@@ -156,8 +156,7 @@ void boostedTauRecoAnalyzer::analyze(const edm::Event& iEvent, const edm::EventS
       //std::cout<<"Number of daughters: "<<genParticle.numberOfDaughters()<<": ";
       //for (size_t j = 0; j<genParticle.numberOfDaughters(); ++j) std::cout<<genParticle.daughter(j)->pdgId()<<" ";
       //std::cout<<std::endl;
-      if (abs(genParticle.pdgId()) == 15 && genParticle.status() == 2)   theGenTauOutputCollection.fillFromParticle(&genParticle);
-
+      if (abs(genParticle.pdgId()) == 15 && genParticle.status() == 2) theGenTauOutputCollection.fillFromParticle(&genParticle);
       //std::cout<<"Found status 2 tau: "<<genParticle.pt()<<" "<<genParticle.eta()<<" "<<genParticle.phi()<<" "<<genParticle.mass()<<std::endl;
     }
 

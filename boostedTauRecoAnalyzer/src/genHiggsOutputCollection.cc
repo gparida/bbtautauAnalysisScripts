@@ -22,7 +22,7 @@ void genHiggsOutputCollection::fillFromParticle(const reco::GenParticle* genHigg
   genHiggs_m.push_back(genHiggs->mass());
   genHiggs_status.push_back(genHiggs->status());
   genHiggs_ndaughterParticles.push_back(genHiggs->numberOfDaughters());
-  std::vector<UInt_t> pdgCodes;
+  std::vector<int> pdgCodes;
   for (size_t i = 0; i<genHiggs->numberOfDaughters(); ++i)
     {	  
       pdgCodes.push_back(genHiggs->daughter(i)->pdgId());

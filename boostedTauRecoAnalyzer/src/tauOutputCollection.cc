@@ -7,6 +7,7 @@ tauOutputCollection::tauOutputCollection(){
   tau_phi.clear();
   tau_m.clear();
   tau_decayModeFindingNewDMs.clear();
+  tau_passesVLooseID.clear();
 }
 
 void tauOutputCollection::associateTreeToCollection(TTree* theTree)
@@ -17,6 +18,7 @@ void tauOutputCollection::associateTreeToCollection(TTree* theTree)
   theTree->Branch("tau_phi", &tau_phi);
   theTree->Branch("tau_m", &tau_m);
   theTree->Branch("tau_decayModeFindingNewDMs", &tau_decayModeFindingNewDMs);
+  theTree->Branch("tau_passesVLooseID", &tau_passesVLooseID);
 }
 
 void tauOutputCollection::clearData()
@@ -27,6 +29,7 @@ void tauOutputCollection::clearData()
   tau_phi.clear();
   tau_m.clear();
   tau_decayModeFindingNewDMs.clear();
+  tau_passesVLooseID.clear();
 }
 
 void tauOutputCollection::fillCollection(edm::Handle< std::vector< pat::Tau > > tauHandle)
@@ -41,6 +44,6 @@ void tauOutputCollection::fillCollection(edm::Handle< std::vector< pat::Tau > > 
       tau_phi.push_back(theTau->phi());
       tau_m.push_back(theTau->mass());
       tau_decayModeFindingNewDMs.push_back(theTau->tauID("decayModeFindingNewDMs"));
-      
+      tau_passesVLooseID.push_back(theTau->tauID("byVLooseIsolationMVArun2v1DBoldDMwLT"));
     }
 }

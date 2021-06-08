@@ -23,6 +23,7 @@ std::vector<float> boostedTau_eta;
 std::vector<float> boostedTau_phi;
 std::vector<float> boostedTau_m;
 std::vector<int> boostedTau_decayModeFindingNewDMs;
+std::vector<int> boostedTau_passesVLooseID;
 
 };
 

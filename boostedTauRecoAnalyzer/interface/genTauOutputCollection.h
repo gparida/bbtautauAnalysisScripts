@@ -26,6 +26,7 @@ class genTauOutputCollection
   std::vector<float> genTau_phi;
   std::vector<float> genTau_m;
   std::vector<int> genTau_status;
+  std::vector<std::vector<int>> genTau_daughterParticles_pdgCodes;
 };
 
 #endif

@@ -8,6 +8,7 @@ genTauOutputCollection::genTauOutputCollection()
   genTau_phi.clear();
   genTau_m.clear();
   genTau_status.clear();
+  genTau_daughterParticles_pdgCodes.clear();
 }
 
 void genTauOutputCollection::fillFromParticle(const reco::GenParticle* genTau)
@@ -18,6 +19,14 @@ void genTauOutputCollection::fillFromParticle(const reco::GenParticle* genTau)
   genTau_phi.push_back(genTau->phi());
   genTau_m.push_back(genTau->mass());
   genTau_status.push_back(genTau->status());
+  std::vector<int> pdgCodes;
+  for (size_t i = 0; i<genTau->numberOfDaughters(); ++i)
+    {	  
+      pdgCodes.push_back(genTau->daughter(i)->pdgId());
+    }
+  genTau_daughterParticles_pdgCodes.push_back(pdgCodes);
+  pdgCodes.clear();
+
 }
 
 void genTauOutputCollection::clearData()
@@ -28,6 +37,7 @@ void genTauOutputCollection::clearData()
   genTau_phi.clear();
   genTau_m.clear();
   genTau_status.clear();
+  genTau_daughterParticles_pdgCodes.clear();
 }
 
 void genTauOutputCollection::associateTreeToCollection(TTree* theTree)
@@ -38,4 +48,5 @@ void genTauOutputCollection::associateTreeToCollection(TTree* theTree)
   theTree->Branch("genTau_phi", &genTau_phi);
   theTree->Branch("genTau_m", &genTau_m);
   theTree->Branch("genTau_status", &genTau_status);
+  theTree->Branch("genTau_daughterParticles_pdgCodes",&genTau_daughterParticles_pdgCodes);
 }
