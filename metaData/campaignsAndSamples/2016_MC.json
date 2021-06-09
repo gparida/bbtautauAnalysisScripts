@@ -1,0 +1,29 @@
+{
+    "RunIISummer20UL16MiniAOD-106X_mcRun2_asymptotic_v13-v2": {
+	"DYInclusive": "DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8",
+	"DYLowMass": "DYJetsToLL_M-10to50_TuneCP5_13TeV-madgraphMLM-pythia8",
+	"WJetsInclusive": "WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8",
+	"TTHadronic": "TTToHadronic_TuneCP5_13TeV-powheg-pythia8",
+	"TTSemiLeptonic": "TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8",
+	"TT2L2Nu": "TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8",
+	"ST_s-channel": "ST_s-channel_4f_leptonDecays_TuneCP5_13TeV-amcatnlo-pythia8",
+	"WW": "WW_TuneCP5_13TeV-pythia8",
+	"WZ": "WZ_TuneCP5_13TeV-pythia8",
+	"ZZ": "ZZ_TuneCP5_13TeV-pythia8",
+	"QCD_Pt_15to30": "QCD_Pt_15to30_TuneCP5_13TeV_pythia8",
+	"QCD_Pt_30to50": "QCD_Pt_30to50_TuneCP5_13TeV_pythia8",
+	"QCD_Pt_50to80": "QCD_Pt_50to80_TuneCP5_13TeV_pythia8",
+	"QCD_Pt_80to120": "QCD_Pt_80to120_TuneCP5_13TeV_pythia8",
+	"QCD_Pt_120to170": "QCD_Pt_120to170_TuneCP5_13TeV_pythia8",
+	"QCD_Pt_170to300": "QCD_Pt_170to300_TuneCP5_13TeV_pythia8",
+	"QCD_Pt_300to470": "QCD_Pt_300to470_TuneCP5_13TeV_pythia8",
+	"QCD_Pt_470to600": "QCD_Pt_470to600_TuneCP5_13TeV_pythia8",
+	"QCD_Pt_600to800": "QCD_Pt_600to800_TuneCP5_13TeV_pythia8",
+	"QCD_Pt_800to1000": "QCD_Pt_800to1000_TuneCP5_13TeV_pythia8",
+	"QCD_Pt_1000to1400": "QCD_Pt_1000to1400_TuneCP5_13TeV_pythia8",
+	"QCD_Pt_1400to1800": "QCD_Pt_1400to1800_TuneCP5_13TeV_pythia8",
+	"QCD_Pt_1800to2400": "QCD_Pt_1800to2400_TuneCP5_13TeV_pythia8",
+	"QCD_Pt_2400to3200": "QCD_Pt_2400to3200_TuneCP5_13TeV_pythia8",
+	"QCD_Pt_3200toInf": "QCD_Pt_3200toInf_TuneCP5_13TeV_pythia8"
+    }
+}
