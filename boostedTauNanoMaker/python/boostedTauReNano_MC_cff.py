@@ -24,7 +24,7 @@ process.maxEvents = cms.untracked.PSet(
 )
 
 process.source = cms.Source('PoolSource',
-                            fileNames = cms.untracked.vstring('/store/mc/RunIISummer20UL16MiniAOD/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_v13-v2/260000/003F1A76-9CDA-7644-A34E-923C4B1C0E5E.root')
+                            fileNames = cms.untracked.vstring('/store/mc/RunIISummer20UL16MiniAOD/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_v13-v2/40000/DABBADC5-1907-7442-8F27-F641F57B5F91.root')
 )
 
 process.options = cms.untracked.PSet(
@@ -63,7 +63,8 @@ from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, '106X_mcRun2_asymptotic_v13', '')
 
 # Path and EndPath definitions
-process.nanoAOD_step = cms.Path(process.theBoostedTauFilter + process.nanoSequenceMC)
+#process.nanoAOD_step = cms.Path(process.theBoostedTauFilter + process.nanoSequenceMC)
+process.nanoAOD_step = cms.Path(process.nanoSequenceMC)
 process.endjob_step = cms.EndPath(process.endOfProcess)
 process.NANOAODSIMoutput_step = cms.EndPath(process.NANOAODSIMoutput)
 
