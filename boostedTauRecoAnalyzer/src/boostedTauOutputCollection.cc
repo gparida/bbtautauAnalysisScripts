@@ -19,6 +19,7 @@ void boostedTauOutputCollection::associateTreeToCollection(TTree* theTree)
   theTree->Branch("boostedTau_m", &boostedTau_m);
   theTree->Branch("boostedTau_decayModeFindingNewDMs", &boostedTau_decayModeFindingNewDMs);
   theTree->Branch("boostedTau_passesVLooseID", &boostedTau_passesVLooseID);
+  theTree->Branch("boostedTau_passesVVLooseID", &boostedTau_passesVVLooseID);
 }
 
 void boostedTauOutputCollection::clearData()
@@ -45,5 +46,6 @@ void boostedTauOutputCollection::fillCollection(edm::Handle< std::vector< pat::T
       boostedTau_m.push_back(theBoostedTau->mass());
       boostedTau_decayModeFindingNewDMs.push_back(theBoostedTau->tauID("decayModeFindingNewDMs"));
       boostedTau_passesVLooseID.push_back(theBoostedTau->tauID("byVLooseIsolationMVArun2v1DBoldDMwLT"));
+      boostedTau_passesVLooseID.push_back(theBoostedTau->tauID("byVVLooseIsolationMVArun2v1DBoldDMwLT"));
     }
 }
