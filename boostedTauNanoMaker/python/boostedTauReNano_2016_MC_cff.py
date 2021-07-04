@@ -1,8 +1,13 @@
 #configuration designed to serve as analyzer/nano-ifier for the boosted tau 
 #analysis
 import FWCore.ParameterSet.Config as cms
+import FWCore.ParameterSet.VarParsing as VarParsing
 
 from Configuration.Eras.Era_Run2_2016_cff import Run2_2016
+
+options = VarParsing.VarParsing ('analysis')
+options.outputFile="ntuplize.root"
+options.parseArguments()
 
 process = cms.Process('NANO',Run2_2016)
 
@@ -23,8 +28,10 @@ process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(-1)
 )
 
+process.MessageLogger.cerr.FwkReport.reportEvery = 100
+
 process.source = cms.Source('PoolSource',
-                            fileNames = cms.untracked.vstring('/store/mc/RunIISummer20UL16MiniAOD/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_v13-v2/40000/DABBADC5-1907-7442-8F27-F641F57B5F91.root')
+                            fileNames = cms.untracked.vstring(tuple(options.inputFiles))
 )
 
 process.options = cms.untracked.PSet(
@@ -33,7 +40,7 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('--filein=/store/mc/RunIISummer20UL16MiniAOD/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_v13-v2/260000/003F1A76-9CDA-7644-A34E-923C4B1C0E5E.root nevts:-1'),
+    annotation = cms.untracked.string('--filein=options.inputFiles nevts:-1'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
@@ -46,7 +53,7 @@ process.NANOAODSIMoutput = cms.OutputModule("NanoAODOutputModule",
         dataTier = cms.untracked.string('NANOAODSIM'),
         filterName = cms.untracked.string('')
     ),
-    fileName = cms.untracked.string('file:/data/aloeliger/test.root'),
+    fileName = cms.untracked.string('file:'+options.outputFile),
     outputCommands = process.NANOAODSIMEventContent.outputCommands,
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('nanoAOD_step')

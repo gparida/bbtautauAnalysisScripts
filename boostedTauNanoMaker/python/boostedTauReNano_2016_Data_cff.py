@@ -22,6 +22,8 @@ process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(-1)
 )
 
+process.MessageLogger.cerr.FwkReport.reportEvery = 100
+
 # Input source
 process.source = cms.Source("PoolSource",
     fileNames = cms.untracked.vstring('/store/data/Run2016F/MET/MINIAOD/21Feb2020_UL2016_HIPM-v1/10000/47A9C1AB-170E-0A49-A448-1085722DFC57.root'),
