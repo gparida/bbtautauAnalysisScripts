@@ -123,7 +123,7 @@ def main(args):
                 if (genTauVector.DeltaR(boostedTauVector) <= args.coneSize 
                     and boostedTauVector.Pt() > 20
                     and abs(boostedTauVector.Eta()) < 2.3
-                    #and theTree.boostedTau_passesVLooseID[boostedTauEntry]
+                    and theTree.boostedTau_passesVLooseID[boostedTauEntry]
                     and boostedTauEntry not in alreadyUsedBoostedTaus
                     and (finalBoostedTauCandidate < 0 
                          or genTauVector.DeltaR(boostedTauVector) < finalBoostedTauCandidateDR)):
@@ -151,7 +151,7 @@ def main(args):
                 if (genTauVector.DeltaR(tauVector) <= args.coneSize 
                     and tauVector.Pt() > 20
                     and abs(tauVector.Eta()) < 2.3
-                    #and theTree.tau_passesVLooseID[tauEntry]
+                    and theTree.tau_passesVLooseID[tauEntry]
                     and tauEntry not in alreadyUsedTaus
                     and (finalTauCandidate < 0
                          or genTauVector.DeltaR(tauVector) < finalTauCandidateDR)):
