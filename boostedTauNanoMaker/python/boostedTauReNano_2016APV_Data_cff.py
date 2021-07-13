@@ -1,5 +1,8 @@
-#configuration designed to serve as analyzer/nano-ifier for the boosted tau 
-#analysis
+# Auto generated configuration file
+# using: 
+# Revision: 1.19 
+# Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
+# with command line options: step1 --filein /store/relval/CMSSW_11_3_0_pre1/RelValTTbar_14TeV/MINIAODSIM/PU_113X_mcRun3_2021_realistic_v1-v1/10000/e41c73d6-dc6b-405a-8aa4-2f79d974a1ab.root --fileout file:testMCAPV.root --data --eventcontent NANOEDMAOD --datatier NANOAOD --conditions 106X_mcRun2_asymptotic_preVFP_v8 --step NANO --nThreads 8 --era Run2_2016 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.Eras.Era_Run2_2016_cff import Run2_2016
@@ -45,7 +48,7 @@ process.configurationMetadata = cms.untracked.PSet(
 
 # Output definition
 
-process.NANOAODoutput = cms.OutputModule("NanoAODOutputModule",
+process.NANOEDMAODoutput = cms.OutputModule("PoolOutputModule",
     compressionAlgorithm = cms.untracked.string('LZMA'),
     compressionLevel = cms.untracked.int32(9),
     dataset = cms.untracked.PSet(
@@ -57,9 +60,6 @@ process.NANOAODoutput = cms.OutputModule("NanoAODOutputModule",
 )
 
 # Additional output definition
-from bbtautauAnalysisScripts.boostedTauRecoFilter.boostedTauRecoFilter_cfi import boostedTauRecoFilter
-
-process.theBoostedTauFilter = boostedTauRecoFilter
 
 # Other statements
 from Configuration.AlCa.GlobalTag import GlobalTag
@@ -68,11 +68,10 @@ process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_data', '')
 # Path and EndPath definitions
 process.nanoAOD_step = cms.Path(process.nanoSequence)
 process.endjob_step = cms.EndPath(process.endOfProcess)
-process.NANOAODoutput_step = cms.EndPath(process.NANOAODoutput)
+process.NANOEDMAODoutput_step = cms.EndPath(process.NANOEDMAODoutput)
 
 # Schedule definition
-process.schedule = cms.Schedule(process.nanoAOD_step,process.endjob_step,process.NANOAODoutput_step)
-
+process.schedule = cms.Schedule(process.nanoAOD_step,process.endjob_step,process.NANOEDMAODoutput_step)
 from PhysicsTools.PatAlgos.tools.helpers import associatePatAlgosToolsTask
 associatePatAlgosToolsTask(process)
 

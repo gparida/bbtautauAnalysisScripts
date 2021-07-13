@@ -1,14 +1,19 @@
-#configuration designed to serve as analyzer/nano-ifier for the boosted tau 
-#analysis
+# Auto generated configuration file
+# using: 
+# Revision: 1.19 
+# Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
+# with command line options: step1 --filein /store/relval/CMSSW_11_3_0_pre1/RelValTTbar_14TeV/MINIAODSIM/PU_113X_mcRun3_2021_realistic_v1-v1/10000/e41c73d6-dc6b-405a-8aa4-2f79d974a1ab.root --fileout file:B2G-RunIISummer20UL18NanoAODv2-00001.root --data --eventcontent NANOEDMAODSIM --datatier NANOAODSIM --conditions 106X_upgrade2018_realistic_v15_L1v1 --step NANO --nThreads 8 --era Run2_2018,run2_nanoAOD_106Xv1 --no_exec
 import FWCore.ParameterSet.Config as cms
+import FWCore.ParameterSet.VarParsing as VarParsing
 
-from Configuration.Eras.Era_Run2_2016_cff import Run2_2016
+from Configuration.Eras.Era_Run2_2018_cff import Run2_2018
+from Configuration.Eras.Modifier_run2_nanoAOD_106Xv1_cff import run2_nanoAOD_106Xv1
 
 options = VarParsing.VarParsing ('analysis')
 options.outputFile="ntuplize.root"
 options.parseArguments()
 
-process = cms.Process('NANO',Run2_2016)
+process = cms.Process('NANO',Run2_2018,run2_nanoAOD_106Xv1)
 
 process.load('FWCore.MessageService.MessageLogger_cfi')
 # import of standard configurations
@@ -45,7 +50,7 @@ process.configurationMetadata = cms.untracked.PSet(
 
 # Output definition
 
-process.NANOAODoutput = cms.OutputModule("NanoAODOutputModule",
+process.NANOEDMAODoutput = cms.OutputModule("PoolOutputModule",
     compressionAlgorithm = cms.untracked.string('LZMA'),
     compressionLevel = cms.untracked.int32(9),
     dataset = cms.untracked.PSet(
@@ -57,9 +62,6 @@ process.NANOAODoutput = cms.OutputModule("NanoAODOutputModule",
 )
 
 # Additional output definition
-from bbtautauAnalysisScripts.boostedTauRecoFilter.boostedTauRecoFilter_cfi import boostedTauRecoFilter
-
-process.theBoostedTauFilter = boostedTauRecoFilter
 
 # Other statements
 from Configuration.AlCa.GlobalTag import GlobalTag
@@ -68,11 +70,10 @@ process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_data', '')
 # Path and EndPath definitions
 process.nanoAOD_step = cms.Path(process.nanoSequence)
 process.endjob_step = cms.EndPath(process.endOfProcess)
-process.NANOAODoutput_step = cms.EndPath(process.NANOAODoutput)
+process.NANOEDMAODoutput_step = cms.EndPath(process.NANOEDMAODoutput)
 
 # Schedule definition
-process.schedule = cms.Schedule(process.nanoAOD_step,process.endjob_step,process.NANOAODoutput_step)
-
+process.schedule = cms.Schedule(process.nanoAOD_step,process.endjob_step,process.NANOEDMAODoutput_step)
 from PhysicsTools.PatAlgos.tools.helpers import associatePatAlgosToolsTask
 associatePatAlgosToolsTask(process)
 
