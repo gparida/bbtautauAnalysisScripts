@@ -4,6 +4,7 @@
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
 # with command line options: step1 --filein /store/relval/CMSSW_11_3_0_pre1/RelValTTbar_14TeV/MINIAODSIM/PU_113X_mcRun3_2021_realistic_v1-v1/10000/e41c73d6-dc6b-405a-8aa4-2f79d974a1ab.root --fileout file:testMCAPV.root --data --eventcontent NANOEDMAOD --datatier NANOAOD --conditions 106X_mcRun2_asymptotic_preVFP_v8 --step NANO --nThreads 8 --era Run2_2016 --no_exec
 import FWCore.ParameterSet.Config as cms
+import FWCore.ParameterSet.VarParsing as VarParsing
 
 from Configuration.Eras.Era_Run2_2016_cff import Run2_2016
 

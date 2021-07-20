@@ -1,6 +1,7 @@
 #configuration designed to serve as analyzer/nano-ifier for the boosted tau 
 #analysis
 import FWCore.ParameterSet.Config as cms
+import FWCore.ParameterSet.VarParsing as VarParsing
 
 from Configuration.Eras.Era_Run2_2016_cff import Run2_2016
 
