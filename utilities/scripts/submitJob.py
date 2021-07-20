@@ -19,7 +19,7 @@ def main(args):
     jsonFileList = json.load(jsonInputFile)
 
     finalSubmissionScript = open(args.submissionName+'_finalSubmission.sh','w')
-    finalSubmissionScript.write('#Submission generated with command: '+''.join(sys.argv))
+    finalSubmissionScript.write('#Submission generated with command: '+' '.join(sys.argv))
     finalSubmissionScript.write('\n')
 
     #make the dag area and get ready for submission
