@@ -31,10 +31,10 @@ def submitJob(samplePath):
         return
 
     if any(errors):
-        print "\t%s Resubmitting %s" % samplePath
-        rescueDag = max(glob.glob('%s/dags/*dag.rescue[0-9][0-9][0-9]' % sample))
-        resubmitCommand = 'farmoutAnalysisjobs --rescue-dag-file=%s' % rescueDag
-        os.system(cmd)
+        print "\t Resubmitting %s..." % samplePath
+        rescueDag = max(glob.glob('%s/*dag.rescue[0-9][0-9][0-9]' % samplePath))
+        resubmitCommand = 'farmoutAnalysisJobs --rescue-dag-file=%s' % rescueDag
+        os.system(resubmitCommand)
     else:
         pass
 
