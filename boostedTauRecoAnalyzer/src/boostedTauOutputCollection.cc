@@ -8,6 +8,7 @@ boostedTauOutputCollection::boostedTauOutputCollection(){
   boostedTau_m.clear();
   boostedTau_decayModeFindingNewDMs.clear();
   boostedTau_passesVLooseID.clear();
+  boostedTau_passesVVLooseID.clear();
 }
 
 void boostedTauOutputCollection::associateTreeToCollection(TTree* theTree)
@@ -31,6 +32,8 @@ void boostedTauOutputCollection::clearData()
   boostedTau_m.clear();
   boostedTau_decayModeFindingNewDMs.clear();
   boostedTau_passesVLooseID.clear();
+  boostedTau_passesVVLooseID.clear();
+
 }
 
 void boostedTauOutputCollection::fillCollection(edm::Handle< std::vector< pat::Tau > > boostedTauHandle)
@@ -46,6 +49,6 @@ void boostedTauOutputCollection::fillCollection(edm::Handle< std::vector< pat::T
       boostedTau_m.push_back(theBoostedTau->mass());
       boostedTau_decayModeFindingNewDMs.push_back(theBoostedTau->tauID("decayModeFindingNewDMs"));
       boostedTau_passesVLooseID.push_back(theBoostedTau->tauID("byVLooseIsolationMVArun2v1DBoldDMwLT"));
-      boostedTau_passesVLooseID.push_back(theBoostedTau->tauID("byVVLooseIsolationMVArun2v1DBoldDMwLT"));
+      boostedTau_passesVVLooseID.push_back(theBoostedTau->tauID("byVVLooseIsolationMVArun2v1DBoldDMwLT"));
     }
 }
