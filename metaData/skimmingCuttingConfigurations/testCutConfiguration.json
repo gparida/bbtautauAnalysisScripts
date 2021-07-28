@@ -1,0 +1,4 @@
+{
+    "N Tau Requirement":"nboostedTau > 1 || nTau > 1",
+    "N AK8 Jet Requirement":"nFatJet > 1"
+}
