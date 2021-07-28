@@ -23,7 +23,7 @@ class cutManager():
         theCutFlow.GetXaxis().SetBinLabel(1,"No Cuts")
         
         #okay, loop now over the number of bins,
-        for i in tqdm(range(numberOfCuts),leave=False,desc="Cutflow Creation"):
+        for i in range(numberOfCuts):
             #for each bin we look at, first figure out what cut applies
             theCut = self.createCuts(i+1)
             #now that we have the cut, figure out how many events we're talking about

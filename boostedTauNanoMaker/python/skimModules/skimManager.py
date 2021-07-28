@@ -24,8 +24,8 @@ class skimManager():
                 theLoadFile = ROOT.TFile.Open(fileName)
                 theInputTree = theLoadFile.Events
             except: #we have failed again to find the file. Let's try to open it this way
-                hdfsFileName = fileName.replace('/hdfs','root://cmsxrootd.fnal.gov//')
-                theLoadFile = ROOT.TFile.Open(fileName)
+                hdfsFileName = fileName.replace('/hdfs','root://cmsxrootd.hep.wisc.edu/')
+                theLoadFile = ROOT.TFile.Open(hdfsFileName)
                 theInputTree = theLoadFile.Events
 
         theCutManager = cutManager(theInputTree,theCutFile)
@@ -35,8 +35,8 @@ class skimManager():
         #now we loop over branches, and the branch cancellation REs
         #if one of the RE's matches, disable the branch.
         if branchCancelations != None:
-            for branchIndex in tqdm(range(nBranches),leave=False,desc='Branches checked for cancelation'):
-                for REIndex in tqdm(range(len(branchCancelations)),leave=False,desc='Cancelation REs'):
+            for branchIndex in range(nBranches):
+                for REIndex in range(len(branchCancelations)):
                     theRE = branchCancelations[REIndex]
                     theBranchName = listOfBranches[branchIndex].GetName()
                     if theRE.search(theBranchName):

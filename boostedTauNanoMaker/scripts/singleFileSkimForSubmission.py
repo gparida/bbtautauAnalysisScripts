@@ -26,10 +26,10 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = 'Skim a single HFS nanoAOD ntuple down to size from arguments. For use on condor via scripts mostly')
-    parser.add_argument('--inputFile',nargs='?',help='Input file to skim')
+    parser.add_argument('--inputFile',nargs='?',help='Input file to skim',required=True)
     parser.add_argument('--branchCancelations',nargs='+',help='List of branches to cancel')
-    parser.add_argument('--theCutFile',nargs='?',help='File containing the JSON of cuts to use')
-    parser.add_argument('--outputFileName',nargs='?',help='Location/File name of the output')
+    parser.add_argument('--theCutFile',nargs='?',help='File containing the JSON of cuts to use',required=True)
+    parser.add_argument('--outputFileName',nargs='?',help='Location/File name of the output',required=True)
 
     args=parser.parse_args()
     main(args)

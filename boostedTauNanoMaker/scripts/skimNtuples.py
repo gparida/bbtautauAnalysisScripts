@@ -68,6 +68,7 @@ def main(args):
                     theRunScript.write('#!/bin/sh\n\n')
                     currentLocation = os.environ['PWD']
                     theRunScript.write('cd '+currentLocation+'\n')
+                    theRunScript.write('export X509_USER_PROXY=$2\n\n')
                 else:
                     theRunScript = open(runScriptName,'a')
                 theRunScript.write('if [ $1 -eq '+str(loadFileIndex)+' ]; then\n')
@@ -86,7 +87,8 @@ def main(args):
                 if loadFileIndex == 0:
                     theSubFile = open(globKey+'_Submit.sub','w+')
                     theSubFile.write('executable = '+runScriptName+'\n')
-                    theSubFile.write('arguments = $(ProcId)\n')
+                    theSubFile.write('Proxy_path = '+args.x509Proxy+'\n')
+                    theSubFile.write('arguments = $(ProcId) $(Proxy_path)\n')
                     theSubFile.write('output = '+args.destination+'/'+globKey+'.$(ClusterId).$(ProcId).out\n')
                     theSubFile.write('error = '+args.destination+'/'+globKey+'.$(ClusterId).$(ProcId).err\n')
                     theSubFile.write('log = '+args.destination+'/'+globKey+'.$(ClusterId).log\n\n')
@@ -99,6 +101,7 @@ def main(args):
                     theSubFile.write('+JobFlavour = "longlunch"\n')
                     theSubFile.write('queue '+str(len(listOfGlobs)))
                     theSubFile.close()
+
                     
             else: #attempt the skim locally
                 theSkimManager = skimManager()
@@ -118,6 +121,7 @@ if __name__ == '__main__':
     parser.add_argument('--skimBranchCancelations',nargs='?',help='JSON file describing the branches that do not need to be ported around with the skimmed nanoAOD file')
     parser.add_argument('--destination',nargs='?',type=str,required=True,help='destination path for resut files')
     parser.add_argument('--prepareCondorSubmission',action='store_true',help='Instead of attempting the overall skimming on a local CPU, prepare a "Combine-style" submission to condor')
+    parser.add_argument('--x509Proxy',nargs='?',required=True,help='Path to the x509 proxy to be used to open the files. REQUIRED TO BE IN AFS')
 
     args = parser.parse_args()
 
