@@ -24,6 +24,17 @@
 	"QCD_Pt_1400to1800": "QCD_Pt_1400to1800_TuneCP5_13TeV_pythia8",
 	"QCD_Pt_1800to2400": "QCD_Pt_1800to2400_TuneCP5_13TeV_pythia8",
 	"QCD_Pt_2400to3200": "QCD_Pt_2400to3200_TuneCP5_13TeV_pythia8",
-	"QCD_Pt_3200toInf": "QCD_Pt_3200toInf_TuneCP5_13TeV_pythia8"
+	"QCD_Pt_3200toInf": "QCD_Pt_3200toInf_TuneCP5_13TeV_pythia8",
+	"Radion_M1000": "RadionTohhTohtatahbb_narrow_M-1000_TuneCP5_13TeV-madgraph-pythia8",
+	"Radion_M1200": "RadionTohhTohtatahbb_narrow_M-1200_TuneCP5_13TeV-madgraph-pythia8",
+	"Radion_M1400": "RadionTohhTohtatahbb_narrow_M-1400_TuneCP5_13TeV-madgraph-pythia8",
+	"Radion_M1600": "RadionTohhTohtatahbb_narrow_M-1600_TuneCP5_13TeV-madgraph-pythia8",
+	"Radion_M1800": "RadionTohhTohtatahbb_narrow_M-1800_TuneCP5_13TeV-madgraph-pythia8",
+	"Radion_M2000": "RadionTohhTohtatahbb_narrow_M-2000_TuneCP5_13TeV-madgraph-pythia8",
+	"Radion_M2500": "RadionTohhTohtatahbb_narrow_M-2500_TuneCP5_13TeV-madgraph-pythia8",
+	"Radion_M3000": "RadionTohhTohtatahbb_narrow_M-3000_TuneCP5_13TeV-madgraph-pythia8",
+	"Radion_M3500": "RadionTohhTohtatahbb_narrow_M-3500_TuneCP5_13TeV-madgraph-pythia8",
+	"Radion_M4000": "RadionTohhTohtatahbb_narrow_M-4000_TuneCP5_13TeV-madgraph-pythia8",
+	"Radion_M4500": "RadionTohhTohtatahbb_narrow_M-4500_TuneCP5_13TeV-madgraph-pythia8"
     }
 }

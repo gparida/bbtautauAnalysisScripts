@@ -1,0 +1,6 @@
+{
+    "FsrPhoton":"FsrPhoton.*",
+    "L1 Trigger":"L1.*",
+    "Photon": "Photon.*",
+    "gen TTbar": "genTtbarId.*"
+}

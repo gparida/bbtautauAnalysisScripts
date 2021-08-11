@@ -1889,6 +1889,10 @@
             "/store/mc/RunIISummer20UL17MiniAODv2/QCD_Pt_1800to2400_TuneCP5_13TeV_pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/30000/68F19730-DF00-DE4D-9098-DDEB2B49A1FC.root", 
             "/store/mc/RunIISummer20UL17MiniAODv2/QCD_Pt_1800to2400_TuneCP5_13TeV_pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/30000/5FC8DF52-4724-CE4A-9F2C-C84DBE359F57.root"
         ], 
+        "RadionTohhTohtatahbb_narrow_M-4500_TuneCP5_13TeV-madgraph-pythia8": [
+            "/store/mc/RunIISummer20UL17MiniAODv2/RadionTohhTohtatahbb_narrow_M-4500_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/130000/63DC5665-62B9-6B45-A6AC-17E610023689.root", 
+            "/store/mc/RunIISummer20UL17MiniAODv2/RadionTohhTohtatahbb_narrow_M-4500_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/130000/AF8846FD-AD57-6C43-827C-AFA0699174BC.root"
+        ], 
         "DYJetsToLL_M-10to50_TuneCP5_13TeV-madgraphMLM-pythia8": [
             "/store/mc/RunIISummer20UL17MiniAODv2/DYJetsToLL_M-10to50_TuneCP5_13TeV-madgraphMLM-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/30000/43E09E09-D12A-4A47-88C2-ED5A51B0AC8A.root", 
             "/store/mc/RunIISummer20UL17MiniAODv2/DYJetsToLL_M-10to50_TuneCP5_13TeV-madgraphMLM-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/230000/0EDBC748-39A7-B941-B1D0-88C5551F6BD9.root", 
@@ -5181,6 +5185,10 @@
             "/store/mc/RunIISummer20UL17MiniAODv2/QCD_Pt_15to30_TuneCP5_13TeV_pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/230000/400AFBE1-936D-6149-AFB0-82F48B5219CD.root", 
             "/store/mc/RunIISummer20UL17MiniAODv2/QCD_Pt_15to30_TuneCP5_13TeV_pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/30000/35C1671E-048C-C54E-99CC-5E9DEDEE580A.root", 
             "/store/mc/RunIISummer20UL17MiniAODv2/QCD_Pt_15to30_TuneCP5_13TeV_pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/30000/4F30B9CE-F13A-574A-8F8A-F447CED23AB4.root"
+        ], 
+        "RadionTohhTohtatahbb_narrow_M-4000_TuneCP5_13TeV-madgraph-pythia8": [
+            "/store/mc/RunIISummer20UL17MiniAODv2/RadionTohhTohtatahbb_narrow_M-4000_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/130000/B43CC330-72B1-F446-8805-BF0B8B8909B5.root", 
+            "/store/mc/RunIISummer20UL17MiniAODv2/RadionTohhTohtatahbb_narrow_M-4000_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/130000/219B8BAE-9D63-9442-A92B-B2DCF48A97BE.root"
         ], 
         "WZ_TuneCP5_13TeV-pythia8": [
             "/store/mc/RunIISummer20UL17MiniAODv2/WZ_TuneCP5_13TeV-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/50000/D0CDEDE5-F205-974C-8234-392E0D5C6C3E.root", 
@@ -11982,6 +11990,10 @@
             "/store/mc/RunIISummer20UL17MiniAODv2/QCD_Pt_30to50_TuneCP5_13TeV_pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/30000/A358B777-76E8-3443-8853-26DDA3E1343A.root", 
             "/store/mc/RunIISummer20UL17MiniAODv2/QCD_Pt_30to50_TuneCP5_13TeV_pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/30000/DFB05BD1-4500-4F4B-9D6F-A693DB0F4237.root"
         ], 
+        "RadionTohhTohtatahbb_narrow_M-1400_TuneCP5_13TeV-madgraph-pythia8": [
+            "/store/mc/RunIISummer20UL17MiniAODv2/RadionTohhTohtatahbb_narrow_M-1400_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/130000/4C9EF594-396E-AC4C-8E67-2B8C6E3276D7.root", 
+            "/store/mc/RunIISummer20UL17MiniAODv2/RadionTohhTohtatahbb_narrow_M-1400_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/130000/36F3A68A-8722-BD4C-B6AF-BB743F2466CF.root"
+        ], 
         "QCD_Pt_470to600_TuneCP5_13TeV_pythia8": [
             "/store/mc/RunIISummer20UL17MiniAODv2/QCD_Pt_470to600_TuneCP5_13TeV_pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/30000/0B2CF4AF-A711-9C44-AEB6-A189CECEE43E.root", 
             "/store/mc/RunIISummer20UL17MiniAODv2/QCD_Pt_470to600_TuneCP5_13TeV_pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/30000/4CCE334A-A1AE-274A-8C16-172CD067DB33.root", 
@@ -12704,6 +12716,18 @@
             "/store/mc/RunIISummer20UL17MiniAODv2/QCD_Pt_2400to3200_TuneCP5_13TeV_pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/240000/FC08471A-DFC4-6042-A62E-C94DBEF592CC.root", 
             "/store/mc/RunIISummer20UL17MiniAODv2/QCD_Pt_2400to3200_TuneCP5_13TeV_pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/30000/F337611B-7D1A-4840-9D8F-ACCD9CDEBCF7.root", 
             "/store/mc/RunIISummer20UL17MiniAODv2/QCD_Pt_2400to3200_TuneCP5_13TeV_pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/30000/A58704F4-4E39-9A45-A703-2183E40BC67B.root"
+        ], 
+        "RadionTohhTohtatahbb_narrow_M-1200_TuneCP5_13TeV-madgraph-pythia8": [
+            "/store/mc/RunIISummer20UL17MiniAODv2/RadionTohhTohtatahbb_narrow_M-1200_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/130000/5B4522FB-3410-7640-AB03-87750919877A.root", 
+            "/store/mc/RunIISummer20UL17MiniAODv2/RadionTohhTohtatahbb_narrow_M-1200_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/130000/ADFAF692-762C-F749-AFDE-B9D437B059B4.root"
+        ], 
+        "RadionTohhTohtatahbb_narrow_M-1000_TuneCP5_13TeV-madgraph-pythia8": [
+            "/store/mc/RunIISummer20UL17MiniAODv2/RadionTohhTohtatahbb_narrow_M-1000_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/130000/EB00C893-6DC8-9446-B5C0-19EB8622D301.root", 
+            "/store/mc/RunIISummer20UL17MiniAODv2/RadionTohhTohtatahbb_narrow_M-1000_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/130000/5FAAFF24-C761-FD4B-A8AA-358518D37A10.root"
+        ], 
+        "RadionTohhTohtatahbb_narrow_M-1800_TuneCP5_13TeV-madgraph-pythia8": [
+            "/store/mc/RunIISummer20UL17MiniAODv2/RadionTohhTohtatahbb_narrow_M-1800_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/130000/7FB88610-1C2C-BD4F-8287-0DF2B10803DF.root", 
+            "/store/mc/RunIISummer20UL17MiniAODv2/RadionTohhTohtatahbb_narrow_M-1800_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/130000/3F073ECF-ACAA-E846-A082-64FAD18F0C9B.root"
         ], 
         "WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8": [
             "/store/mc/RunIISummer20UL17MiniAODv2/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/230000/6B0B5208-92E1-A34E-B6F2-13CBB0477E89.root", 
@@ -13725,6 +13749,10 @@
             "/store/mc/RunIISummer20UL17MiniAODv2/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/240000/2937C173-2F54-634E-8AED-998DC910DE25.root", 
             "/store/mc/RunIISummer20UL17MiniAODv2/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/240000/9BA6CCE4-5231-4D48-AC04-474D4AAE0F34.root", 
             "/store/mc/RunIISummer20UL17MiniAODv2/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/240000/B437FA62-E9AF-B54F-BA49-81FD06444F08.root"
+        ], 
+        "RadionTohhTohtatahbb_narrow_M-2500_TuneCP5_13TeV-madgraph-pythia8": [
+            "/store/mc/RunIISummer20UL17MiniAODv2/RadionTohhTohtatahbb_narrow_M-2500_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/130000/72A6153E-6545-EA42-90BE-B381754D69A4.root", 
+            "/store/mc/RunIISummer20UL17MiniAODv2/RadionTohhTohtatahbb_narrow_M-2500_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/130000/6A27AF83-B444-3D45-8B42-20CAFA185B30.root"
         ], 
         "QCD_Pt_1400to1800_TuneCP5_13TeV_pythia8": [
             "/store/mc/RunIISummer20UL17MiniAODv2/QCD_Pt_1400to1800_TuneCP5_13TeV_pythia8/MINIAODSIM/106X_mc2017_realistic_v9-v1/240000/7081BA8B-C00B-4345-974E-29097E08FDC7.root", 
