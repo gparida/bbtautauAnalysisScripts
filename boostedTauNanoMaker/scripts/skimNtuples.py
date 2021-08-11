@@ -54,6 +54,13 @@ def main(args):
             inputFileText = open(inputFileTextName,'w+')
             inputFileText.write(''.join(x+'\n' for x in listOfGlobs))
             inputFileText.close()
+            
+            #we need the actual names of the cutt and branch cancelation files, because
+            #now they need to be local
+            
+            cutFileName = args.skimCutConfiguration.split("/")[len(args.skimCutConfiguration.split("/"))-1]
+            branchCancelationFileName = (args.skimBranchCancelations.split("/")[len(args.skimBranchCancelations.split("/"))-1] if args.skimBranchCancelations != None else '')
+
 
             commandList = [
                 'farmoutAnalysisJobs --fwklite --infer-cmssw-path --input-files-per-job=1',
@@ -61,15 +68,17 @@ def main(args):
                 '--assume-input-files-exist',
                 '"--submit-dir=%s"' % (overallSubmitDir+'/submit'),
                 '--output-dag-file=%s' %(dagLocation+'/dag'),
-                '--output-dir=%s' % overallSubmitDir,
+                #'--output-dir=%s' % overallSubmitDir,
+                '--extra-inputs="'+args.skimCutConfiguration+' '+args.skimBranchCancelations+'"',
                 '--input-dir=/',
                 globKey+'_'+datetime.datetime.now().strftime('%d%B%y_%H%M_skim')+ ('' if args.skimSuffix == '' else '_'+args.skimSuffix),#name of what we're doing. 
                 os.environ['CMSSW_BASE']+'/src/bbtautauAnalysisScripts/boostedTauNanoMaker/scripts/singleFileSkimForSubmission.py',
                 '--', #seperates options for the script from the submission options
                 '\'--inputFile=$inputFileNames\'',
-                '"--branchCancelationFile='+args.skimBranchCancelations+'"',
-                '"--theCutFile='+args.skimCutConfiguration+'"',
-                '"--outputFileName='+globKey+'_skim.root"',
+                ''+('"--branchCancelationFile='+branchCancelationFileName+'"' if args.skimBranchCancelations != None else ''),
+                '"--theCutFile='+cutFileName+'"',
+                '\'--outputFileName=$outputFileName\'',
+                
             ]
             theCommand  = ' '.join(commandList)
             os.system(theCommand)
