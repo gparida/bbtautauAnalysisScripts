@@ -12,7 +12,7 @@ options = VarParsing.VarParsing ('analysis')
 options.outputFile="ntuplize.root"
 options.parseArguments()
 
-process = cms.Process('NANO',Run2_2017)
+process = cms.Process('NANO',Run2_2017,run2_nanoAOD_106Xv1)
 
 process.load('FWCore.MessageService.MessageLogger_cfi')
 # import of standard configurations
