@@ -21,10 +21,12 @@ class skimManager():
         try:
             theLoadFile = ROOT.TFile(fileName)
             theInputTree = theLoadFile.Events
+            theRunTree = theLoadFile.Runs
         except: #we failed to open the file properly, so let's try it the other way
             try:
                 theLoadFile = ROOT.TFile.Open(fileName)
                 theInputTree = theLoadFile.Events
+                theRunTree = theLoadFile.Runs
             except: #we have failed again to find the file. Let's try to open it this way
                 hdfsFileName = ''
                 if 'xrootd' in fileName: #we're already tried toopen xrootd style. We're done here
@@ -36,6 +38,7 @@ class skimManager():
                 print("Last attempt to load the file at /hdfs/ with: "+hdfsFileName)
                 theLoadFile = ROOT.TFile.Open(hdfsFileName)
                 theInputTree = theLoadFile.Events
+                theRunTree = theLoadFile.Runs
 
         #load the branch cancelation FILE
         branchCancelations = None
@@ -76,6 +79,9 @@ class skimManager():
         theOutputTree = theInputTree.CopyTree(finalCut)
 
         theOutputTree.Write('Events', ROOT.TFile.kOverwrite)
+        
+        #let's get the old run tree
+        theRunTree.Write('Runs',ROOT.TFile.kOverwrite)
 
         #okay, now let's get the remaining object in the nano file and
 
