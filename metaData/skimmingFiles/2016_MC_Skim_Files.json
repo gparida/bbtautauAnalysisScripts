@@ -23,5 +23,16 @@
     "WJetsInclusive": "/hdfs/store/user/aloeliger/29June21_0610_Submission/RunIISummer20UL16MiniAOD-106X_mcRun2_asymptotic_v13-v2/WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8/*.root",
     "WW": "/hdfs/store/user/aloeliger/29June21_0610_Submission/RunIISummer20UL16MiniAOD-106X_mcRun2_asymptotic_v13-v2/WW_TuneCP5_13TeV-pythia8/*.root",
     "WZ": "/hdfs/store/user/aloeliger/29June21_0610_Submission/RunIISummer20UL16MiniAOD-106X_mcRun2_asymptotic_v13-v2/WZ_TuneCP5_13TeV-pythia8/*.root",
-    "ZZ": "/hdfs/store/user/aloeliger/29June21_0610_Submission/RunIISummer20UL16MiniAOD-106X_mcRun2_asymptotic_v13-v2/ZZ_TuneCP5_13TeV-pythia8/*.root"
+    "ZZ": "/hdfs/store/user/aloeliger/29June21_0610_Submission/RunIISummer20UL16MiniAOD-106X_mcRun2_asymptotic_v13-v2/ZZ_TuneCP5_13TeV-pythia8/*.root",
+    "RadionTohhTohtatahbb_M1000":"/hdfs/store/user/aloeliger/2016_MC_Signal_09Aug21/RunIISummer20UL16MiniAOD-106X_mcRun2_asymptotic_v13-v2/RadionTohhTohtatahbb_narrow_M-1000_TuneCP5_13TeV-madgraph-pythia8/*.root",
+    "RadionTohhTohtatahbb_M1200":"/hdfs/store/user/aloeliger/2016_MC_Signal_09Aug21/RunIISummer20UL16MiniAOD-106X_mcRun2_asymptotic_v13-v2/RadionTohhTohtatahbb_narrow_M-1200_TuneCP5_13TeV-madgraph-pythia8/*.root",
+    "RadionTohhTohtatahbb_M1400":"/hdfs/store/user/aloeliger/2016_MC_Signal_09Aug21/RunIISummer20UL16MiniAOD-106X_mcRun2_asymptotic_v13-v2/RadionTohhTohtatahbb_narrow_M-1400_TuneCP5_13TeV-madgraph-pythia8/*.root",
+    "RadionTohhTohtatahbb_M1600":"/hdfs/store/user/aloeliger/2016_MC_Signal_09Aug21/RunIISummer20UL16MiniAOD-106X_mcRun2_asymptotic_v13-v2/RadionTohhTohtatahbb_narrow_M-1600_TuneCP5_13TeV-madgraph-pythia8/*.root",
+    "RadionTohhTohtatahbb_M1800":"/hdfs/store/user/aloeliger/2016_MC_Signal_09Aug21/RunIISummer20UL16MiniAOD-106X_mcRun2_asymptotic_v13-v2/RadionTohhTohtatahbb_narrow_M-1800_TuneCP5_13TeV-madgraph-pythia8/*.root",
+    "RadionTohhTohtatahbb_M2000":"/hdfs/store/user/aloeliger/2016_MC_Signal_09Aug21/RunIISummer20UL16MiniAOD-106X_mcRun2_asymptotic_v13-v2/RadionTohhTohtatahbb_narrow_M-2000_TuneCP5_13TeV-madgraph-pythia8/*.root",
+    "RadionTohhTohtatahbb_M2500":"/hdfs/store/user/aloeliger/2016_MC_Signal_09Aug21/RunIISummer20UL16MiniAOD-106X_mcRun2_asymptotic_v13-v2/RadionTohhTohtatahbb_narrow_M-2500_TuneCP5_13TeV-madgraph-pythia8/*.root",
+    "RadionTohhTohtatahbb_M3000":"/hdfs/store/user/aloeliger/2016_MC_Signal_09Aug21/RunIISummer20UL16MiniAOD-106X_mcRun2_asymptotic_v13-v2/RadionTohhTohtatahbb_narrow_M-3000_TuneCP5_13TeV-madgraph-pythia8/*.root",
+    "RadionTohhTohtatahbb_M3500":"/hdfs/store/user/aloeliger/2016_MC_Signal_09Aug21/RunIISummer20UL16MiniAOD-106X_mcRun2_asymptotic_v13-v2/RadionTohhTohtatahbb_narrow_M-3500_TuneCP5_13TeV-madgraph-pythia8/*.root",
+    "RadionTohhTohtatahbb_M4000":"/hdfs/store/user/aloeliger/2016_MC_Signal_09Aug21/RunIISummer20UL16MiniAOD-106X_mcRun2_asymptotic_v13-v2/RadionTohhTohtatahbb_narrow_M-4000_TuneCP5_13TeV-madgraph-pythia8/*.root",
+    "RadionTohhTohtatahbb_M4500":"/hdfs/store/user/aloeliger/2016_MC_Signal_09Aug21/RunIISummer20UL16MiniAOD-106X_mcRun2_asymptotic_v13-v2/RadionTohhTohtatahbb_narrow_M-4500_TuneCP5_13TeV-madgraph-pythia8/*.root"
 }

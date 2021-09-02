@@ -1,4 +1,5 @@
 {
     "N Tau Requirement":"nboostedTau > 0 || nTau > 0",
-    "N AK8 Jet Requirement":"nFatJet > 0"
+    "N AK8 Jet Requirement":"nFatJet > 0",
+    "MET Threshold":"MET_pt > 150"
 }
