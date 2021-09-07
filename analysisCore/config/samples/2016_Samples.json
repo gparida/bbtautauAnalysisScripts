@@ -16,17 +16,17 @@
     },
     "TTToHadronic":{
 	"file":"/data/aloeliger/bbtautauAnalysis/2016/TTToHadronic.root",
-	"XS": 687.1,
+	"XS": 377.96,
 	"equivalentLumi":1.433
     },
     "TTToSemiLeptonic":{
 	"file":"/data/aloeliger/bbtautauAnalysis/2016/TTToSemiLeptonic.root",
-	"XS":687.1,
+	"XS":374.29,
 	"equivalentLumi":1.433
     },
     "TTTo2L2Nu":{
 	"file":"/data/aloeliger/bbtautauAnalysis/2016/TTTo2L2Nu.root",
-	"XS":687.1,
+	"XS":87.31,
 	"equivalentLumi":1.433
     },
     "ST_s-channel_4f":{
