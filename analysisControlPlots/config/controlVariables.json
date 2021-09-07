@@ -3,40 +3,40 @@
 	"bins":"4,0,4"
     },
     "boostedTau_pt":{
-	"bins":"13,40.0,300.0"
+	"bins":"26,40.0,300.0"
     },
     "boostedTau_pt[0]":{
-	"bins":"13,40.0,300.0"
+	"bins":"26,40.0,300.0"
     },
     "boostedTau_pt[1]":{
-	"bins":"13,40.0,300.0"
+	"bins":"26,40.0,300.0"
     },
     "boostedTau_chargedIso":{
-	"bins":"60,-10.0,50.0"
+	"bins":"40,0.0,20.0"
     },
     "boostedTau_chargedIso[0]":{
-	"bins":"60,-10.0,50.0"
+	"bins":"40,0.0,20.0"
     },
     "boostedTau_chargedIso[1]":{
-	"bins":"60,-10.0,50.0"
+	"bins":"40,0.0,20.0"
     },
     "boostedTau_eta":{
-	"bins":"20,-3.14,3.14"
+	"bins":"30,-3.14,3.14"
     },
     "boostedTau_eta[0]":{
-	"bins":"20,-3.14,3.14"
+	"bins":"30,-3.14,3.14"
     },
     "boostedTau_eta[1]":{
-	"bins":"20,-3.14,3.14"
+	"bins":"30,-3.14,3.14"
     },
     "boostedTau_mass":{
-	"bins":"20,0.0,0.5"
+	"bins":"20,0.0,2.0"
     },
     "boostedTau_mass[0]":{
-	"bins":"20,0.0,0.5"
+	"bins":"20,0.0,2.0"
     },
     "boostedTau_mass[1]":{
-	"bins":"20,0.0,0.5"
+	"bins":"20,0.0,2.0"
     },
     "boostedTau_neutralIso":{
 	"bins":"20,0.0,20.0"
@@ -111,13 +111,13 @@
 	"bins":"20,-1.0,1.0"
     },
     "boostedTau_charge":{
-	"bins":"4,-2.0,2.0"
+	"bins":"5,-2.0,3.0"
     },
     "boostedTau_charge[0]":{
-	"bins":"4,-2.0,2.0"
+	"bins":"5,-2.0,3.0"
     },
     "boostedTau_charge[1]":{
-	"bins":"4,-2.0,2.0"
+	"bins":"5,-2.0,3.0"
     },
     "boostedTau_decayMode":{
 	"bins":"20,0.0,20.0"
@@ -147,13 +147,13 @@
 	"bins":"37,0.0,37"
     },
     "boostedTau_idAntiMu":{
-	"bins":"20,-10,10"
+	"bins":"10,0,10"
     },
     "boostedTau_idAntiMu[0]":{
-	"bins":"20,-10,10"
+	"bins":"10,0,10"
     },
     "boostedTau_idAntiMu[1]":{
-	"bins":"20,-10,10"
+	"bins":"10,0,10"
     },
     "boostedTau_idMVAnewDM2017v2":{
 	"bins":"65,0.0,65"
@@ -186,49 +186,49 @@
 	"bins":"5,0,5"
     },
     "FatJet_area":{
-	"bins":"20,0.0,1.0"
+	"bins":"20,0.0,10.0"
     },
     "FatJet_area[0]":{
-	"bins":"20,0.0,1.0"
+	"bins":"20,0.0,10.0"
     },
     "FatJet_area[1]":{
-	"bins":"20,0.0,1.0"
+	"bins":"20,0.0,10.0"
     },
     "FatJet_btagCSVV2":{
-	"bins":"20,-1.0,1.0"
+	"bins":"20,0.0,10.0"
     },
     "FatJet_btagCSVV2[0]":{
-	"bins":"20,-1.0,1.0"
+	"bins":"20,0.0,10.0"
     },
     "FatJet_btagCSVV2[1]":{
-	"bins":"20,-1.0,1.0"
+	"bins":"20,0.0,10.0"
     },
     "FatJet_eta":{
-	"bins":"20,-3.14,3.14"
+	"bins":"30,-3.14,3.14"
     },
     "FatJet_eta[0]":{
-	"bins":"20,-3.14,3.14"
+	"bins":"30,-3.14,3.14"
     },
     "FatJet_eta[1]":{
-	"bins":"20,-3.14,3.14"
+	"bins":"30,-3.14,3.14"
     },
     "FatJet_mass":{
-	"bins":"20,0.0,200.0"
+	"bins":"25,0.0,250.0"
     },
     "FatJet_mass[0]":{
-	"bins":"20,0.0,200.0"
+	"bins":"25,0.0,250.0"
     },
     "FatJet_mass[1]":{
-	"bins":"20,0.0,200.0"
+	"bins":"25,0.0,250.0"
     },
     "FatJet_msoftdrop":{
-	"bins":"20,0.0,100.0"
+	"bins":"24,0.0,120.0"
     },
     "FatJet_msoftdrop[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"24,0.0,120.0"
     },
     "FatJet_msoftdrop[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"24,0.0,120.0"
     },
     "FatJet_phi":{
 	"bins":"20,-3.14,3.14"
@@ -240,106 +240,61 @@
 	"bins":"20,-3.14,3.14"
     },
     "FatJet_pt":{
-	"bins":"20,0.0,200.0"
+	"bins":"30,170.0,400.0"
     },
     "FatJet_pt[0]":{
-	"bins":"20,0.0,200.0"
+	"bins":"30,170.0,400.0"
     },
     "FatJet_pt[1]":{
-	"bins":"20,0.0,200.0"
+	"bins":"30,170.0,400.0"
     },
     "FatJet_tau1":{
-	"bins":"20,0.0,1.0"
+	"bins":"24,0.0,0.8"
     },
     "FatJet_tau1[0]":{
-	"bins":"20,0.0,1.0"
+	"bins":"24,0.0,0.8"
     },
     "FatJet_tau1[1]":{
-	"bins":"20,0.0,1.0"
+	"bins":"24,0.0,0.8"
     },
     "FatJet_tau2":{
-	"bins":"20,0.0,1.0"
+	"bins":"24,0.0,0.5"
     },
     "FatJet_tau2[0]":{
-	"bins":"20,0.0,1.0"
+	"bins":"24,0.0,0.5"
     },
     "FatJet_tau2[1]":{
-	"bins":"20,0.0,1.0"
+	"bins":"24,0.0,0.5"
     },
     "FatJet_tau3":{
-	"bins":"20,0.0,1.0"
+	"bins":"20,0.0,0.5"
     },
     "FatJet_tau3[0]":{
-	"bins":"20,0.0,1.0"
+	"bins":"20,0.0,0.5"
     },
     "FatJet_tau3[1]":{
-	"bins":"20,0.0,1.0"
+	"bins":"20,0.0,0.5"
     },
     "FatJet_tau4":{
-	"bins":"20,0.0,1.0"
+	"bins":"20,0.0,0.3"
     },
     "FatJet_tau4[0]":{
-	"bins":"20,0.0,1.0"
+	"bins":"20,0.0,0.3"
     },
     "FatJet_tau4[1]":{
-	"bins":"20,0.0,1.0"
-    },
-    "FatJet_jetId":{
-	"bins":"20,0.0,10.0"
-    },
-    "FatJet_jetId[0]":{
-	"bins":"20,0.0,10.0"
-    },
-    "FatJet_jetId[1]":{
-	"bins":"20,0.0,10.0"
-    },
-    "FatJet_subJetIdx1":{
-	"bins":"10,0.0,10.0"
-    },
-    "FatJet_subJetIdx1[0]":{
-	"bins":"10,0.0,10.0"
-    },
-    "FatJet_subJetIdx1[1]":{
-	"bins":"10,0.0,10.0"
-    },
-    "FatJet_subJetIdx2":{
-	"bins":"10,0.0,10.0"
-    },
-    "FatJet_subJetIdx2[0]":{
-	"bins":"10,0.0,10.0"
-    },
-    "FatJet_subJetIdx2[1]":{
-	"bins":"10,0.0,10.0"
-    },
-    "FatJet_electronIdx3SJ":{
-	"bins":"20,-1.0,1.0"
-    },
-    "FatJet_electronIdx3SJ[0]":{
-	"bins":"20,-1.0,1.0"
-    },
-    "FatJet_electronIdx3SJ[1]":{
-	"bins":"20,-1.0,1.0"
-    },
-    "FatJet_muonIdx3SJ":{
-	"bins":"20,0.0,10.0"
-    },
-    "FatJet_muonIdx3SJ[0]":{
-	"bins":"20,0.0,10.0"
-    },
-    "FatJet_muonIdx3SJ[1]":{
-	"bins":"20,0.0,10.0"
+	"bins":"20,0.0,0.3"
     },
     "nJet":{
 	"bins":"5,0,5"
     },
     "Jet_area":{
-	"bins":"20,0.0,1.0"
+	"bins":"20,0.2,0.8"
     },
     "Jet_area[0]":{
-	"bins":"20,0.0,1.0"
+	"bins":"20,0.2,0.8"
     },
     "Jet_area[1]":{
-	"bins":"20,0.0,1.0"
+	"bins":"20,0.2,0.8"
     },
     "Jet_btagCSVV2":{
 	"bins":"20,0.0,1.0"
@@ -360,22 +315,22 @@
 	"bins":"20,0.0,1.0"
     },
     "Jet_eta":{
-	"bins":"20,-3.14,3.14"
+	"bins":"30,-3.14,3.14"
     },
     "Jet_eta[0]":{
-	"bins":"20,-3.14,3.14"
+	"bins":"30,-3.14,3.14"
     },
     "Jet_eta[1]":{
-	"bins":"20,-3.14,3.14"
+	"bins":"30,-3.14,3.14"
     },
     "Jet_mass":{
-	"bins":"20,0.0,50.0"
+	"bins":"40,0.0,100.0"
     },
     "Jet_mass[0]":{
-	"bins":"20,0.0,50.0"
+	"bins":"40,0.0,100.0"
     },
     "Jet_mass[1]":{
-	"bins":"20,0.0,50.0"
+	"bins":"40,0.0,100.0"
     },
     "Jet_phi":{
 	"bins":"20,-3.14,3.14"
@@ -387,13 +342,13 @@
 	"bins":"20,-3.14,3.14"
     },
     "Jet_pt":{
-	"bins":"20,10.0,110.0"
+	"bins":"40,60.0,180.0"
     },
     "Jet_pt[0]":{
-	"bins":"20,10.0,110.0"
+	"bins":"40,60.0,180.0"
     },
     "Jet_pt[1]":{
-	"bins":"20,10.0,110.0"
+	"bins":"40,60.0,180.0"
     },
     "Jet_puIdDisc":{
 	"bins":"10,0.0,10.0"
@@ -402,51 +357,6 @@
 	"bins":"10,0.0,10.0"
     },
     "Jet_puIdDisc[1]":{
-	"bins":"10,0.0,10.0"
-    },
-    "Jet_electronIdx1":{
-	"bins":"10,0.0,10.0"
-    },
-    "Jet_electronIdx1[0]":{
-	"bins":"10,0.0,10.0"
-    },
-    "Jet_electronIdx1[1]":{
-	"bins":"10,0.0,10.0"
-    },
-    "Jet_electronIdx2":{
-	"bins":"10,0.0,10.0"
-    },
-    "Jet_electronIdx2[0]":{
-	"bins":"10,0.0,10.0"
-    },
-    "Jet_electronIdx2[1]":{
-	"bins":"10,0.0,10.0"
-    },
-    "Jet_jetId":{
-	"bins":"10,0.0,10.0"
-    },
-    "Jet_jetId[0]":{
-	"bins":"10,0.0,10.0"
-    },
-    "Jet_jetId[1]":{
-	"bins":"10,0.0,10.0"
-    },
-    "Jet_muonIdx1":{
-	"bins":"10,0.0,10.0"
-    },
-    "Jet_muonIdx1[0]":{
-	"bins":"10,0.0,10.0"
-    },
-    "Jet_muonIdx1[1]":{
-	"bins":"10,0.0,10.0"
-    },
-    "Jet_muonIdx2":{
-	"bins":"10,0.0,10.0"
-    },
-    "Jet_muonIdx2[0]":{
-	"bins":"10,0.0,10.0"
-    },
-    "Jet_muonIdx2[1]":{
 	"bins":"10,0.0,10.0"
     },
     "Jet_nConstituents":{
@@ -486,7 +396,7 @@
 	"bins":"10,0.0,10.0"
     },
     "MET_pt":{
-	"bins":"30,0.0,450.0"
+	"bins":"30,200.0,500.0"
     },
     "MET_phi":{
 	"bins":"30,-3.14,3.14"
@@ -498,40 +408,22 @@
 	"bins":"5,0,5"
     },
     "Muon_dxy":{
-	"bins":"20,-2.0,2.0"
+	"bins":"20,-0.5,0.5"
     },
     "Muon_dxy[0]":{
-	"bins":"20,-2.0,2.0"
+	"bins":"20,-0.5,0.5"
     },
     "Muon_dxy[1]":{
-	"bins":"20,-2.0,2.0"
-    },
-    "Muon_dxyErr":{
-	"bins":"20,-2.0,2.0"
-    },
-    "Muon_dxyErr[0]":{
-	"bins":"20,-2.0,2.0"
-    },
-    "Muon_dxyErr[1]":{
-	"bins":"20,-2.0,2.0"
+	"bins":"20,-0.5,0.5"
     },
     "Muon_dz":{
-	"bins":"20,0.0,10.0"
+	"bins":"20,-0.5,0.5"
     },
     "Muon_dz[0]":{
-	"bins":"20,0.0,10.0"
+	"bins":"20,-0.5,0.5"
     },
     "Muon_dz[1]":{
-	"bins":"20,0.0,10.0"
-    },
-    "Muon_dzErr":{
-	"bins":"20,-2.0.0,2.0"
-    },
-    "Muon_dzErr[0]":{
-	"bins":"20,-2.0,2.0"
-    },
-    "Muon_dzErr[1]":{
-	"bins":"20,-2.0,2.0"
+	"bins":"20,-0.5,0.5"
     },
     "Muon_eta":{
 	"bins":"20,-3.14,3.14"
@@ -543,13 +435,13 @@
 	"bins":"20,-3.14,3.14"
     },
     "Muon_mass":{
-	"bins":"20,0.0,1.0"
+	"bins":"20,0.1,0.2"
     },
     "Muon_mass[0]":{
-	"bins":"20,0.0,1.0"
+	"bins":"20,0.1,0.2"
     },
     "Muon_mass[1]":{
-	"bins":"20,0.0,1.0"
+	"bins":"20,0.1,0.2"
     },
     "Muon_phi":{
 	"bins":"20,-3.14,3.14"
@@ -569,24 +461,6 @@
     "Muon_pt[1]":{
 	"bins":"20,0.0,200.0"
     },
-    "Muon_softMva":{
-	"bins":"10,0.0,10.0"
-    },
-    "Muon_softMva[0]":{
-	"bins":"10,0.0,10.0"
-    },
-    "Muon_softMva[1]":{
-	"bins":"10,0.0,10.0"
-    },
-    "Muon_mvaLowPt":{
-	"bins":"20,0.0,100.0"
-    },
-    "Muon_mvaLowPt[0]":{
-	"bins":"20,0.0,100.0"
-    },
-    "Muon_mvaLowPt[1]":{
-	"bins":"20,0.0,100.0"
-    },
     "Muon_charge":{
 	"bins":"4,-2.0,2.0"
     },
@@ -596,15 +470,6 @@
     "Muon_charge[1]":{
 	"bins":"4,-2.0,2.0"
     },
-    "Muon_jetIdx":{
-	"bins":"10,0.0,10.0"
-    },
-    "Muon_jetIdx[0]":{
-	"bins":"10,0.0,10.0"
-    },
-    "Muon_jetIdx[1]":{
-	"bins":"10,0.0,10.0"
-    },
     "Muon_pdgId":{
 	"bins":"10,10.0,20.0"
     },
@@ -613,15 +478,6 @@
     },
     "Muon_pdgId[1]":{
 	"bins":"10,10.0,20.0"
-    },
-    "Muon_tightCharge":{
-	"bins":"4,-2.0,2.0"
-    },
-    "Muon_tightCharge[0]":{
-	"bins":"4,-2.0,2.0"
-    },
-    "Muon_tightCharge[1]":{
-	"bins":"4,-2.0,2.0"
     },
     "Muon_highPtId":{
 	"bins":"10,0.0,10.0"
@@ -798,7 +654,7 @@
 	"bins":"20,-3.14,3.14"
     },
     "PuppiMET_pt":{
-	"bins":"30,0.0,300.0"
+	"bins":"30,100.0,400.0"
     },
     "nTau":{
 	"bins":"5,0,5"
@@ -813,283 +669,265 @@
 	"bins":"20,0.0,100.0"
     },
     "Tau_dxy":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,-5.0,5.0"
     },
     "Tau_dxy[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,-5.0,5.0"
     },
     "Tau_dxy[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,-5.0,5.0"
     },
     "Tau_dz":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,-5.0,5.0"
     },
     "Tau_dz[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,-5.0,5.0"
     },
     "Tau_dz[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,-5.0,5.0"
     },
     "Tau_eta":{
-	"bins":"20,0.0,100.0"
+	"bins":"30,-3.0,3.0"
     },
     "Tau_eta[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"30,-3.0,3.0"
     },
     "Tau_eta[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"30,-3.0,3.0"
     },
     "Tau_mass":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,2.0"
     },
     "Tau_mass[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,2.0"
     },
     "Tau_mass[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,2.0"
     },
     "Tau_neutralIso":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,20.0"
     },
     "Tau_neutralIso[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,20.0"
     },
     "Tau_neutralIso[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,20.0"
     },
     "Tau_phi":{
-	"bins":"20,0.0,100.0"
+	"bins":"30,-3.14,3.14"
     },
     "Tau_phi[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"30,-3.14,3.14"
     },
     "Tau_phi[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"30,-3.14,3.14"
     },
     "Tau_pt":{
-	"bins":"20,0.0,100.0"
+	"bins":"40,10.0,110.0"
     },
     "Tau_pt[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"40,10.0,110.0"
     },
     "Tau_pt[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"40,10.0,110.0"
     },
     "Tau_puCorr":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,50.0"
     },
     "Tau_puCorr[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,50.0"
     },
     "Tau_puCorr[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,50.0"
     },
     "Tau_rawAntiEle":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawAntiEle[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawAntiEle[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawAntiEle2018":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawAntiEle2018[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawAntiEle2018[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawDeepTau2017v2p1VSe":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawDeepTau2017v2p1VSe[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawDeepTau2017v2p1VSe[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawDeepTau2017v2p1VSjet":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawDeepTau2017v2p1VSjet[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawDeepTau2017v2p1VSjet[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawDeepTau2017v2p1VSmu":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawDeepTau2017v2p1VSmu[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawDeepTau2017v2p1VSmu[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawIso":{
-	"bins":"20,0.0,100.0"
+	"bins":"30,0.0,30.0"
     },
     "Tau_rawIso[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"30,0.0,30.0"
     },
     "Tau_rawIso[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"30,0.0,30.0"
     },
     "Tau_rawIsodR03":{
-	"bins":"20,0.0,100.0"
+	"bins":"30,0.0,30.0"
     },
     "Tau_rawIsodR03[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"30,0.0,30.0"
     },
     "Tau_rawIsodR03[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"30,0.0,30.0"
     },
     "Tau_rawMVAnewDM2017v2":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawMVAnewDM2017v2[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawMVAnewDM2017v2[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawMVAoldDM":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawMVAoldDM[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawMVAoldDM[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawMVAoldDM2017v1":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawMVAoldDM2017v1[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawMVAoldDM2017v1[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawMVAoldDM2017v2":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawMVAoldDM2017v2[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawMVAoldDM2017v2[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawMVAoldDMdR032017v2":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawMVAoldDMdR032017v2[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_rawMVAoldDMdR032017v2[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_charge":{
-	"bins":"20,0.0,100.0"
+	"bins":"4,-2.0,2.0"
     },
     "Tau_charge[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"4,-2.0,2.0"
     },
     "Tau_charge[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"4,-2.0,2.0"
     },
     "Tau_decayMode":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,20.0"
     },
     "Tau_decayMode[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,20.0"
     },
     "Tau_decayMode[1]":{
-	"bins":"20,0.0,100.0"
-    },
-    "Tau_jetIdx":{
-	"bins":"20,0.0,100.0"
-    },
-    "Tau_jetIdx[0]":{
-	"bins":"20,0.0,100.0"
-    },
-    "Tau_jetIdx[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,20.0"
     },
     "Tau_rawAntiEleCat":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,20.0"
     },
     "Tau_rawAntiEleCat[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,20.0"
     },
     "Tau_rawAntiEleCat[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,20.0"
     },
     "Tau_rawAntiEleCat2018":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,20.0"
     },
     "Tau_rawAntiEleCat2018[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,20.0"
     },
     "Tau_rawAntiEleCat2018[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,20.0"
     },
     "Tau_idAntiEle":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,20.0"
     },
     "Tau_idAntiEle[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,20.0"
     },
     "Tau_idAntiEle[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,20.0"
     },
     "Tau_idAntiEle2018":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,20.0"
     },
     "Tau_idAntiEle2018[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,20.0"
     },
     "Tau_idAntiEle2018[1]":{
-	"bins":"20,0.0,100.0"
-    },
-    "Tau_idAntiEleDeadECal":{
-	"bins":"20,0.0,100.0"
-    },
-    "Tau_idAntiEleDeadECal[0]":{
-	"bins":"20,0.0,100.0"
-    },
-    "Tau_idAntiEleDeadECal[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,20.0"
     },
     "Tau_idAntiMu":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_idAntiMu[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_idAntiMu[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_idDecayMode":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_idDecayMode[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_idDecayMode[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_idDecayModeNewDMs":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_idDecayModeNewDMs[0]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_idDecayModeNewDMs[1]":{
-	"bins":"20,0.0,100.0"
+	"bins":"20,0.0,1.0"
     },
     "Tau_idDeepTau2017v2p1VSe":{
 	"bins":"20,0.0,100.0"
@@ -1325,9 +1163,6 @@
     "Flag_METFilters":{
 	"bins":"4,0,4"
     },
-    "HLT_PFMETNoMu90_PFMHTNoMu90_IDTight":{
-	"bins":"4,-1.0,3.0"
-    },
     "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight":{
 	"bins":"4,-1.0,3.0"
     },
@@ -1349,7 +1184,7 @@
     "HLT_PFMET170_HBHE_BeamHaloCleaned":{
 	"bins":"4,-1.0,3.0"
     },
-    "(HLT_PFMETNoMu90_PFMHTNoMu90_IDTight || HLT_PFMETNoMu110_PFMHTNoMu110_IDTight || HLT_PFMETNoMu120_PFMHTNoMu120_IDTight || HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight || HLT_PFMET110_PFMHT110_IDTight || HLT_PFMET120_PFMHT120_IDTight || HLT_PFMET170_HBHECleaned || HLT_PFMET170_HBHE_BeamHaloCleaned) && (MET_pt > 200)":
+    "(HLT_PFMETNoMu110_PFMHTNoMu110_IDTight || HLT_PFMETNoMu120_PFMHTNoMu120_IDTight || HLT_MonoCentralPFJet80_PFMETNoMu120_PFMHTNoMu120_IDTight || HLT_PFMET110_PFMHT110_IDTight || HLT_PFMET120_PFMHT120_IDTight || HLT_PFMET170_HBHECleaned || HLT_PFMET170_HBHE_BeamHaloCleaned) && (MET_pt > 200)":
     {
 	"name":"TriggerRequirement",
 	"bins":"4,-1.0,3.0"
@@ -1358,16 +1193,16 @@
 	"bins":"10,0.0,10.0"
     },
     "PV_z":{
-	"bins":"30,0.0,30.0"
+	"bins":"40,-5.0,15.0"
     },
     "PV_x":{
-	"bins":"20,0.0,10.0"
+	"bins":"20,0.0,1.0"
     },
     "PV_y":{
-	"bins":"20,0.0,10.0"
+	"bins":"20,0.0,1.0"
     },
     "sqrt(PV_x*PV_x+PV_y*PV_y)":{
-	"bins":"20,0.0,10.0",
+	"bins":"20,0.0,1.0",
 	"name":"#abs{d_{0}}"
     }
     
