@@ -132,9 +132,7 @@ def main(args):
                 except KeyError:
                     histoName = MCSample+'_'+variable
                 sampleDict['MC'][MCSample].Draw(variable+'>>'+histoName+'('+variableJson[variable]['bins']+')',
-                                                'FinalWeighting*'+finalCutString)
-                #sampleDict['MC'][MCSample].Draw(variable+'>>'+MCSample+'('+variableJson[variable]['bins']+')',
-                #finalCutString+'*(FinalWeighting)')
+                                                'FinalWeighting*('+finalCutString+')')
                 theHisto = ROOT.gDirectory.Get(histoName).Clone()
                 histoDict['MC'][MCSample] = theHisto
             #get the data histo
