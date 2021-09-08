@@ -1046,9 +1046,6 @@
     "Flag_ecalLaserCorrFilter":{
 	"bins":"4,0,4"
     },
-    "Flag_trkPOGFilters":{
-	"bins":"4,0,4"
-    },
     "Flag_chargedHadronTrackResolutionFilter":{
 	"bins":"4,0,4"
     },
@@ -1071,15 +1068,6 @@
 	"bins":"4,0,4"
     },
     "Flag_BadPFMuonSummer16Filter":{
-	"bins":"4,0,4"
-    },
-    "Flag_trkPOG":{
-	"bins":"4,0,4"
-    },
-    "Flag_trkPOG":{
-	"bins":"4,0,4"
-    },
-    "Flag_trkPOG":{
 	"bins":"4,0,4"
     },
     "Flag_METFilters":{
@@ -1130,9 +1118,6 @@
     "Flag_ecalLaserCorrFilter":{
 	"bins":"4,0,4"
     },
-    "Flag_trkPOGFilters":{
-	"bins":"4,0,4"
-    },
     "Flag_chargedHadronTrackResolutionFilter":{
 	"bins":"4,0,4"
     },
@@ -1149,15 +1134,6 @@
 	"bins":"4,0,4"
     },
     "Flag_BadPFMuonSummer16Filter":{
-	"bins":"4,0,4"
-    },
-    "Flag_trkPOG":{
-	"bins":"4,0,4"
-    },
-    "Flag_trkPOG":{
-	"bins":"4,0,4"
-    },
-    "Flag_trkPOG":{
 	"bins":"4,0,4"
     },
     "Flag_METFilters":{
@@ -1204,6 +1180,14 @@
     "sqrt(PV_x*PV_x+PV_y*PV_y)":{
 	"bins":"20,0.0,1.0",
 	"name":"#abs{d_{0}}"
+    },
+    "nOtherPV":{
+	"bins":"10,0.0,10.0"
+    },
+    "PV_npvs":{
+	"bins":"100,0.0,100.0"
+    },
+    "PV_npvsGood":{
+	"bins":"100,0.0,100.0"
     }
-    
 }
