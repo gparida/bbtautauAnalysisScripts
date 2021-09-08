@@ -23,7 +23,7 @@ def checkAndAdd(sample, handles, dictionaryKey, dictionaryOfHistograms, finalHis
             if finalHistogramDictionary[dictionaryKey] == None:
                 finalHistogramDictionary[dictionaryKey] = dictionaryOfHistograms['MC'][sample].Clone()
             else:
-                finalHistogramDictionary[dictionaryKey].Add(dictionaryOfHistograms['MC'][sample])
+                finalHistogramDictionary[dictionaryKey].Add(dictionaryOfHistograms['MC'][sample].Clone())
     
 #takes a dictionary of histgorams plotted in the variable
 #And returns a dictionary of histgrams added together in a style we want to use
@@ -65,9 +65,10 @@ def produceFinalHistograms(dictionaryOfHistograms):
     finalHistogramDictionary['Other'].SetLineWidth(0)
 
     finalHistogramDictionary['Signal'].SetLineColor(ROOT.kRed)
-    finalHistogramDictionary['Signal'].Scale(20)
+    finalHistogramDictionary['Signal'].Scale(50)
 
     finalHistogramDictionary['Data'].SetMarkerStyle(20)
+    finalHistogramDictionary['Data'].SetLineColor(ROOT.kBlack)
     finalHistogramDictionary['Data'].Sumw2()
 
     return finalHistogramDictionary
@@ -112,7 +113,12 @@ def main(args):
         if 'Data' in sampleKey:
             fileDict['Data']['Data'] = theFile
             sampleDict['Data'][sampleKey] = theTree
-        else:
+            #only load the radion signal we want
+            #not real fond of coding it like this
+        elif ('Radion' in sampleKey and 'M'+args.signalMassPoint in sampleKey):
+            fileDict['MC'][sampleKey] = theFile
+            sampleDict['MC'][sampleKey] = theTree
+        elif not 'Radion' in sampleKey and not 'Data' in sampleKey:
             fileDict['MC'][sampleKey] = theFile
             sampleDict['MC'][sampleKey] = theTree
     
@@ -205,7 +211,7 @@ def main(args):
             theLegend.AddEntry(finalHistoDict['TT'],'t#bar{t}','f')
             theLegend.AddEntry(finalHistoDict['DY'],'DY#rightarrow ll', 'f')
             theLegend.AddEntry(finalHistoDict['Other'],'Other','f')
-            theLegend.AddEntry(finalHistoDict['Signal'],'Signal (1 pb #times 20)','l')
+            theLegend.AddEntry(finalHistoDict['Signal'],'Signal ('+args.signalMassPoint+'GeV, 1 pb #times 50)','l')
             theLegend.SetNColumns(2)
 
             theLegend.Draw()
@@ -316,6 +322,11 @@ if __name__ == '__main__':
                         nargs='?',
                         type=float,
                         help='Scale the MC by a dedicated factor to see the effects')
+    parser.add_argument('--signalMassPoint',
+                        nargs='?',
+                        choices=['1000','1200','1400','1600','1800','2000','2500','3000','3500','4000','4500'],
+                        default='1000',
+                        help='Signal mass point to include in the control plots')
     
     args = parser.parse_args()
 
