@@ -12,22 +12,26 @@
     "WJets":{
 	"file": "/data/aloeliger/bbtautauAnalysis/2016/W.root",
 	"XS": 53870.0,
-	"equivalentLumi":0.01856
+	"equivalentLumi":0.01856,
+	"forcedGenWeight":1.0
     },
     "TTToHadronic":{
 	"file":"/data/aloeliger/bbtautauAnalysis/2016/TTToHadronic.root",
 	"XS": 377.96,
-	"equivalentLumi":1.433
+	"equivalentLumi":1.433,
+	"forcedGenWeight":1.0
     },
     "TTToSemiLeptonic":{
 	"file":"/data/aloeliger/bbtautauAnalysis/2016/TTToSemiLeptonic.root",
 	"XS":374.29,
-	"equivalentLumi":1.433
+	"equivalentLumi":1.433,
+	"forcedGenWeight":1.0
     },
     "TTTo2L2Nu":{
 	"file":"/data/aloeliger/bbtautauAnalysis/2016/TTTo2L2Nu.root",
 	"XS":87.31,
-	"equivalentLumi":1.433
+	"equivalentLumi":1.433,
+	"forcedGenWeight":1.0
     },
     "ST_s-channel_4f":{
 	"file":"/data/aloeliger/bbtautauAnalysis/2016/ST_s-channel_4f.root",
