@@ -28,6 +28,7 @@
     },
     "boostedTau_phi[1]":{
 	"bins":"20,-3.14,3.14"
+    },
     "boostedTau_decayMode":{
 	"bins":"20,0.0,20.0"
     },
@@ -400,5 +401,5 @@
     },
     "PV_npvsGood":{
 	"bins":"100,0.0,100.0"
-    }    
+    }
 }
