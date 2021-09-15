@@ -7,15 +7,8 @@ import os
 import traceback
 from bbtautauAnalysisScripts.analysisCore.histogramUtilities import MakeStackErrors as MakeStackErrors
 from bbtautauAnalysisScripts.analysisCore.histogramUtilities import MakeRatioHistograms as MakeRatioHistograms
-
-def compileCutString(listOfCuts):
-    theFinalCutString = ''
-    for cut in listOfCuts:
-        theFinalCutString += '(' + cut + ')&&'
-    #cut trailing ampersands from final cutconfig
-    if len(listOfCuts) > 0:
-        theFinalCutString = theFinalCutString[:len(theFinalCutString)-2]
-    return theFinalCutString
+from bbtautauAnalysisScripts.analysisControlPlots.controlPlotUtilities import processCutJsonToString as processCutJsonToString
+from bbtautauAnalysisScripts.analysisControlPlots.controlPlotUtilities import createFileAndSampleDictionaries as createFileAndSampleDictionaries
 
 def checkAndAdd(sample, handles, dictionaryKey, dictionaryOfHistograms, finalHistogramDictionary):
     for handleToCheckAgainst in handles:
@@ -86,14 +79,8 @@ def main(args):
         with open(args.cutConfig) as jsonFile:
             cutJson = json.load(jsonFile)
     #let's create the cut we need to filter the histogram down to size
-    cuts = []
-    if cutJson != None:
-        for cutKey in cutJson:
-            cuts.append(cutJson[cutKey])
-    if args.additionalSelections != None:
-        cuts = cuts+args.additionalSelections
-    finalCutString = compileCutString(cuts)
-    
+    finalCutString = processCutJsonToString(cutJson)
+
     #let's get the configuration for our varibles
     with open (args.variableConfig) as jsonFile:
         variableJson = json.load(jsonFile)
@@ -104,23 +91,7 @@ def main(args):
         theVariableRE = re.compile(args.variableSpecification)
 
     #let's get a list of samples and trees, so we don't open them for every variable later
-    sampleDict = {'Data':{},'MC':{}} # we should not lose track of what is data and what isn't
-    fileDict = {'Data':{},'MC':{}}
-    for sampleKey in samplesJson:
-        theFile = ROOT.TFile(samplesJson[sampleKey]['file'])
-        theTree = theFile.Events
-        #can't close these files, or we lose the trees
-        if 'Data' in sampleKey:
-            fileDict['Data']['Data'] = theFile
-            sampleDict['Data'][sampleKey] = theTree
-            #only load the radion signal we want
-            #not real fond of coding it like this
-        elif ('Radion' in sampleKey and 'M'+args.signalMassPoint in sampleKey):
-            fileDict['MC'][sampleKey] = theFile
-            sampleDict['MC'][sampleKey] = theTree
-        elif not 'Radion' in sampleKey and not 'Data' in sampleKey:
-            fileDict['MC'][sampleKey] = theFile
-            sampleDict['MC'][sampleKey] = theTree
+    sampleDict,fileDict = createFileAndSampleDictionaries(samplesJson, args.signalMassPoint)
     
     #now let's loop over variables and make some histograms
     for variable in variableJson:
@@ -138,7 +109,7 @@ def main(args):
                 except KeyError:
                     histoName = MCSample+'_'+variable
                 sampleDict['MC'][MCSample].Draw(variable+'>>'+histoName+'('+variableJson[variable]['bins']+')',
-                                                'FinalWeighting*('+finalCutString+')')
+                                                args.weightingFormula+'*('+finalCutString+')')
                 theHisto = ROOT.gDirectory.Get(histoName).Clone()
                 histoDict['MC'][MCSample] = theHisto
             #get the data histo
@@ -327,6 +298,10 @@ if __name__ == '__main__':
                         choices=['1000','1200','1400','1600','1800','2000','2500','3000','3500','4000','4500'],
                         default='1000',
                         help='Signal mass point to include in the control plots')
+    parser.add_argument('--weightingFormula',
+                        nargs='?',
+                        help='Formula to weight the final histograms by',
+                        default = 'FinalWeighting')
     
     args = parser.parse_args()
 
