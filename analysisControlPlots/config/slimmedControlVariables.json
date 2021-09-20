@@ -83,6 +83,117 @@
     "boostedTau_idMVAoldDMdR032017v2[1]":{
 	"bins":"65,0.0,65"
     },
+    "nElectron":{
+	"bins":"5,0.0,4.0"
+    },
+    "Electron_eta":{
+	"bins":"30,-3.14,3.14"
+    },
+    "Electron_eta[0]":{
+	"bins":"30,-3.14,3.14"
+    },
+    "Electron_eta[1]":{
+	"bins":"30,-3.14,3.14"
+    },
+    "Electron_hoe":{
+	"bins":"30,0.0,1.0"
+    },
+    "Electron_pt":{
+	"bins":"30,0.0,120.0"
+    },
+    "Electron_pt[0]":{
+	"bins":"30,0.0,120.0"
+    },
+    "Electron_pt[1]":{
+	"bins":"30,0.0,120.0"
+    },
+    "Electron_hoe[0]":{
+	"bins":"30,0.0,1.0"
+    },
+    "Electron_hoe[1]":{
+	"bins":"30,0.0,1.0"
+    },
+    "Electron_mvaFall17V1Iso":{
+	"bins":"30,0.0,1.0"
+    },
+    "Electron_mvaFall17V1Iso[0]":{
+	"bins":"30,0.0,1.0"
+    },
+    "Electron_mvaFall17V1Iso[1]":{
+	"bins":"30,0.0,1.0"
+    },
+    "Electron_mvaFall17V2Iso":{
+	"bins":"30,0.0,1.0"
+    },
+    "Electron_mvaFall17V2Iso[0]":{
+	"bins":"30,0.0,1.0"
+    },
+    "Electron_mvaFall17V2Iso[1]":{
+	"bins":"30,0.0,1.0"
+    },
+    "Electron_phi":{
+	"bins":"30,-3.14,3.14"
+    },
+    "Electron_phi[0]":{
+	"bins":"30,-3.14,3.14"
+    },
+    "Electron_phi[1]":{
+	"bins":"30,-3.14,3.14"
+    },
+    "Electron_charge":{
+	"bins":"5,-2.0,2.0"
+    },
+    "Electron_charge[0]":{
+	"bins":"5,-2.0,2.0"
+    },
+    "Electron_charge[1]":{
+	"bins":"5,-2.0,2.0"
+    },
+    "Electron_cutBased":{
+	"bins":"5,0.0,4.0"
+    },
+    "Electron_cutBased[0]":{
+	"bins":"5,0.0,4.0"
+    },
+    "Electron_cutBased[1]":{
+	"bins":"5,0.0,4.0"
+    },
+    "Electron_cutBased_Fall17_V1":{
+	"bins":"5,0.0,4.0"
+    },
+    "Electron_cutBased_Fall17_V1[0]":{
+	"bins":"5,0.0,4.0"
+    },
+    "Electron_cutBased_Fall17_V1[1]":{
+	"bins":"5,0.0,4.0"
+    },
+    "Electron_mvaFall17V2Iso_WPL":{
+	"bins":"3,0.0,2.0"
+    },
+    "Electron_mvaFall17V2Iso_WPL[0]":{
+	"bins":"3,0.0,2.0"
+    },
+    "Electron_mvaFall17V2Iso_WPL[1]":{
+	"bins":"3,0.0,2.0"
+    },
+    "Electron_mvaFall17V2Iso_WP80":{
+	"bins":"3,0.0,2.0"
+    },
+    "Electron_mvaFall17V2Iso_WP80[0]":{
+	"bins":"3,0.0,2.0"
+    },
+    "Electron_mvaFall17V2Iso_WP80[1]":{
+	"bins":"3,0.0,2.0"
+    },
+    "Electron_mvaFall17V2Iso_WP90":{
+	"bins":"3,0.0,2.0"
+    },
+    "Electron_mvaFall17V2Iso_WP90[0]":{
+	"bins":"3,0.0,2.0"
+    },
+    "Electron_mvaFall17V2Iso_WP90[1]":{
+	"bins":"3,0.0,2.0"
+    },
     "nFatJet":{
 	"bins":"5,0,5"
     },
@@ -96,13 +207,13 @@
 	"bins":"30,-3.14,3.14"
     },
     "FatJet_msoftdrop":{
-	"bins":"24,0.0,120.0"
+	"bins":"30,0.0,300.0"
     },
     "FatJet_msoftdrop[0]":{
-	"bins":"24,0.0,120.0"
+	"bins":"30,0.0,300.0"
     },
     "FatJet_msoftdrop[1]":{
-	"bins":"24,0.0,120.0"
+	"bins":"30,0.0,300.0"
     },
     "FatJet_phi":{
 	"bins":"20,-3.14,3.14"
@@ -114,13 +225,13 @@
 	"bins":"20,-3.14,3.14"
     },
     "FatJet_pt":{
-	"bins":"30,170.0,400.0"
+	"bins":"40,150.0,1000.0"
     },
     "FatJet_pt[0]":{
-	"bins":"30,170.0,400.0"
+	"bins":"40,150.0,1000.0"
     },
     "FatJet_pt[1]":{
-	"bins":"30,170.0,400.0"
+	"bins":"40,150.0,1000.0"
     },
     "FatJet_tau1":{
 	"bins":"24,0.0,0.8"
@@ -157,6 +268,45 @@
     },
     "FatJet_tau4[1]":{
 	"bins":"20,0.0,0.3"
+    },
+    "FatJet_tau1/FatJet_tau2":{
+	"bins":"24,0.0,0.8",
+	"name":"#tau_{21}"
+    },
+    "FatJet_tau1[0]/FatJet_tau2[0]":{
+	"bins":"24,0.0,0.8",
+	"name":"Leading #tau_{21}"
+    },
+    "FatJet_tau1[1]/FatJet_tau2[1]":{
+	"bins":"24,0.0,0.8",
+	"name":"Subleading #tau_{21}"
+    },
+    "FatJet_btagDeepB":{
+	"bins":"20,0.0,10.0"
+    },
+    "FatJet_btagHbb":{
+	"bins":"20,0.0,10.0"
+    },
+    "FatJet_deepTag_H":{
+	"bins":"20,0.0,10.0"
+    },
+    "FatJet_particleNetMD_Xbb":{
+	"bins":"20,0.0,1.0"
+    },
+    "FatJet_particleNetMD_Xbb[0]":{
+	"bins":"20,0.0,1.0"
+    },
+    "FatJet_particleNetMD_Xbb[1]":{
+	"bins":"20,0.0,1.0"
+    },
+    "FatJet_particleNet_HbbvsQCD":{
+	"bins":"20,0.0,1.0"
+    },
+    "FatJet_particleNet_HbbvsQCD[0]":{
+	"bins":"20,0.0,1.0"
+    },
+    "FatJet_particleNet_HbbvsQCD[1]":{
+	"bins":"20,0.0,1.0"
     },
     "MET_pt":{
 	"bins":"30,200.0,500.0"
