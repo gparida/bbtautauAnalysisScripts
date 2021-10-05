@@ -2,7 +2,7 @@
 //
 // Package:    bbtautauAnalysisScripts/electronBoostedTopologyIsoCorrectionTool
 // Class:      electronBoostedTopologyIsoCorrectionTool
-//
+// 
 /**\class electronBoostedTopologyIsoCorrectionTool electronBoostedTopologyIsoCorrectionTool.cc bbtautauAnalysisScripts/electronBoostedTopologyIsoCorrectionTool/plugins/electronBoostedTopologyIsoCorrectionTool.cc
 
  Description: [one line class summary]
@@ -12,7 +12,7 @@
 */
 //
 // Original Author:  Andrew Loeliger
-//         Created:  Fri, 24 Sep 2021 19:32:33 GMT
+//         Created:  Tue, 05 Oct 2021 21:42:27 GMT
 //
 //
 
@@ -22,65 +22,60 @@
 
 // user include files
 #include "FWCore/Framework/interface/Frameworkfwd.h"
-#include "FWCore/Framework/interface/one/EDAnalyzer.h"
+#include "FWCore/Framework/interface/stream/EDProducer.h"
 
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
+#include "FWCore/Utilities/interface/StreamID.h"
 #include "FWCore/Utilities/interface/InputTag.h"
-#include "DataFormats/TrackReco/interface/Track.h"
-#include "DataFormats/TrackReco/interface/TrackFwd.h"
 
 #include "RecoEgamma/EgammaTools/interface/EffectiveAreas.h"
 
-
-#include "DataFormats/HepMCCandidate/interface/GenParticle.h"
 #include "DataFormats/Candidate/interface/Candidate.h"
 #include "DataFormats/Common/interface/RefToPtr.h"
 
 #include "DataFormats/PatCandidates/interface/Tau.h"
 #include "DataFormats/PatCandidates/interface/Electron.h"
-#include "DataFormats/PatCandidates/interface/Muon.h"
+
 //
 // class declaration
 //
 
-// If the analyzer does not use TFileService, please remove
-// the template argument to the base class so the class inherits
-// from  edm::one::EDAnalyzer<>
-// This will improve performance in multithreaded jobs.
-
-
-using reco::TrackCollection;
-
-class electronBoostedTopologyIsoCorrectionTool : public edm::one::EDAnalyzer<edm::one::SharedResources>  {
+class electronBoostedTopologyIsoCorrectionTool : public edm::stream::EDProducer<> {
    public:
       explicit electronBoostedTopologyIsoCorrectionTool(const edm::ParameterSet&);
       ~electronBoostedTopologyIsoCorrectionTool();
 
       static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
 
-
    private:
-      virtual void beginJob() override;
-      virtual void analyze(const edm::Event&, const edm::EventSetup&) override;
-      virtual void endJob() override;
+      virtual void beginStream(edm::StreamID) override;
+      virtual void produce(edm::Event&, const edm::EventSetup&) override;
+      virtual void endStream() override;
+
   virtual double electronCorrectIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
   virtual double electronCorrectPFIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
-  virtual double muonCorrectIso(pat::Muon muon, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
-  virtual double muonCorrectPFIso(pat::Muon muon, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
-  // ----------member data ---------------------------
+
+      //virtual void beginRun(edm::Run const&, edm::EventSetup const&) override;
+      //virtual void endRun(edm::Run const&, edm::EventSetup const&) override;
+      //virtual void beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&) override;
+      //virtual void endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&) override;
+
+      // ----------member data ---------------------------
   edm::EDGetTokenT< std::vector<pat::Electron> > electronCollection;
   edm::EDGetTokenT< std::vector<pat::Tau> > boostedTauCollection;
   edm::EDGetTokenT<double> rhoSrc;
   EffectiveAreas theEffectiveAreas;
   bool verboseDebug;
+
 };
 
 //
 // constants, enums and typedefs
 //
+
 
 //
 // static data member definitions
@@ -89,22 +84,34 @@ class electronBoostedTopologyIsoCorrectionTool : public edm::one::EDAnalyzer<edm
 //
 // constructors and destructor
 //
-electronBoostedTopologyIsoCorrectionTool::electronBoostedTopologyIsoCorrectionTool(const edm::ParameterSet& iConfig)
- :
-  electronCollection(consumes< std::vector<pat::Electron> >(iConfig.getParameter< edm::InputTag >("electronCollection"))),
+electronBoostedTopologyIsoCorrectionTool::electronBoostedTopologyIsoCorrectionTool(const edm::ParameterSet& iConfig):
+    electronCollection(consumes< std::vector<pat::Electron> >(iConfig.getParameter< edm::InputTag >("electronCollection"))),
   boostedTauCollection(consumes< std::vector<pat::Tau> >(iConfig.getParameter< edm::InputTag >("boostedTauCollection"))),
   rhoSrc(consumes<double> (iConfig.getParameter<edm::InputTag> ("rhoSrc"))),
   theEffectiveAreas(iConfig.getParameter< edm::FileInPath>("EAConfigFile").fullPath())
 {
-   //now do what ever initialization is needed
-  verboseDebug = iConfig.exists("verboseDebug") ? iConfig.getParameter<bool>("verboseDebug"): false;
+    verboseDebug = iConfig.exists("verboseDebug") ? iConfig.getParameter<bool>("verboseDebug"): false;
+    produces<edm::ValueMap<float>>("TauCorrIso");
+    produces<edm::ValueMap<float>>("TauCorrPfIso");
+   //register your products
+/* Examples
+   produces<ExampleData2>();
+
+   //if do put with a label
+   produces<ExampleData2>("label");
+ 
+   //if you want to put into the Run
+   produces<ExampleData2,InRun>();
+*/
+   //now do what ever other initialization is needed
+  
 }
 
 
 electronBoostedTopologyIsoCorrectionTool::~electronBoostedTopologyIsoCorrectionTool()
 {
-
-   // do anything here that needs to be done at desctruction time
+ 
+   // do anything here that needs to be done at destruction time
    // (e.g. close files, deallocate resources etc.)
 
 }
@@ -114,13 +121,28 @@ electronBoostedTopologyIsoCorrectionTool::~electronBoostedTopologyIsoCorrectionT
 // member functions
 //
 
-// ------------ method called for each event  ------------
+// ------------ method called to produce the data  ------------
 void
-electronBoostedTopologyIsoCorrectionTool::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
+electronBoostedTopologyIsoCorrectionTool::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
    using namespace edm;
+/* This is an event example
+   //Read 'ExampleData' from the Event
+   Handle<ExampleData> pIn;
+   iEvent.getByLabel("example",pIn);
 
-   edm::Handle< std::vector<pat::Electron> > electronHandle;
+   //Use the ExampleData to create an ExampleData2 which 
+   // is put into the Event
+   iEvent.put(std::make_unique<ExampleData2>(*pIn));
+*/
+
+/* this is an EventSetup example
+   //Read SetupData from the SetupRecord in the EventSetup
+   ESHandle<SetupData> pSetup;
+   iSetup.get<SetupRecord>().get(pSetup);
+*/
+
+      edm::Handle< std::vector<pat::Electron> > electronHandle;
    iEvent.getByToken(electronCollection, electronHandle);
 
    edm::Handle< std::vector<pat::Tau> > boostedTauHandle;
@@ -132,6 +154,10 @@ electronBoostedTopologyIsoCorrectionTool::analyze(const edm::Event& iEvent, cons
    int nElectrons = electronHandle->size();
    if (verboseDebug) std::cout<<"nElectrons: "<<nElectrons<<std::endl;
 
+
+   std::vector<float> theCorrIsoVector, theCorrPFIsoVector;
+   theCorrIsoVector.reserve(nElectrons);
+   theCorrPFIsoVector.reserve(nElectrons);
 
    for (std::vector<pat::Electron>::const_iterator theElectron = electronHandle->begin();
 	theElectron != electronHandle->end();
@@ -148,6 +174,9 @@ electronBoostedTopologyIsoCorrectionTool::analyze(const edm::Event& iEvent, cons
        
        double theCorrIso = this->electronCorrectIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
        double theCorrPFIso = this->electronCorrectPFIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
+
+       theCorrIsoVector.push_back(theCorrIso);
+       theCorrPFIsoVector.push_back(theCorrPFIso);
 
        if(verboseDebug)
 	 {
@@ -179,27 +208,65 @@ electronBoostedTopologyIsoCorrectionTool::analyze(const edm::Event& iEvent, cons
 
      }
 
+   std::unique_ptr<edm::ValueMap<float>> corrIsoV(new edm::ValueMap<float>());
+   edm::ValueMap<float>::Filler fillerCorrIso(*corrIsoV);
+   fillerCorrIso.insert(electronHandle, theCorrIsoVector.begin(), theCorrIsoVector.end());
+   fillerCorrIso.fill();
+
+   std::unique_ptr<edm::ValueMap<float>> corrPFIsoV(new edm::ValueMap<float>());
+   edm::ValueMap<float>::Filler fillerCorrPFIso(*corrPFIsoV);
+   fillerCorrPFIso.insert(electronHandle, theCorrPFIsoVector.begin(), theCorrPFIsoVector.end());
+   fillerCorrPFIso.fill();
 
 
-#ifdef THIS_IS_AN_EVENTSETUP_EXAMPLE
-   ESHandle<SetupData> pSetup;
-   iSetup.get<SetupRecord>().get(pSetup);
-#endif
+   iEvent.put(std::move(corrIsoV), "TauCorrIso");
+   iEvent.put(std::move(corrPFIsoV), "TauCorrPfIso");
+ 
 }
 
-
-// ------------ method called once each job just before starting event loop  ------------
+// ------------ method called once each stream before processing any runs, lumis or events  ------------
 void
-electronBoostedTopologyIsoCorrectionTool::beginJob()
+electronBoostedTopologyIsoCorrectionTool::beginStream(edm::StreamID)
 {
 }
 
-// ------------ method called once each job just after ending the event loop  ------------
+// ------------ method called once each stream after processing all runs, lumis and events  ------------
 void
-electronBoostedTopologyIsoCorrectionTool::endJob()
-{
+electronBoostedTopologyIsoCorrectionTool::endStream() {
 }
 
+// ------------ method called when starting to processes a run  ------------
+/*
+void
+electronBoostedTopologyIsoCorrectionTool::beginRun(edm::Run const&, edm::EventSetup const&)
+{
+}
+*/
+ 
+// ------------ method called when ending the processing of a run  ------------
+/*
+void
+electronBoostedTopologyIsoCorrectionTool::endRun(edm::Run const&, edm::EventSetup const&)
+{
+}
+*/
+ 
+// ------------ method called when starting to processes a luminosity block  ------------
+/*
+void
+electronBoostedTopologyIsoCorrectionTool::beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
+{
+}
+*/
+ 
+// ------------ method called when ending the processing of a luminosity block  ------------
+/*
+void
+electronBoostedTopologyIsoCorrectionTool::endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
+{
+}
+*/
+ 
 // ------------ method fills 'descriptions' with the allowed parameters for the module  ------------
 void
 electronBoostedTopologyIsoCorrectionTool::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
@@ -208,14 +275,8 @@ electronBoostedTopologyIsoCorrectionTool::fillDescriptions(edm::ConfigurationDes
   edm::ParameterSetDescription desc;
   desc.setUnknown();
   descriptions.addDefault(desc);
-
-  //Specify that only 'tracks' is allowed
-  //To use, remove the default given above and uncomment below
-  //ParameterSetDescription desc;
-  //desc.addUntracked<edm::InputTag>("tracks","ctfWithMaterialTracks");
-  //descriptions.addDefault(desc);
 }
-//camilla's formula for the corrected isolation
+
 double electronBoostedTopologyIsoCorrectionTool::electronCorrectIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle)
 {
   double tauSumChargedHadronPt = 0.0;
@@ -326,15 +387,6 @@ double electronBoostedTopologyIsoCorrectionTool::electronCorrectPFIso(pat::Elect
   return correctedIso;
 }
 
-
-double electronBoostedTopologyIsoCorrectionTool::muonCorrectIso(pat::Muon muon, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle)
-{
-  return 0.0;
-}
-double electronBoostedTopologyIsoCorrectionTool::muonCorrectPFIso(pat::Muon muon, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle)
-{
-  return 0.0;
-}
 
 //define this as a plug-in
 DEFINE_FWK_MODULE(electronBoostedTopologyIsoCorrectionTool);

@@ -19,7 +19,7 @@ from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, '106X_mcRun2_asymptotic_v13', '')
 
 ##analyzer path
-from bbtautauAnalysisScripts.boostedTopologyIsoCorrectionTool.electronIsoCorrectionTool_cfi import *
+from bbtautauAnalysisScripts.electronBoostedTopologyIsoCorrectionTool.electronBoostedTopologyIsoCorrectionTool_cfi import *
 process.electronIsoCorrectionTool = electronIsoCorrectionTool
 
 #embed the electron effective area into collection
