@@ -24,6 +24,8 @@ def createFileAndSampleDictionaries(samplesJson,signalMassPoint):
     fileDict = {'Data':{},'MC':{}}
     for sampleKey in samplesJson:
         theFile = ROOT.TFile(samplesJson[sampleKey]['file'])
+        if theFile.IsZombie():
+            raise RuntimeError("Zombie File "+samplesJson[sampleKey]['file'])
         theTree = theFile.Events
         #can't close these files, or we lose the trees
         if 'Data' in sampleKey:
