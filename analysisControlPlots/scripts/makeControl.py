@@ -79,7 +79,7 @@ def main(args):
         with open(args.cutConfig) as jsonFile:
             cutJson = json.load(jsonFile)
     #let's create the cut we need to filter the histogram down to size
-    finalCutString = processCutJsonToString(cutJson)
+    finalCutString = processCutJsonToString(cutJson,args.additionalSelections)
 
     #let's get the configuration for our varibles
     with open (args.variableConfig) as jsonFile:
@@ -110,7 +110,11 @@ def main(args):
                     histoName = MCSample+'_'+variable
                 sampleDict['MC'][MCSample].Draw(variable+'>>'+histoName+'('+variableJson[variable]['bins']+')',
                                                 args.weightingFormula+'*('+finalCutString+')')
-                theHisto = ROOT.gDirectory.Get(histoName).Clone()
+                try:
+                    theHisto = ROOT.gDirectory.Get(histoName).Clone()
+                except ReferenceError: #The plot for whatever reason didn't get made
+                    #we can try just skipping it, but if this happens to a major distribution, we are in trouble
+                    continue
                 histoDict['MC'][MCSample] = theHisto
             #get the data histo
             try:
@@ -155,6 +159,11 @@ def main(args):
             ratioHist, ratioError = MakeRatioHistograms(finalHistoDict['Data'],backgroundStack,variable)
 
             ratioPad.cd()
+            try:
+                ratioPad.SetLogx(variableJson[variable]['logx'])
+            except KeyError:
+                pass
+
             ratioHist.Draw('ex0')
             ratioError.Draw('SAME e2')
             ratioHist.Draw('SAME ex0')
@@ -163,6 +172,14 @@ def main(args):
             plotPad.cd()
             plotPad.SetTickx()
             plotPad.SetTicky()
+            try:
+                plotPad.SetLogy(variableJson[variable]['logy'])
+            except KeyError:
+                pass
+            try:
+                plotPad.SetLogx(variableJson[variable]['logx'])
+            except KeyError:
+                pass
 
             backgroundStack.SetMaximum(max(backgroundStack.GetMaximum(),dataHisto.GetMaximum()))
 
