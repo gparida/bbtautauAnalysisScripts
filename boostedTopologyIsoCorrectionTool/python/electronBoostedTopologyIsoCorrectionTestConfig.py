@@ -19,15 +19,9 @@ from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, '106X_mcRun2_asymptotic_v13', '')
 
 ##analyzer path
-process.isoCorrectionTool = cms.EDAnalyzer('electronBoostedTopologyIsoCorrectionTool',
-                                           boostedTauCollection = cms.InputTag('slimmedTausBoosted'),
-                                           electronCollection = cms.InputTag('slimmedElectrons'),
-                                           muonCollection = cms.InputTag('slimmedMuons'),
-                                           tauCollection = cms.InputTag('slimmedTaus'),
-                                           pfCands = cms.InputTag("packedPFCandidates"),
-                                           rhoSrc = cms.InputTag('fixedGridRhoFastjetAll'),
-                                           EAConfigFile = cms.FileInPath("RecoEgamma/ElectronIdentification/data/Fall17/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_94X.txt"))
+from bbtautauAnalysisScripts.boostedTopologyIsoCorrectionTool.electronIsoCorrectionTool_cfi import *
+process.electronIsoCorrectionTool = electronIsoCorrectionTool
 
 #embed the electron effective area into collection
 
-process.p = cms.Path(process.isoCorrectionTool)
+process.p = cms.Path(process.electronIsoCorrectionTool)

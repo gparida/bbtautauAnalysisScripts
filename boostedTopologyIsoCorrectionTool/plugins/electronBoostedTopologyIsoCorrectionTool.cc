@@ -71,14 +71,11 @@ class electronBoostedTopologyIsoCorrectionTool : public edm::one::EDAnalyzer<edm
   virtual double muonCorrectIso(pat::Muon muon, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
   virtual double muonCorrectPFIso(pat::Muon muon, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
   // ----------member data ---------------------------
-  edm::EDGetTokenT< std::vector<pat::Muon> > muonCollection;
   edm::EDGetTokenT< std::vector<pat::Electron> > electronCollection;
   edm::EDGetTokenT< std::vector<pat::Tau> > boostedTauCollection;
-  edm::EDGetTokenT< std::vector<pat::Tau> > tauCollection;
-  edm::EDGetTokenT< std::vector<pat::PackedCandidate> >  pfCandCollection;
   edm::EDGetTokenT<double> rhoSrc;
-  edm::EDGetTokenT<bool> verboseDebug = false;
   EffectiveAreas theEffectiveAreas;
+  bool verboseDebug;
 };
 
 //
@@ -94,18 +91,13 @@ class electronBoostedTopologyIsoCorrectionTool : public edm::one::EDAnalyzer<edm
 //
 electronBoostedTopologyIsoCorrectionTool::electronBoostedTopologyIsoCorrectionTool(const edm::ParameterSet& iConfig)
  :
-  muonCollection(consumes< std::vector<pat::Muon> > (iConfig.getParameter< edm::InputTag > ("muonCollection"))),
   electronCollection(consumes< std::vector<pat::Electron> >(iConfig.getParameter< edm::InputTag >("electronCollection"))),
   boostedTauCollection(consumes< std::vector<pat::Tau> >(iConfig.getParameter< edm::InputTag >("boostedTauCollection"))),
-  tauCollection(consumes< std::vector<pat::Tau> >(iConfig.getParameter< edm::InputTag >("tauCollection"))),
-  pfCandCollection(consumes< pat::PackedCandidateCollection >(iConfig.getParameter< edm::InputTag >("pfCands"))),
   rhoSrc(consumes<double> (iConfig.getParameter<edm::InputTag> ("rhoSrc"))),
-  verboseDebug(iConfig.exists("verboseDebug") ? 
-	       iConfig.getParameter<edm::InputTag>("verboseDebug") : 
-	       false)
   theEffectiveAreas(iConfig.getParameter< edm::FileInPath>("EAConfigFile").fullPath())
 {
    //now do what ever initialization is needed
+  verboseDebug = iConfig.exists("verboseDebug") ? iConfig.getParameter<bool>("verboseDebug"): false;
 }
 
 
@@ -131,18 +123,11 @@ electronBoostedTopologyIsoCorrectionTool::analyze(const edm::Event& iEvent, cons
    edm::Handle< std::vector<pat::Electron> > electronHandle;
    iEvent.getByToken(electronCollection, electronHandle);
 
-   edm::Handle< std::vector<pat::Muon> > muonHandle;
-   iEvent.getByToken(muonCollection, muonHandle);
-
    edm::Handle< std::vector<pat::Tau> > boostedTauHandle;
    iEvent.getByToken(boostedTauCollection, boostedTauHandle); 
-
-   edm::Handle< std::vector<pat::PackedCandidate> > pfCandHandle;
-   iEvent.getByToken(pfCandCollection, pfCandHandle);
    
    edm::Handle<double> rho;
    iEvent.getByToken(rhoSrc, rho);
-
    
    int nElectrons = electronHandle->size();
    if (verboseDebug) std::cout<<"nElectrons: "<<nElectrons<<std::endl;
