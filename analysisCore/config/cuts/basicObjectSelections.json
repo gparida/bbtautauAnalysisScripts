@@ -1,0 +1,28 @@
+{
+    "boostedTau":{
+	"boostedTau_pt[?]":"> 20",
+	"abs(boostedTau_eta[?])":"< 2.3",
+	"boostedTau_idMVAnewDM2017v2[?]":">= 4"
+    },
+    "Tau":{
+	"Tau_pt[?]":"> 20",
+	"abs(Tau_eta[?])":"< 2.3",
+	"Tau_idMVAnewDM2017v2[?]":">= 4"
+
+    },
+    "Muon":{
+	"Muon_mvaId[?]":">= 1",
+	"Muon_isGlobal[?]":">= 1"
+    },
+    "Electron":{
+	"Electron_mvaFall17V2Iso_WPL[?]":">= 1",
+	"Electron_pt[?]":"> 10.0"
+    },
+    "FatJet":{
+	"FatJet_pt[?]":"> 200.0",
+	"abs(FatJet_eta[?])":"< 2.4",
+	"FatJet_msoftdrop[?]":"> 30.0",
+	"FatJet_msoftdrop[?]":"< 250.0",
+	"FatJet_tau2[?]/FatJet_tau1[?]":"< 0.75"
+    },
+}
