@@ -1321,5 +1321,11 @@
     },
     "PV_npvsGood":{
 	"bins":"100,0.0,100.0"
+    },
+    "sqrt((Electron_phi[0]-boostedTau_phi[0])*(Electron_phi[0]-boostedTau_phi[0])+(Electron_eta[0]-boostedTau_eta[0])*(Electron_eta[0]-boostedTau_eta[0]))":{
+	"bins":"25,0.0,2.0",
+	"name":"DeltaR_leading_et",
+	"logx":true,
+	"logy":true
     }
 }

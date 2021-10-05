@@ -269,15 +269,15 @@
     "FatJet_tau4[1]":{
 	"bins":"20,0.0,0.3"
     },
-    "FatJet_tau1/FatJet_tau2":{
+    "(FatJet_tau2/FatJet_tau1)":{
 	"bins":"24,0.0,0.8",
 	"name":"#tau_{21}"
     },
-    "FatJet_tau1[0]/FatJet_tau2[0]":{
+    "(FatJet_tau2[0]/FatJet_tau1[0])":{
 	"bins":"24,0.0,0.8",
 	"name":"Leading #tau_{21}"
     },
-    "FatJet_tau1[1]/FatJet_tau2[1]":{
+    "(FatJet_tau2[1]/FatJet_tau1[1])":{
 	"bins":"24,0.0,0.8",
 	"name":"Subleading #tau_{21}"
     },
@@ -551,5 +551,10 @@
     },
     "PV_npvsGood":{
 	"bins":"100,0.0,100.0"
+    },
+    "sqrt((Electron_phi[0]-boostedTau_phi[0])*(Electron_phi[0]-boostedTau_phi[0])+(Electron_eta[0]-boostedTau_eta[0])*(Electron_eta[0]-boostedTau_eta[0]))":{
+	"bins":"100,0.0,2.0",
+	"name":"DeltaR_leading_et",
+	"logy":true
     }
 }
