@@ -142,7 +142,7 @@ electronBoostedTopologyIsoCorrectionTool::produce(edm::Event& iEvent, const edm:
    iSetup.get<SetupRecord>().get(pSetup);
 */
 
-      edm::Handle< std::vector<pat::Electron> > electronHandle;
+   edm::Handle< std::vector<pat::Electron> > electronHandle;
    iEvent.getByToken(electronCollection, electronHandle);
 
    edm::Handle< std::vector<pat::Tau> > boostedTauHandle;
@@ -163,7 +163,6 @@ electronBoostedTopologyIsoCorrectionTool::produce(edm::Event& iEvent, const edm:
 	theElectron != electronHandle->end();
 	++theElectron)
      {
-       ++nElectrons;
       float effectiveArea;
       effectiveArea = theEffectiveAreas.getEffectiveArea(fabs(theElectron->superCluster()->eta()));
 
