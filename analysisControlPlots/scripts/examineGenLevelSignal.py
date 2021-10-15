@@ -6,6 +6,7 @@ import argparse
 import json
 import re
 from tqdm import tqdm
+import math
 
 def main(args):
     ROOT.gStyle.SetOptStat(0)
@@ -130,7 +131,7 @@ def main(args):
     ttDir.cd()
     boostedTauSelectionCanvas = ROOT.TCanvas('boostedTauCanvas','boostedTauCanvas')
     boostedTauSelectionCanvas.SetBottomMargin(0.4)
-    tauIDSelectionBits = 4 #4 == loose MVA ID
+    tauIDSelectionBits = 7 #7 == loose MVA ID
     boostedTauSelectionPlot = ROOT.TH1F('boostedTauSelectionPlot','boostedTauSelectionPlot',10, 1.0, 11.0)
 
     tooManyBoostedTaus = 0
@@ -144,11 +145,13 @@ def main(args):
         tausPassID = []
 
         for boostedTauIndex in range(nboostedTau):
-            if (ttTree.boostedTau_idMVAnewDM2017v2[boostedTauIndex] >= tauIDSelectionBits):
+            boostedTauID = int(''.join(format(ord(i), '016b') for i in ttTree.boostedTau_idMVAnewDM2017v2[boostedTauIndex]) ,2)
+            if (boostedTauID >= tauIDSelectionBits):
                 boostedTausPassID.append(boostedTauIndex)
             
         for tauIndex in range(nTau):
-            if (ttTree.Tau_idMVAnewDM2017v2[tauIndex] >= tauIDSelectionBits):
+            tauID = int(''.join(format(ord(i), '016b') for i in ttTree.Tau_idMVAnewDM2017v2[tauIndex]) , 2)
+            if (tauID >= tauIDSelectionBits):
                 tausPassID.append(tauIndex)
 
         if(nboostedTau > 0):
@@ -158,7 +161,7 @@ def main(args):
                 if (len(boostedTausPassID) >= 2):
                     boostedTauSelectionPlot.Fill(3.0, ttTree.FinalWeighting)
                     if(len(boostedTausPassID) == 2 and len(tausPassID) == 0):
-                        boostedtauSelectionPlot.Fill(4.0, ttTree.FinalWeighting)
+                        boostedTauSelectionPlot.Fill(4.0, ttTree.FinalWeighting)
                 if (len(tausPassID) >= 1):
                     boostedTauSelectionPlot.Fill(5.0, ttTree.FinalWeighting)
                     if (len(boostedTausPassID) == 1 and len(tausPassID) == 1):
@@ -583,7 +586,266 @@ def main(args):
     muonRejectionCanvasChannelStyle.Write()
 
     print("Extra tau rejection plots")
+    ttDir.cd()
+    #let's try just understanding what the distances between taus, and boosted taus are
+    closestTauPlot = ROOT.TH1F('closestTauPlot','closestTauPlot',50,0.0,0.15)
+    closestTauPlotZoomOut = ROOT.TH1F('closestTauPlotZoomOut','closestTauPlotZoomOut',50,0.0,1.5)
+    allTauDistancesPlot = ROOT.TH1F('allTauDistancesPlots','allTauDistancesPlots',50,0.0,1.5)
     
+    for eventIndex in tqdm(range(ttTree.GetEntries()), desc='Events'):
+        ttTree.GetEntry(eventIndex)
+        
+        for boostedTauIndex in range(ttTree.nboostedTau):
+            boostedTauVector = ROOT.TLorentzVector()
+            boostedTauVector.SetPtEtaPhiM(ttTree.boostedTau_pt[boostedTauIndex],
+                                          ttTree.boostedTau_eta[boostedTauIndex],
+                                          ttTree.boostedTau_phi[boostedTauIndex],
+                                          ttTree.boostedTau_mass[boostedTauIndex])
+            closestDeltaR = 10000.0
+            for tauIndex in range(ttTree.nTau):
+                tauVector = ROOT.TLorentzVector()
+                tauVector.SetPtEtaPhiM(ttTree.Tau_pt[tauIndex],
+                                       ttTree.Tau_eta[tauIndex],
+                                       ttTree.Tau_phi[tauIndex],
+                                       ttTree.Tau_mass[tauIndex])
+                tauBoostedTauDeltaR = boostedTauVector.DeltaR(tauVector)
+                allTauDistancesPlot.Fill(tauBoostedTauDeltaR, ttTree.FinalWeighting)
+                if tauBoostedTauDeltaR  < closestDeltaR:
+                    closestDeltaR = tauBoostedTauDeltaR
+            closestTauPlot.Fill(closestDeltaR, ttTree.FinalWeighting)
+            closestTauPlotZoomOut.Fill(closestDeltaR, ttTree.FinalWeighting)
+
+    # do styling things
+    closestTauPlot.Write()
+    closestTauPlotZoomOut.Write()
+    allTauDistancesPlot.Write()
+    
+    tauMultiplicityWithHPSVeto = ROOT.TH1F('tauMultiplicityWithHPSVeto','tauMultiplicityWithHPSVeto',5,0.0,5.0)
+    tauMultiplicityWithHPSVetoVVLooseMVA = ROOT.TH1F('tauMultiplicityWithHPSVetoVVLooseMVA','tauMultiplicityWithHPSVetoVVLooseMVA',5,0.0,5.0)
+    tauMultiplicityWithHPSVetoVLooseMVA = ROOT.TH1F('tauMultiplicityWithHPSVetoVLooseMVA','tauMultiplicityWithHPSVetoVLooseMVA',5,0.0,5.0)
+    tauMultiplicityWithHPSVetoLooseMVA = ROOT.TH1F('tauMultiplicityWithHPSVetoLooseMVA','tauMultiplicityWithHPSVetoLooseMVA',5,0.0,5.0)
+    tauMultiplicityWithHPSVetoMediumMVA = ROOT.TH1F('tauMultiplicityWithHPSVetoMediumMVA','tauMultiplicityWithHPSVetoMediumMVA',5,0.0,5.0)
+    tauMultiplicityWithHPSVetoTightMVA = ROOT.TH1F('tauMultiplicityWithHPSVetoTightMVA','tauMultiplicityWithHPSVetoTightMVA',5,0.0,5.0)
+    tauMultiplicityWithHPSVetoVTightMVA = ROOT.TH1F('tauMultiplicityWithHPSVetoVTightMVA','tauMultiplicityWithHPSVetoVTightMVA',5,0.0,5.0)
+    tauMultiplicityWithHPSVetoVVTightMVA = ROOT.TH1F('tauMultiplicityWithHPSVetoVVTightMVA','tauMultiplicityWithHPSVetoVVTightMVA',5,0.0,5.0)
+    
+    tauBoostedTauMultiplicityWithHPSVeto = ROOT.TH2F('tauBoostedTauMultiplicityWithHPSVeto','tauBoostedTauMultiplicityWithHPSVeto', 5, 0.0, 5.0, 5, 0.0, 5.0)
+    tauBoostedTauMultiplicityWithHPSVetoVVLooseMVA = ROOT.TH2F('tauBoostedTauMultiplicityWithHPSVetoVVLooseMVA','tauBoostedTauMultiplicityWithHPSVetoVVLooseMVA', 5, 0.0, 5.0, 5, 0.0, 5.0)
+    tauBoostedTauMultiplicityWithHPSVetoVLooseMVA = ROOT.TH2F('tauBoostedTauMultiplicityWithHPSVetoVLooseMVA','tauBoostedTauMultiplicityWithHPSVetoVLooseMVA', 5, 0.0, 5.0, 5, 0.0, 5.0)
+    tauBoostedTauMultiplicityWithHPSVetoLooseMVA = ROOT.TH2F('tauBoostedTauMultiplicityWithHPSVetoLooseMVA','tauBoostedTauMultiplicityWithHPSVetoLooseMVA', 5, 0.0, 5.0, 5, 0.0, 5.0)
+    tauBoostedTauMultiplicityWithHPSVetoMediumMVA = ROOT.TH2F('tauBoostedTauMultiplicityWithHPSVetoMediumMVA','tauBoostedTauMultiplicityWithHPSVetoMediumMVA', 5, 0.0, 5.0, 5, 0.0, 5.0)
+    tauBoostedTauMultiplicityWithHPSVetoTightMVA = ROOT.TH2F('tauBoostedTauMultiplicityWithHPSVetoTightMVA','tauBoostedTauMultiplicityWithHPSVetoTightMVA', 5, 0.0, 5.0, 5, 0.0, 5.0)
+    tauBoostedTauMultiplicityWithHPSVetoVTightMVA = ROOT.TH2F('tauBoostedTauMultiplicityWithHPSVetoVTightMVA','tauBoostedTauMultiplicityWithHPSVetoVTightMVA', 5, 0.0, 5.0, 5, 0.0, 5.0)
+    tauBoostedTauMultiplicityWithHPSVetoVVTightMVA = ROOT.TH2F('tauBoostedTauMultiplicityWithHPSVetoVVTightMVA','tauBoostedTauMultiplicityWithHPSVetoVVTightMVA', 5, 0.0, 5.0, 5, 0.0, 5.0)
+
+    for eventIndex in tqdm(range(ttTree.GetEntries()), desc = 'Creating tau multiplicity: '):
+        ttTree.GetEntry(eventIndex)
+
+        totalBoostedTaus = ttTree.nboostedTau
+        totalBoostedTausPassingVVLoose = 0
+        totalBoostedTausPassingVLoose = 0
+        totalBoostedTausPassingLoose = 0
+        totalBoostedTausPassingMedium = 0
+        totalBoostedTausPassingTight = 0
+        totalBoostedTausPassingVTight = 0
+        totalBoostedTausPassingVVTight = 0
+
+        for boostedTauIndex in range(ttTree.nboostedTau):
+            boostedTauIDBits = ''.join(format(ord(i), '016b') for i in ttTree.boostedTau_idMVAnewDM2017v2[boostedTauIndex])
+            theBoostedTauID = int(boostedTauIDBits, 2)
+            if theBoostedTauID >= 1:
+                totalBoostedTausPassingVVLoose += 1
+            if theBoostedTauID >= 3:
+                totalBoostedTausPassingVLoose += 1
+            if theBoostedTauID >= 7:
+                totalBoostedTausPassingLoose += 1
+            if theBoostedTauID >= 15:
+                totalBoostedTausPassingMedium += 1
+            if theBoostedTauID >= 31:
+                totalBoostedTausPassingTight += 1
+            if theBoostedTauID >= 63:
+                totalBoostedTausPassingVTight += 1
+            if theBoostedTauID >= 127:
+                totalBoostedTausPassingVVTight += 1
+
+        totalHPSTaus = 0
+        totalHPSTausPassingVVLoose = 0
+        totalHPSTausPassingVLoose = 0
+        totalHPSTausPassingLoose = 0
+        totalHPSTausPassingMedium = 0
+        totalHPSTausPassingTight = 0
+        totalHPSTausPassingVTight = 0
+        totalHPSTausPassingVVTight = 0
+
+        for tauIndex in range(ttTree.nTau):
+            tauVector = ROOT.TLorentzVector()
+            tauVector.SetPtEtaPhiM(ttTree.Tau_pt[tauIndex],
+                                   ttTree.Tau_eta[tauIndex],
+                                   ttTree.Tau_phi[tauIndex],
+                                   ttTree.Tau_mass[tauIndex])
+            isGoodTau = True
+            for boostedTauIndex in range(ttTree.nboostedTau):
+                boostedTauVector = ROOT.TLorentzVector()
+                boostedTauVector.SetPtEtaPhiM(ttTree.boostedTau_pt[boostedTauIndex],
+                                              ttTree.boostedTau_eta[boostedTauIndex],
+                                              ttTree.boostedTau_phi[boostedTauIndex],
+                                              ttTree.boostedTau_mass[boostedTauIndex])
+                if tauVector.DeltaR(boostedTauVector) < 0.02:
+                    isGoodTau = False
+            if isGoodTau:
+                totalHPSTaus += 1
+                tauIDBits = ''.join(format(ord(i), '016b') for i in ttTree.Tau_idMVAnewDM2017v2[tauIndex])
+                theTauID = int(tauIDBits, 2)
+                if theTauID >= 1:
+                    totalHPSTausPassingVVLoose += 1
+                if theTauID >= 3:
+                    totalHPSTausPassingVLoose += 1
+                if theTauID >= 7:
+                    totalHPSTausPassingLoose += 1
+                if theTauID >= 15:
+                    totalHPSTausPassingMedium += 1
+                if theTauID >= 31:
+                    totalHPSTausPassingTight += 1
+                if theTauID >= 63:
+                    totalHPSTausPassingVTight += 1
+                if theTauID >= 127:
+                    totalHPSTausPassingVVTight += 1
+        totalTauMultiplicity = totalBoostedTaus + totalHPSTaus
+        totalTauMultiplicityPassingVVLoose = totalBoostedTausPassingVVLoose + totalHPSTausPassingVVLoose
+        totalTauMultiplicityPassingVLoose = totalBoostedTausPassingVLoose + totalHPSTausPassingVLoose
+        totalTauMultiplicityPassingLoose = totalBoostedTausPassingLoose + totalHPSTausPassingLoose
+        totalTauMultiplicityPassingMedium = totalBoostedTausPassingMedium + totalHPSTausPassingMedium
+        totalTauMultiplicityPassingTight = totalBoostedTausPassingTight + totalHPSTausPassingTight
+        totalTauMultiplicityPassingVTight = totalBoostedTausPassingVTight + totalHPSTausPassingVTight
+        totalTauMultiplicityPassingVVTight = totalBoostedTausPassingVVTight + totalHPSTausPassingVVTight
+
+        tauMultiplicityWithHPSVeto.Fill(totalTauMultiplicity, ttTree.FinalWeighting)
+        tauMultiplicityWithHPSVetoVVLooseMVA.Fill(totalTauMultiplicityPassingVVLoose, ttTree.FinalWeighting)
+        tauMultiplicityWithHPSVetoVLooseMVA.Fill(totalTauMultiplicityPassingVLoose, ttTree.FinalWeighting)
+        tauMultiplicityWithHPSVetoLooseMVA.Fill(totalTauMultiplicityPassingLoose, ttTree.FinalWeighting)
+        tauMultiplicityWithHPSVetoMediumMVA.Fill(totalTauMultiplicityPassingMedium, ttTree.FinalWeighting)
+        tauMultiplicityWithHPSVetoTightMVA.Fill(totalTauMultiplicityPassingTight, ttTree.FinalWeighting)
+        tauMultiplicityWithHPSVetoVTightMVA.Fill(totalTauMultiplicityPassingVTight, ttTree.FinalWeighting)
+        tauMultiplicityWithHPSVetoVVTightMVA.Fill(totalTauMultiplicityPassingVVTight, ttTree.FinalWeighting)
+
+        tauBoostedTauMultiplicityWithHPSVeto.Fill(totalBoostedTaus, totalHPSTaus, ttTree.FinalWeighting)
+        tauBoostedTauMultiplicityWithHPSVetoVVLooseMVA.Fill(totalBoostedTausPassingVVLoose, totalHPSTausPassingVVLoose, ttTree.FinalWeighting)
+        tauBoostedTauMultiplicityWithHPSVetoVLooseMVA.Fill(totalBoostedTausPassingVLoose, totalHPSTausPassingVLoose, ttTree.FinalWeighting)
+        tauBoostedTauMultiplicityWithHPSVetoLooseMVA.Fill(totalBoostedTausPassingLoose, totalHPSTausPassingLoose, ttTree.FinalWeighting)
+        tauBoostedTauMultiplicityWithHPSVetoMediumMVA.Fill(totalBoostedTausPassingMedium, totalHPSTausPassingMedium, ttTree.FinalWeighting)
+        tauBoostedTauMultiplicityWithHPSVetoTightMVA.Fill(totalBoostedTausPassingTight, totalHPSTausPassingTight, ttTree.FinalWeighting)
+        tauBoostedTauMultiplicityWithHPSVetoVTightMVA.Fill(totalBoostedTausPassingVTight, totalHPSTausPassingVTight, ttTree.FinalWeighting)
+        tauBoostedTauMultiplicityWithHPSVetoVVTightMVA.Fill(totalBoostedTausPassingVVTight, totalHPSTausPassingVVTight, ttTree.FinalWeighting)
+
+    tauMultiplicityWithHPSVeto.Write()
+    tauMultiplicityWithHPSVetoVVLooseMVA.Write()
+    tauMultiplicityWithHPSVetoVLooseMVA.Write()
+    tauMultiplicityWithHPSVetoLooseMVA.Write()
+    tauMultiplicityWithHPSVetoMediumMVA.Write()
+    tauMultiplicityWithHPSVetoTightMVA.Write()
+    tauMultiplicityWithHPSVetoVTightMVA.Write()
+    tauMultiplicityWithHPSVetoVVTightMVA.Write()
+    
+    tauBoostedTauMultiplicityWithHPSVeto.Write()
+    tauBoostedTauMultiplicityWithHPSVetoVVLooseMVA.Write()
+    tauBoostedTauMultiplicityWithHPSVetoVLooseMVA.Write()
+    tauBoostedTauMultiplicityWithHPSVetoLooseMVA.Write()
+    tauBoostedTauMultiplicityWithHPSVetoMediumMVA.Write()
+    tauBoostedTauMultiplicityWithHPSVetoTightMVA.Write()
+    tauBoostedTauMultiplicityWithHPSVetoVTightMVA.Write()
+    tauBoostedTauMultiplicityWithHPSVetoVVTightMVA.Write()
+
+    HPSVetoCanvas = ROOT.TCanvas('HPSVetoCanvas','HPSVetoCanvas')
+    HPSVetoCanvas.cd()
+    tauBoostedTauMultiplicityWithHPSVeto.Draw('COLZ TEXT')
+    tauBoostedTauMultiplicityWithHPSVeto.GetXaxis().SetTitle("nBoostedTau")
+    tauBoostedTauMultiplicityWithHPSVeto.GetYaxis().SetTitle("nTau")
+    HPSVetoCanvas.Write()
+
+    HPSVetoCanvasVVLooseMVA = ROOT.TCanvas('HPSVetoCanvasVVLooseMVA','HPSVetoCanvasVVLooseMVA')
+    HPSVetoCanvasVVLooseMVA.cd()
+    tauBoostedTauMultiplicityWithHPSVetoVVLooseMVA.Draw('COLZ TEXT')
+    tauBoostedTauMultiplicityWithHPSVetoVVLooseMVA.GetXaxis().SetTitle("nBoostedTau")
+    tauBoostedTauMultiplicityWithHPSVetoVVLooseMVA.GetYaxis().SetTitle("nTau")
+    HPSVetoCanvasVVLooseMVA.Write()
+
+    HPSVetoCanvasVLooseMVA = ROOT.TCanvas('HPSVetoCanvasVLooseMVA','HPSVetoCanvasVLooseMVA')
+    HPSVetoCanvasVLooseMVA.cd()
+    tauBoostedTauMultiplicityWithHPSVetoVLooseMVA.Draw('COLZ TEXT')
+    tauBoostedTauMultiplicityWithHPSVetoVLooseMVA.GetXaxis().SetTitle("nBoostedTau")
+    tauBoostedTauMultiplicityWithHPSVetoVLooseMVA.GetYaxis().SetTitle("nTau")
+    HPSVetoCanvasVLooseMVA.Write()
+
+    HPSVetoCanvasLooseMVA = ROOT.TCanvas('HPSVetoCanvasLooseMVA','HPSVetoCanvasLooseMVA')
+    HPSVetoCanvasLooseMVA.cd()
+    tauBoostedTauMultiplicityWithHPSVetoLooseMVA.Draw('COLZ TEXT')
+    tauBoostedTauMultiplicityWithHPSVetoLooseMVA.GetXaxis().SetTitle("nBoostedTau")
+    tauBoostedTauMultiplicityWithHPSVetoLooseMVA.GetYaxis().SetTitle("nTau")
+    HPSVetoCanvasLooseMVA.Write()
+
+    HPSVetoCanvasMediumMVA = ROOT.TCanvas('HPSVetoCanvasMediumMVA','HPSVetoCanvasMediumMVA')
+    HPSVetoCanvasMediumMVA.cd()
+    tauBoostedTauMultiplicityWithHPSVetoMediumMVA.Draw('COLZ TEXT')
+    tauBoostedTauMultiplicityWithHPSVetoMediumMVA.GetXaxis().SetTitle("nBoostedTau")
+    tauBoostedTauMultiplicityWithHPSVetoMediumMVA.GetYaxis().SetTitle("nTau")
+    HPSVetoCanvasMediumMVA.Write()
+
+    HPSVetoCanvasTightMVA = ROOT.TCanvas('HPSVetoCanvasTightMVA','HPSVetoCanvasTightMVA')
+    HPSVetoCanvasTightMVA.cd()
+    tauBoostedTauMultiplicityWithHPSVetoTightMVA.Draw('COLZ TEXT')
+    tauBoostedTauMultiplicityWithHPSVetoTightMVA.GetXaxis().SetTitle("nBoostedTau")
+    tauBoostedTauMultiplicityWithHPSVetoTightMVA.GetYaxis().SetTitle("nTau")
+    HPSVetoCanvasTightMVA.Write()
+
+    HPSVetoCanvasVTightMVA = ROOT.TCanvas('HPSVetoCanvasVTightMVA','HPSVetoCanvasVTightMVA')
+    HPSVetoCanvasVTightMVA.cd()
+    tauBoostedTauMultiplicityWithHPSVetoVTightMVA.Draw('COLZ TEXT')
+    tauBoostedTauMultiplicityWithHPSVetoVTightMVA.GetXaxis().SetTitle("nBoostedTau")
+    tauBoostedTauMultiplicityWithHPSVetoVTightMVA.GetYaxis().SetTitle("nTau")
+    HPSVetoCanvasVTightMVA.Write()
+
+    HPSVetoCanvasVVTightMVA = ROOT.TCanvas('HPSVetoCanvasVVTightMVA','HPSVetoCanvasVVTightMVA')
+    HPSVetoCanvasVVTightMVA.cd()
+    tauBoostedTauMultiplicityWithHPSVetoVVTightMVA.Draw('COLZ TEXT')
+    tauBoostedTauMultiplicityWithHPSVetoVVTightMVA.GetXaxis().SetTitle("nBoostedTau")
+    tauBoostedTauMultiplicityWithHPSVetoVVTightMVA.GetYaxis().SetTitle("nTau")
+    HPSVetoCanvasVVTightMVA.Write()
+
+    tauMultiplicityHPSVetoCanvas = ROOT.TCanvas('tauMultiplicityHPSVetoCanvas','tauMultiplicityHPSVetoCanvas')
+    tauMultiplicityWithHPSVeto.SetLineColor(ROOT.kBlack)
+    tauMultiplicityWithHPSVetoVVLooseMVA.SetLineColor(ROOT.kRed)
+    tauMultiplicityWithHPSVetoVLooseMVA.SetLineColor(ROOT.kOrange)
+    tauMultiplicityWithHPSVetoLooseMVA.SetLineColor(ROOT.kGreen)
+    tauMultiplicityWithHPSVetoMediumMVA.SetLineColor(ROOT.kCyan)
+    tauMultiplicityWithHPSVetoTightMVA.SetLineColor(ROOT.kBlue)
+    tauMultiplicityWithHPSVetoVTightMVA.SetLineColor(ROOT.kMagenta)
+    tauMultiplicityWithHPSVetoVVTightMVA.SetLineColor(ROOT.kPink)
+    
+    tauMultiplicityWithHPSVeto.SetMaximum(max(tauMultiplicityWithHPSVeto.GetMaximum(), 
+                                              max(tauMultiplicityWithHPSVetoVVLooseMVA.GetMaximum(),
+                                                  tauMultiplicityWithHPSVetoVVTightMVA.GetMaximum())) * 1.1)
+    tauMultiplicityWithHPSVeto.Draw()
+    tauMultiplicityWithHPSVetoVVLooseMVA.Draw("SAME")
+    tauMultiplicityWithHPSVetoVLooseMVA.Draw("SAME")
+    tauMultiplicityWithHPSVetoLooseMVA.Draw("SAME")
+    tauMultiplicityWithHPSVetoMediumMVA.Draw("SAME")
+    tauMultiplicityWithHPSVetoTightMVA.Draw("SAME")
+    tauMultiplicityWithHPSVetoVTightMVA.Draw("SAME")
+    tauMultiplicityWithHPSVetoVVTightMVA.Draw("SAME")
+
+    tauMultiplicityHPSVetoLeg = ROOT.TLegend(0.7,0.7,0.9,0.9)
+    tauMultiplicityHPSVetoLeg.AddEntry(tauMultiplicityHPSVetoLeg, 'No ID Condition', 'l')
+    tauMultiplicityHPSVetoLeg.AddEntry(tauMultiplicityWithHPSVetoVVLooseMVA, 'VVLoose MVA', 'l')
+    tauMultiplicityHPSVetoLeg.AddEntry(tauMultiplicityWithHPSVetoVLooseMVA, 'VLoose MVA', 'l')
+    tauMultiplicityHPSVetoLeg.AddEntry(tauMultiplicityWithHPSVetoLooseMVA, 'Loose MVA', 'l')
+    tauMultiplicityHPSVetoLeg.AddEntry(tauMultiplicityWithHPSVetoMediumMVA, 'Medium MVA', 'l')
+    tauMultiplicityHPSVetoLeg.AddEntry(tauMultiplicityWithHPSVetoTightMVA, 'Tight MVA', 'l')
+    tauMultiplicityHPSVetoLeg.AddEntry(tauMultiplicityWithHPSVetoVTightMVA, 'VTight MVA', 'l')
+    tauMultiplicityHPSVetoLeg.AddEntry(tauMultiplicityWithHPSVetoVVTightMVA, 'VVTight MVA', 'l')
+    tauMultiplicityHPSVetoLeg.Draw()
+    
+    tauMultiplicityHPSVetoCanvas.Write()
+
     print('et channel object multiplicity plots...')
     etDir.cd()
 
@@ -1072,7 +1334,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = 'Tool for examining gen decay mode bins in the signal')
     parser.add_argument('--inputJson',nargs = '?', required = True, help = 'JSON configuration of input files')
     parser.add_argument('--mass',nargs = '?', default = '1000', choices=['1000','1200','1400','1600','1800','2000','2500','3000','3500','4000','4500'],help='Mass working point to load')
-    parser.add_argument('--tauIDBits', nargs='?', type=int, default = 4, choices = [0,1,2,4,8,16,32,64],help='Tau ID >=')
 
     args = parser.parse_args()
 
