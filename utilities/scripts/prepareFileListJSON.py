@@ -11,7 +11,7 @@ def main(args):
     listOfPaths = []
     for campaign in datasets:
         for datasetName in datasets[campaign]:
-            listOfPaths.append('/'+datasets[campaign][datasetName]+'/'+campaign+'/'+args.dataTier)
+            listOfPaths.append(('/'+datasets[campaign][datasetName]+'/'+campaign+'/'+args.dataTier).strip())
     #print(listOfPaths)
     theDasInterface = dasInterface()
     fileList = theDasInterface.getCompleteDictionaryOfFilesFromPathList(DASPaths = listOfPaths)
