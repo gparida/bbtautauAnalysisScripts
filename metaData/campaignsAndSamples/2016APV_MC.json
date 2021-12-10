@@ -1,6 +1,5 @@
 {
     "RunIISummer20UL16MiniAODAPV-106X_mcRun2_asymptotic_preVFP_v8-v1":{
-	//"DYInclusive": "DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8",
 	"DYJetsToLL_M-50_HT-100to200": "DYJetsToLL_M-50_HT-100to200_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8",
 	"DYJetsToLL_M-50_HT-200to400": "DYJetsToLL_M-50_HT-200to400_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8",
 	"DYJetsToLL_M-50_HT-400to600": "DYJetsToLL_M-50_HT-400to600_TuneCP5_PSweights_13TeV-madgraphMLM-pythia8",
@@ -34,7 +33,7 @@
 	"ST_tW_antitop": "ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8",
 	"ST_tW_top": "ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8",
 	"WW": "WW_TuneCP5_13TeV-pythia8",
-	"WZTo1L1Nu2Q": " WZTo1L1Nu2Q_TuneCP5_13TeV-amcatnloFXFX-pythia8",
+	"WZTo1L1Nu2Q": "WZTo1L1Nu2Q_TuneCP5_13TeV-amcatnloFXFX-pythia8",
 	"WZTo2Q2L": "WZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8",
 	"ZZTo2Q2Nu": "ZZTo2Q2Nu_TuneCP5_13TeV-amcatnloFXFX-pythia8",
 	"Radion_M1000": "RadionTohhTohtatahbb_narrow_M-1000_TuneCP5_13TeV-madgraph-pythia8",
@@ -52,6 +51,6 @@
 
     "RunIISummer20UL16MiniAODAPV-106X_mcRun2_asymptotic_preVFP_v8-v3":{
 	"ST_t-channel_antitop": "ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8",
-	"ST_t-channel_top": "ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8",
+	"ST_t-channel_top": "ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8"
     }
 }
