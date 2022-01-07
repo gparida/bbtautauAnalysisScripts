@@ -1,4 +1,4 @@
-#Andrwe Loeliger
+#Andrew Loeliger
 #quick script for testing the operation of the (hopefully) simplifiying fast mtt tool
 
 from bbtautauAnalysisScripts.fastMTTPython.fastMTTtool import *
