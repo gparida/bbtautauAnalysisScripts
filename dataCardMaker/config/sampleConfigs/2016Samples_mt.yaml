@@ -53,57 +53,57 @@
       - WZ.root
       - ZZ.root
 ---
-  sampleName: RadionHH_M1000.root
+  sampleName: RadionHH1000
   path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
   files:
       - RadionHH_M1000.root
 ---
-  sampleName: RadionHH_M1200.root
+  sampleName: RadionHH1200
   path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
   files:
       - RadionHH_M1200.root
 ---
-  sampleName: RadionHH_M1400.root
+  sampleName: RadionHH1400
   path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
   files:
       - RadionHH_M1400.root
 ---
-  sampleName: RadionHH_M1600.root
+  sampleName: RadionHH1600
   path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
   files:
       - RadionHH_M1600.root
 ---
-  sampleName: RadionHH_M1800.root
+  sampleName: RadionHH1800
   path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
   files:
       - RadionHH_M1800.root
 ---
-  sampleName: RadionHH_M2000.root
+  sampleName: RadionHH2000
   path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
   files:
       - RadionHH_M2000.root
 ---
-  sampleName: RadionHH_M2500.root
+  sampleName: RadionHH2500
   path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
   files:
       - RadionHH_M2500.root
 ---
-  sampleName: RadionHH_M3000.root
+  sampleName: RadionHH3000
   path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
   files:
       - RadionHH_M3000.root
 ---
-  sampleName: RadionHH_M3500.root
+  sampleName: RadionHH3500
   path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
   files:
       - RadionHH_M3500.root
 ---
-  sampleName: RadionHH_M4000.root
+  sampleName: RadionHH4000
   path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
   files:
       - RadionHH_M4000.root
 ---
-  sampleName: RadionHH_M4500.root
+  sampleName: RadionHH4500
   path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
   files:
       - RadionHH_M4500.root
