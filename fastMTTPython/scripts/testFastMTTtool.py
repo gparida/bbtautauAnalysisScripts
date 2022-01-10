@@ -33,3 +33,4 @@ theFastMTTtool.setSecondLepton(secondLepton)
 theFastMTTtool.setTheMET(exampleMET)
 
 print theFastMTTtool.getFastMTTmass()
+print theFastMTTtool.getFastMTTpt()
