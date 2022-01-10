@@ -49,6 +49,8 @@ def main(args):
             if finalCutString != '':
                 finalCutString = '*('+finalCutString+')'
             for MCSample in sampleDict['MC']:
+                if sampleDict['MC'][MCSample].GetEntries() == 0: #If the sample is empty, don't bother dealing with it
+                    continue
                 try:
                     histoName = MCSample+'_'+variableJson[variable]['name']
                 except KeyError:
