@@ -46,13 +46,15 @@ def main(args):
         try:
             #draw the distributions
             histoDict = {'MC':{},'Data':{}}
+            if finalCutString != '':
+                finalCutString = '*('+finalCutString+')'
             for MCSample in sampleDict['MC']:
                 try:
                     histoName = MCSample+'_'+variableJson[variable]['name']
                 except KeyError:
                     histoName = MCSample+'_'+variable
                 sampleDict['MC'][MCSample].Draw(variable+'>>'+histoName+'('+variableJson[variable]['bins']+')',
-                                                args.weightingFormula+'*('+finalCutString+')')
+                                                args.weightingFormula+finalCutString)
                 theHisto = ROOT.gDirectory.Get(histoName).Clone()
                 histoDict['MC'][MCSample] = theHisto
 
