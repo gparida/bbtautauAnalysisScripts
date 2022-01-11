@@ -92,25 +92,71 @@ double retrieveFastMTTMass(
 
 double retrieveFastMTTPt(
 			 double measuredMETx, //met x component
-			   double measuredMETy, //met y component
-			   double covMETxx, //met cov 0,0 entry
-			   double covMETxy, //met cov 0,1 and 1,0 entry
-			   double covMETyy, //met cov 1,1 entry
-			   int firstLeptonDecayCode,
-			   double firstLeptonPt,
-			   double firstLeptonEta,
-			   double firstLeptonPhi,
-			   double firstLeptonM,
-			   int firstLeptonTauDecayMode,
-			   int secondLeptonDecayCode,
-			   double secondLeptonPt,
-			   double secondLeptonEta,
-			   double secondLeptonPhi,
-			   double secondLeptonM,
-			   int secondTauLeptonDecayMode
-)
+			 double measuredMETy, //met y component
+			 double covMETxx, //met cov 0,0 entry
+			 double covMETxy, //met cov 0,1 and 1,0 entry
+			 double covMETyy, //met cov 1,1 entry
+			 int firstLeptonDecayCode,
+			 double firstLeptonPt,
+			 double firstLeptonEta,
+			 double firstLeptonPhi,
+			 double firstLeptonM,
+			 int firstLeptonTauDecayMode,
+			 int secondLeptonDecayCode,
+			 double secondLeptonPt,
+			 double secondLeptonEta,
+			 double secondLeptonPhi,
+			 double secondLeptonM,
+			 int secondTauLeptonDecayMode
+			 )
 {
   return getBestHiggsVector(measuredMETx, measuredMETy, covMETxx, covMETxy, covMETyy, firstLeptonDecayCode, firstLeptonPt, firstLeptonEta, firstLeptonPhi, firstLeptonM, firstLeptonTauDecayMode, secondLeptonDecayCode, secondLeptonPt, secondLeptonEta, secondLeptonPhi, secondLeptonM, secondTauLeptonDecayMode).Pt();
+}
+
+double retrieveFastMTTPhi(
+			 double measuredMETx, //met x component
+			 double measuredMETy, //met y component
+			 double covMETxx, //met cov 0,0 entry
+			 double covMETxy, //met cov 0,1 and 1,0 entry
+			 double covMETyy, //met cov 1,1 entry
+			 int firstLeptonDecayCode,
+			 double firstLeptonPt,
+			 double firstLeptonEta,
+			 double firstLeptonPhi,
+			 double firstLeptonM,
+			 int firstLeptonTauDecayMode,
+			 int secondLeptonDecayCode,
+			 double secondLeptonPt,
+			 double secondLeptonEta,
+			 double secondLeptonPhi,
+			 double secondLeptonM,
+			 int secondTauLeptonDecayMode
+			 )
+{
+  return getBestHiggsVector(measuredMETx, measuredMETy, covMETxx, covMETxy, covMETyy, firstLeptonDecayCode, firstLeptonPt, firstLeptonEta, firstLeptonPhi, firstLeptonM, firstLeptonTauDecayMode, secondLeptonDecayCode, secondLeptonPt, secondLeptonEta, secondLeptonPhi, secondLeptonM, secondTauLeptonDecayMode).Phi();
+}
+
+double retrieveFastMTTEta(
+			 double measuredMETx, //met x component
+			 double measuredMETy, //met y component
+			 double covMETxx, //met cov 0,0 entry
+			 double covMETxy, //met cov 0,1 and 1,0 entry
+			 double covMETyy, //met cov 1,1 entry
+			 int firstLeptonDecayCode,
+			 double firstLeptonPt,
+			 double firstLeptonEta,
+			 double firstLeptonPhi,
+			 double firstLeptonM,
+			 int firstLeptonTauDecayMode,
+			 int secondLeptonDecayCode,
+			 double secondLeptonPt,
+			 double secondLeptonEta,
+			 double secondLeptonPhi,
+			 double secondLeptonM,
+			 int secondTauLeptonDecayMode
+			 )
+{
+  return getBestHiggsVector(measuredMETx, measuredMETy, covMETxx, covMETxy, covMETyy, firstLeptonDecayCode, firstLeptonPt, firstLeptonEta, firstLeptonPhi, firstLeptonM, firstLeptonTauDecayMode, secondLeptonDecayCode, secondLeptonPt, secondLeptonEta, secondLeptonPhi, secondLeptonM, secondTauLeptonDecayMode).Eta();
 }
 
 PYBIND11_MODULE(pluginfastMTT_binding, m)
@@ -118,4 +164,6 @@ PYBIND11_MODULE(pluginfastMTT_binding, m)
   m.doc() = "A binding to call fast mtt evaluations from python";
   m.def("fastMTTmass", &retrieveFastMTTMass, "get the mass from the fast MTT Calculation");
   m.def("fastMTTpt", &retrieveFastMTTPt, "get the pt from the fast MTT Calculation");
+  m.def("fastMTTphi", &retrieveFastMTTPhi, "get the phi from the fast MTT Calculation");
+  m.def("fastMTTeta", &retrieveFastMTTEta, "get the eta from the fast MTT Calculation");
 }

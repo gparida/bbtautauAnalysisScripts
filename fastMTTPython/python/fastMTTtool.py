@@ -153,5 +153,47 @@ class fastMTTtool():
             self.secondLepton.getTauDecayMode(),
 
         )
+
+    def getFastMTTphi(self):
+        return fastMTT.fastMTTpt(
+            self.theMET.getMeasuredX(),
+            self.theMET.getMeasuredY(),
+            self.theMET.getXXTerm(),
+            self.theMET.getXYTerm(),
+            self.theMET.getYYTerm(),
+            self.firstLepton.getLeptonType(),
+            self.firstLepton.getPt(),
+            self.firstLepton.getEta(),
+            self.firstLepton.getPhi(),
+            self.firstLepton.getM(),
+            self.firstLepton.getTauDecayMode(),
+            self.secondLepton.getLeptonType(),
+            self.secondLepton.getPt(),
+            self.secondLepton.getEta(),
+            self.secondLepton.getPhi(),
+            self.secondLepton.getM(),
+            self.secondLepton.getTauDecayMode(),
+
+        )
     
-        
+    def getFastMTTeta(self):
+        return fastMTT.fastMTTpt(
+            self.theMET.getMeasuredX(),
+            self.theMET.getMeasuredY(),
+            self.theMET.getXXTerm(),
+            self.theMET.getXYTerm(),
+            self.theMET.getYYTerm(),
+            self.firstLepton.getLeptonType(),
+            self.firstLepton.getPt(),
+            self.firstLepton.getEta(),
+            self.firstLepton.getPhi(),
+            self.firstLepton.getM(),
+            self.firstLepton.getTauDecayMode(),
+            self.secondLepton.getLeptonType(),
+            self.secondLepton.getPt(),
+            self.secondLepton.getEta(),
+            self.secondLepton.getPhi(),
+            self.secondLepton.getM(),
+            self.secondLepton.getTauDecayMode(),
+
+        )
