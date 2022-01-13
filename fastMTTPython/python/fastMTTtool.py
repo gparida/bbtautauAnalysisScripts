@@ -34,7 +34,7 @@ class fastMTTlepton():
         else:
             self.leptonType = 0
 
-        self.tauDecayMode = 0
+        self.tauDecayMode = tauDecayMode
         
     def getPt(self):
         return self.pt
