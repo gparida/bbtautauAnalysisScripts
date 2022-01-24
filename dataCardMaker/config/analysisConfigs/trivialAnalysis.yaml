@@ -1,0 +1,5 @@
+---
+   categoryName: all
+   definition:
+      - MET_pt > 0
+   variableOfInterest: inv4Mass

@@ -1,0 +1,109 @@
+#Yaml
+---
+   sampleName: data_obs
+   path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
+   files:
+      - Data.root
+---
+   sampleName: DY
+   path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
+   files: 
+      - DYlow.root
+      - DY.root
+---
+   sampleName: QCD
+   path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
+   files:
+      - QCD_1000to1400.root
+      - QCD_120to170.root
+      - QCD_1400to1800.root
+      - QCD_15to30.root
+      - QCD_170to300.root
+      - QCD_1800to2400.root
+      - QCD_2400to3200.root
+      - QCD_300to470.root
+      - QCD_30to50.root
+      - QCD_3200toInf.root
+      - QCD_470to600.root
+      - QCD_50to80.root
+      - QCD_600to800.root
+      - QCD_80to120.root
+---
+   sampleName: WJets
+   path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
+   files:
+      - W.root
+---
+   sampleName: TT
+   path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
+   files:
+      - TTTo2L2Nu.root
+      - TTToHadronic.root
+      - TTToSemiLeptonic.root
+---
+   sampleName: ST
+   path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
+   files:
+      - ST_s-channel_4f.root
+---
+   sampleName: VV
+   path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
+   files:
+      - WW.root
+      - WZ.root
+      - ZZ.root
+---
+  sampleName: RadionHH1000
+  path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
+  files:
+      - RadionHH_M1000.root
+---
+  sampleName: RadionHH1200
+  path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
+  files:
+      - RadionHH_M1200.root
+---
+  sampleName: RadionHH1400
+  path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
+  files:
+      - RadionHH_M1400.root
+---
+  sampleName: RadionHH1600
+  path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
+  files:
+      - RadionHH_M1600.root
+---
+  sampleName: RadionHH1800
+  path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
+  files:
+      - RadionHH_M1800.root
+---
+  sampleName: RadionHH2000
+  path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
+  files:
+      - RadionHH_M2000.root
+---
+  sampleName: RadionHH2500
+  path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
+  files:
+      - RadionHH_M2500.root
+---
+  sampleName: RadionHH3000
+  path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
+  files:
+      - RadionHH_M3000.root
+---
+  sampleName: RadionHH3500
+  path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
+  files:
+      - RadionHH_M3500.root
+---
+  sampleName: RadionHH4000
+  path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
+  files:
+      - RadionHH_M4000.root
+---
+  sampleName: RadionHH4500
+  path: /data/aloeliger/bbtautauAnalysis/2016/channelSelected/mt_Channel/
+  files:
+      - RadionHH_M4500.root
