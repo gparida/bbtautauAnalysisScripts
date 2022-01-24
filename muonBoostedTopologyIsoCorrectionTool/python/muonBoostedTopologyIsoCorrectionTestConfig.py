@@ -22,4 +22,10 @@ process.GlobalTag = GlobalTag(process.GlobalTag, '106X_mcRun2_asymptotic_v13', '
 from bbtautauAnalysisScripts.muonBoostedTopologyIsoCorrectionTool.muonBoostedTopologyIsoCorrectionTool_cfi import *
 process.muonIsoCorrectionTool = muonIsoCorrectionTool
 
+process.theOutputModule = cms.OutputModule("PoolOutputModule", 
+                                           fileName = cms.untracked.string("file:test.root"),
+)
+
 process.p = cms.Path(process.muonIsoCorrectionTool)
+
+process.e = cms.EndPath(process.theOutputModule)

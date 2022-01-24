@@ -90,7 +90,7 @@ muonBoostedTopologyIsoCorrectionTool::muonBoostedTopologyIsoCorrectionTool(const
   theEffectiveAreas(iConfig.getParameter< edm::FileInPath>("EAConfigFile").fullPath())
 {
   verboseDebug = iConfig.exists("verboseDebug") ? iConfig.getParameter<bool>("verboseDebug"): false;
-  produces<edm::ValueMap<float>>("TauCorrIso");
+  //produces<edm::ValueMap<float>>("TauCorrIso");
   produces<edm::ValueMap<float>>("TauCorrPfIso");
    //register your products
 /* Examples
