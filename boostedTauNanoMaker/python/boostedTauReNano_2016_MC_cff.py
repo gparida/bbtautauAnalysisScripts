@@ -61,9 +61,6 @@ process.NANOAODSIMoutput = cms.OutputModule("NanoAODOutputModule",
 )
 
 # Additional output definition
-from bbtautauAnalysisScripts.boostedTauRecoFilter.boostedTauRecoFilter_cfi import boostedTauRecoFilter
-
-process.theBoostedTauFilter = boostedTauRecoFilter
 
 # Other statements
 from Configuration.AlCa.GlobalTag import GlobalTag
