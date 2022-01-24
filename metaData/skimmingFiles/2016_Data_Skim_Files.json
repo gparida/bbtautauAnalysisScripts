@@ -1,0 +1,5 @@
+{
+    "Run2016F": "/hdfs/store/user/aloeliger/2016_Data_20Jul/Run2016F-UL2016_MiniAODv2-v2/MET/*.root",
+    "Run2016G": "/hdfs/store/user/aloeliger/2016_Data_20Jul/Run2016G-21Feb2020_UL2016-v1/MET/*.root",
+    "Run2016H": "/hdfs/store/user/aloeliger/2016_Data_20Jul/Run2016H-21Feb2020_UL2016-v2/MET/*.root"
+}
