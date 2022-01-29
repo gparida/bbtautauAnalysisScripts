@@ -36,9 +36,14 @@ class skimManager():
                     print(hdfsFileName)
                 print(hdfsFileName)
                 print("Last attempt to load the file at /hdfs/ with: "+hdfsFileName)
-                theLoadFile = ROOT.TFile.Open(hdfsFileName)
-                theInputTree = theLoadFile.Events
-                theRunTree = theLoadFile.Runs
+                try:
+                    theLoadFile = ROOT.TFile.Open(hdfsFileName)
+                    theInputTree = theLoadFile.Events
+                    theRunTree = theLoadFile.Runs
+                except:
+                    print("Failed to load the files properly!")
+                    print("Exiting with code -1")
+                    exit(-1)
 
         #load the branch cancelation FILE
         branchCancelations = None
@@ -52,7 +57,7 @@ class skimManager():
             except Exception as err:
                 print('Failed to make proper RE\'s for branch cancelations')
                 print(err)
-                exit(1)
+                exit(-1)
 
         theCutManager = cutManager(theInputTree,theCutFile)
         
@@ -78,10 +83,11 @@ class skimManager():
         finalCut = theCutManager.createAllCuts()
         theOutputTree = theInputTree.CopyTree(finalCut)
 
+        theOutputFile.cd()
         theOutputTree.Write('Events', ROOT.TFile.kOverwrite)
         
         #let's get the old run tree
-        theRunTree.Write('Runs',ROOT.TFile.kOverwrite)
+        theRunTree.CopyTree('').Write('Runs',ROOT.TFile.kOverwrite)
 
         #okay, now let's get the remaining object in the nano file and
 
