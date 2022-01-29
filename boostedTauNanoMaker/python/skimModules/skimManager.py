@@ -45,6 +45,7 @@ class skimManager():
                     print("Exiting with code -1")
                     exit(-1)
 
+        print('Loaded the file, and retrieved the trees...')
         #load the branch cancelation FILE
         branchCancelations = None
         if branchCancelationFileName != None:
@@ -81,9 +82,11 @@ class skimManager():
 
         #now, let's do the magic copy
         finalCut = theCutManager.createAllCuts()
+        print('Performing final tree copy...')
         theOutputTree = theInputTree.CopyTree(finalCut)
 
         theOutputFile.cd()
+        print('Writing all output...')
         theOutputTree.Write('Events', ROOT.TFile.kOverwrite)
         
         #let's get the old run tree
