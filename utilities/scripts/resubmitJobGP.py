@@ -27,7 +27,7 @@ def recursivelySearchForDagDir(search):
     theSearch = glob.glob(search)
     results = []
     for item in theSearch:
-        if re.search('.*/dags/dag', item):
+        if re.search('.*/dags/dag$', item):
             results.append(item)
         else:
             results+=recursivelySearchForDagDir(item+'/*')
