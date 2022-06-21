@@ -8,7 +8,7 @@ import argparse
 
 def submitJob(samplePath):
 
-    print "\t Resubmitting %s..." % samplePath
+    print "\t Resubmitting %s" % samplePath
     #rescueDag = max(glob.glob('%s/*dag.rescue[0-9][0-9][0-9]' % samplePath))
     #resubmitCommand = 'farmoutAnalysisJobs --rescue-dag-file %s' % samplePath
     #os.system(resubmitCommand)
