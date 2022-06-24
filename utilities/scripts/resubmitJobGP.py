@@ -7,11 +7,49 @@ import glob
 import argparse
 
 def submitJob(samplePath):
+    statusDagPath1 = '%s/dag.status' % samplePath
+    statusDagPath2 = '%s/dag.dag.status' % samplePath
 
-    print "\t Resubmitting %s" % samplePath
-    #rescueDag = max(glob.glob('%s/*dag.rescue[0-9][0-9][0-9]' % samplePath))
-    #resubmitCommand = 'farmoutAnalysisJobs --rescue-dag-file %s' % samplePath
-    #os.system(resubmitCommand)
+    errors = []
+    submitted = []
+    dagstatus = []
+    try:
+        with open(statusDagPath1,'r') as dagFile:
+            errors = [re.search('STATUS_ERROR', line) for line in dagFile]
+        with open(statusDagPath1,'r') as dagFile:
+            submitted = [re.search('STATUS_SUBMITTED', line) for line in dagFile]
+        with open(statusDagPath1,'r') as dagFile:
+            dagstatus = [re.search('DagStatus', line) for line in dagFile]
+        
+        
+    except IOError:
+        try:
+            with open(statusDagPath1,'r') as dagFile:
+                errors = [re.search('STATUS_ERROR', line) for line in dagFile]
+            with open(statusDagPath1,'r') as dagFile:
+                submitted = [re.search('STATUS_SUBMITTED', line) for line in dagFile]
+            with open(statusDagPath1,'r') as dagFile:
+                dagstatus = [re.search('DagStatus', line) for line in dagFile]
+        except IOError:
+            print "\t%s does not seem to be well formatted or have dag status files. Skipping..." %samplePath
+            return
+
+    if (len(dagstatus)-len(submitted)>1):
+        print "\t%s is not done. Waiting to resubmit..." % samplePath
+        return
+
+    elif any(errors) and len(dagstatus)-len(submitted)==1 :
+        print "\t Resubmitting %s..." % samplePath
+        rescueDag = max(glob.glob('%s/*dag.rescue[0-9][0-9][0-9]' % samplePath))
+        print ("\t File to be submitted: ",rescueDag)
+        #resubmitCommand = 'farmoutAnalysisJobs --rescue-dag-file=%s' % rescueDag
+        #os.system(resubmitCommand)
+    else:
+        pass
+
+
+
+    
     
 
 def generateSubmitDirs(jobs):
