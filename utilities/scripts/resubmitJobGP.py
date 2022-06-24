@@ -21,6 +21,8 @@ def submitJob(samplePath):
         with open(statusDagPath1,'r') as dagFile:
             dagstatus = [re.search('DagStatus', line) for line in dagFile]
         
+        print (errors, submitted, dagstatus)
+        
         
     except IOError:
         try:
