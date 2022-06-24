@@ -12,47 +12,34 @@ def submitJob(samplePath):
 
     errors = []
     submitted = []
-    dagstatus = []
+    dagStatus = []
     try:
         with open(statusDagPath1,'r') as dagFile:
             errors = [re.search('STATUS_ERROR', line) for line in dagFile]
         with open(statusDagPath1,'r') as dagFile:
             submitted = [re.search('STATUS_SUBMITTED', line) for line in dagFile]
-        with open(statusDagPath1,'r') as dagFile:
-            dagstatus = [re.search('DagStatus', line) for line in dagFile]
-        
-        print (errors, submitted, dagstatus)
-        
-        
     except IOError:
         try:
             with open(statusDagPath1,'r') as dagFile:
                 errors = [re.search('STATUS_ERROR', line) for line in dagFile]
             with open(statusDagPath1,'r') as dagFile:
                 submitted = [re.search('STATUS_SUBMITTED', line) for line in dagFile]
-            with open(statusDagPath1,'r') as dagFile:
-                dagstatus = [re.search('DagStatus', line) for line in dagFile]
         except IOError:
             print "\t%s does not seem to be well formatted or have dag status files. Skipping..." %samplePath
             return
 
-    if (len(dagstatus)-len(submitted)>1):
+    if any(submitted) and (len(submitted) - 2 > -1):
         print "\t%s is not done. Waiting to resubmit..." % samplePath
         return
 
-    elif any(errors) and len(dagstatus)-len(submitted)==1 :
+    if any(errors):
         print "\t Resubmitting %s..." % samplePath
         rescueDag = max(glob.glob('%s/*dag.rescue[0-9][0-9][0-9]' % samplePath))
-        print ("\t File to be submitted: ",rescueDag)
+        print ("file to be submitted: ",rescueDag)
         #resubmitCommand = 'farmoutAnalysisJobs --rescue-dag-file=%s' % rescueDag
         #os.system(resubmitCommand)
     else:
         pass
-
-
-
-    
-    
 
 def generateSubmitDirs(jobs):
     dirs = []
@@ -67,7 +54,7 @@ def recursivelySearchForDagDir(search):
     theSearch = glob.glob(search)
     results = []
     for item in theSearch:
-        if re.search('.*/dags/dag$', item):
+        if re.search('.*/dags', item):
             results.append(item)
         else:
             results+=recursivelySearchForDagDir(item+'/*')
