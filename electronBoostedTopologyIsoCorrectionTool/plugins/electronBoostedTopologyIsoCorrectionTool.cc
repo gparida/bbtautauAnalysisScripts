@@ -81,7 +81,7 @@ class electronBoostedTopologyIsoCorrectionTool : public edm::stream::EDProducer<
     double rho;
     double ea;
 
-  }
+  };
 
   struct PFisolationVariables{
     //Non PF variables
@@ -94,7 +94,7 @@ class electronBoostedTopologyIsoCorrectionTool : public edm::stream::EDProducer<
     double rho;
     double ea;
 
-  }
+  };
 
 };
 
