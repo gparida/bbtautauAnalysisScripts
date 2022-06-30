@@ -202,8 +202,8 @@ electronBoostedTopologyIsoCorrectionTool::produce(edm::Event& iEvent, const edm:
        //double theCorrIso = this->electronCorrectIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
        //double theCorrPFIso = this->electronCorrectPFIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
 
-       isolationVariables theCorrIso = this->electronCorrectIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
-       PFisolationVariables theCorrPFIso = this->electronCorrectPFIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
+       isolationVariables theCorrIso = {this->electronCorrectIso(*theElectron, *rho, effectiveArea, boostedTauHandle)};
+       PFisolationVariables theCorrPFIso = {this->electronCorrectPFIso(*theElectron, *rho, effectiveArea, boostedTauHandle)};
 
        theCorrIsoVector.push_back(theCorrIso.correctedIso_Andrew);
 
@@ -232,8 +232,8 @@ electronBoostedTopologyIsoCorrectionTool::produce(edm::Event& iEvent, const edm:
 	   std::cout<<"Alt-Nano calculation 0.3 cone: "<<altNano0p3ConeCalculation<<std::endl;
 	   std::cout<<"Nano calculation 0.4 cone: "<<nano0p4ConeCalculation<<std::endl;
 
-	   std::cout<<"\nCorrected Nano calculation 0.3 cone: "<<theCorrPFIso<<std::endl;
-	   std::cout<<"Corrected Alt Nano calculation 0.3 cone: "<<theCorrIso<<std::endl;
+	   std::cout<<"\nCorrected Nano calculation 0.3 cone: "<<theCorrPFIso.correctedIso_Andrew<<std::endl;
+	   std::cout<<"Corrected Alt Nano calculation 0.3 cone: "<<theCorrIso.correctedIso_Andrew<<std::endl;
 
 	   std::cout<<"***************************************"<<std::endl;
 	 }
