@@ -70,7 +70,7 @@ class electronBoostedTopologyIsoCorrectionTool : public edm::stream::EDProducer<
   EffectiveAreas theEffectiveAreas;
   bool verboseDebug;
 
-  struct isolationVariables{
+  struct IsolationVariables{
     //Non PF variables
     double correctedIso_Andrew;
     double tauSumChargedHadronPt;
@@ -201,9 +201,8 @@ electronBoostedTopologyIsoCorrectionTool::produce(edm::Event& iEvent, const edm:
        
        //double theCorrIso = this->electronCorrectIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
        //double theCorrPFIso = this->electronCorrectPFIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
-       isolationVariables theCorrIso;
-       theCorrIso.correctedIso_Andrew = this->electronCorrectIso(*theElectron, *rho, effectiveArea, boostedTauHandle)[0];
-       theCorrIso.tauSumChargedHadronPt = this->electronCorrectIso(*theElectron, *rho, effectiveArea, boostedTauHandle)[1];
+       IsolationVariables theCorrIso = this->electronCorrectIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
+       //theCorrIso.tauSumChargedHadronPt = this->electronCorrectIso(*theElectron, *rho, effectiveArea, boostedTauHandle)[1];
        PFisolationVariables theCorrPFIso;
        theCorrPFIso.correctedIso_Andrew= this->electronCorrectPFIso(*theElectron, *rho, effectiveArea, boostedTauHandle)[0];
        theCorrPFIso.tauSumChargedHadronPt= this->electronCorrectPFIso(*theElectron, *rho, effectiveArea, boostedTauHandle)[1];
@@ -320,7 +319,7 @@ electronBoostedTopologyIsoCorrectionTool::fillDescriptions(edm::ConfigurationDes
   descriptions.addDefault(desc);
 }
 
-std::vector<double> electronBoostedTopologyIsoCorrectionTool::electronCorrectIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle)
+IsolationVariables electronBoostedTopologyIsoCorrectionTool::electronCorrectIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle)
 {
   double tauSumChargedHadronPt = 0.0;
   double tauSumNeutralHadronEt = 0.0;
