@@ -56,7 +56,7 @@ struct IsolationVariables{
 
   };
 
-  struct PFisolationVariables{
+  struct PFIsolationVariables{
     //Non PF variables
     double correctedIso_Andrew;
     double tauSumChargedHadronPt;
