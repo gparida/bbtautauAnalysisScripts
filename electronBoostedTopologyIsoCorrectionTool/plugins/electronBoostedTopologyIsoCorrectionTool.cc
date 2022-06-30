@@ -78,9 +78,9 @@ class electronBoostedTopologyIsoCorrectionTool : public edm::stream::EDProducer<
       static void fillDescriptions(edm::ConfigurationDescriptions& descriptions);
 
    private:
-      virtual void beginStream(edm::StreamID) override;
-      virtual void produce(edm::Event&, const edm::EventSetup&) override;
-      virtual void endStream() override;
+
+      void produce(edm::Event&, const edm::EventSetup&) override;
+
 
   IsolationVariables electronCorrectIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
   PFIsolationVariables electronCorrectPFIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
@@ -268,48 +268,7 @@ electronBoostedTopologyIsoCorrectionTool::produce(edm::Event& iEvent, const edm:
  
 }
 
-// ------------ method called once each stream before processing any runs, lumis or events  ------------
-void
-electronBoostedTopologyIsoCorrectionTool::beginStream(edm::StreamID)
-{
-}
 
-// ------------ method called once each stream after processing all runs, lumis and events  ------------
-void
-electronBoostedTopologyIsoCorrectionTool::endStream() {
-}
-
-// ------------ method called when starting to processes a run  ------------
-/*
-void
-electronBoostedTopologyIsoCorrectionTool::beginRun(edm::Run const&, edm::EventSetup const&)
-{
-}
-*/
- 
-// ------------ method called when ending the processing of a run  ------------
-/*
-void
-electronBoostedTopologyIsoCorrectionTool::endRun(edm::Run const&, edm::EventSetup const&)
-{
-}
-*/
- 
-// ------------ method called when starting to processes a luminosity block  ------------
-/*
-void
-electronBoostedTopologyIsoCorrectionTool::beginLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
-{
-}
-*/
- 
-// ------------ method called when ending the processing of a luminosity block  ------------
-/*
-void
-electronBoostedTopologyIsoCorrectionTool::endLuminosityBlock(edm::LuminosityBlock const&, edm::EventSetup const&)
-{
-}
-*/
  
 // ------------ method fills 'descriptions' with the allowed parameters for the module  ------------
 void
