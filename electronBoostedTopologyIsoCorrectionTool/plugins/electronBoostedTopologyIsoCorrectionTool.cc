@@ -82,7 +82,7 @@ class electronBoostedTopologyIsoCorrectionTool : public edm::stream::EDProducer<
       virtual void produce(edm::Event&, const edm::EventSetup&) override;
       virtual void endStream() override;
 
-  IsolationVariable electronCorrectIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
+  IsolationVariables electronCorrectIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
   PFIsolationVariables electronCorrectPFIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
 
       //virtual void beginRun(edm::Run const&, edm::EventSetup const&) override;
