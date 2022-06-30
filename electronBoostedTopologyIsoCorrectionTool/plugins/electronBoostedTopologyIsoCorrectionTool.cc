@@ -121,7 +121,7 @@ electronBoostedTopologyIsoCorrectionTool::electronBoostedTopologyIsoCorrectionTo
     verboseDebug = iConfig.exists("verboseDebug") ? iConfig.getParameter<bool>("verboseDebug"): false;
     produces<edm::ValueMap<float>>("TauCorrIso");
     produces<edm::ValueMap<float>>("TauCorrPfIso");
-    produces<edm::ValueMap<float>>("PfSumChaHadPt"); 
+    produces<edm::ValueMap<float>>("PfSumChaHad"); 
    //register your products
 /* Examples
    produces<ExampleData2>();
