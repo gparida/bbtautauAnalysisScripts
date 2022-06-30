@@ -55,8 +55,8 @@ class electronBoostedTopologyIsoCorrectionTool : public edm::stream::EDProducer<
       virtual void produce(edm::Event&, const edm::EventSetup&) override;
       virtual void endStream() override;
 
-  virtual std::vector<double> electronCorrectIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
-  virtual std::vector<double> electronCorrectPFIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
+  IsolationVariable electronCorrectIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
+  PFIsolationVariables electronCorrectPFIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
 
       //virtual void beginRun(edm::Run const&, edm::EventSetup const&) override;
       //virtual void endRun(edm::Run const&, edm::EventSetup const&) override;
@@ -203,9 +203,9 @@ electronBoostedTopologyIsoCorrectionTool::produce(edm::Event& iEvent, const edm:
        //double theCorrPFIso = this->electronCorrectPFIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
        IsolationVariables theCorrIso = this->electronCorrectIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
        //theCorrIso.tauSumChargedHadronPt = this->electronCorrectIso(*theElectron, *rho, effectiveArea, boostedTauHandle)[1];
-       PFisolationVariables theCorrPFIso;
-       theCorrPFIso.correctedIso_Andrew= this->electronCorrectPFIso(*theElectron, *rho, effectiveArea, boostedTauHandle)[0];
-       theCorrPFIso.tauSumChargedHadronPt= this->electronCorrectPFIso(*theElectron, *rho, effectiveArea, boostedTauHandle)[1];
+       PFisolationVariables theCorrPFIso this->electronCorrectPFIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
+       //theCorrPFIso.correctedIso_Andrew= 
+       //theCorrPFIso.tauSumChargedHadronPt= this->electronCorrectPFIso(*theElectron, *rho, effectiveArea, boostedTauHandle)[1];
 
 
        theCorrIsoVector.push_back(theCorrIso.correctedIso_Andrew);
