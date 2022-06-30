@@ -43,6 +43,33 @@
 // class declaration
 //
 
+struct IsolationVariables{
+    //Non PF variables
+    double correctedIso_Andrew;
+    double tauSumChargedHadronPt;
+    double tauSumNeutralHadronEt;
+    double tauSumPhotonEt;
+
+    //commmon variables
+    double rho;
+    double ea;
+
+  };
+
+  struct PFisolationVariables{
+    //Non PF variables
+    double correctedIso_Andrew;
+    double tauSumChargedHadronPt;
+    double tauSumNeutralHadronEt;
+    double tauSumPhotonEt;
+
+    //commmon variables
+    double rho;
+    double ea;
+
+  };
+
+
 class electronBoostedTopologyIsoCorrectionTool : public edm::stream::EDProducer<> {
    public:
       explicit electronBoostedTopologyIsoCorrectionTool(const edm::ParameterSet&);
@@ -70,32 +97,7 @@ class electronBoostedTopologyIsoCorrectionTool : public edm::stream::EDProducer<
   EffectiveAreas theEffectiveAreas;
   bool verboseDebug;
 
-  struct IsolationVariables{
-    //Non PF variables
-    double correctedIso_Andrew;
-    double tauSumChargedHadronPt;
-    double tauSumNeutralHadronEt;
-    double tauSumPhotonEt;
-
-    //commmon variables
-    double rho;
-    double ea;
-
-  };
-
-  struct PFisolationVariables{
-    //Non PF variables
-    double correctedIso_Andrew;
-    double tauSumChargedHadronPt;
-    double tauSumNeutralHadronEt;
-    double tauSumPhotonEt;
-
-    //commmon variables
-    double rho;
-    double ea;
-
-  };
-
+  
 };
 
 //
