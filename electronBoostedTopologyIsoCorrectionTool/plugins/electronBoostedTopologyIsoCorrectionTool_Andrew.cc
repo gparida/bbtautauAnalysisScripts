@@ -55,8 +55,8 @@ class electronBoostedTopologyIsoCorrectionTool : public edm::stream::EDProducer<
       virtual void produce(edm::Event&, const edm::EventSetup&) override;
       virtual void endStream() override;
 
-  virtual std::vector<double> electronCorrectIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
-  virtual std::vector<double> electronCorrectPFIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
+  virtual double electronCorrectIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
+  virtual double electronCorrectPFIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle);
 
       //virtual void beginRun(edm::Run const&, edm::EventSetup const&) override;
       //virtual void endRun(edm::Run const&, edm::EventSetup const&) override;
@@ -69,32 +69,6 @@ class electronBoostedTopologyIsoCorrectionTool : public edm::stream::EDProducer<
   edm::EDGetTokenT<double> rhoSrc;
   EffectiveAreas theEffectiveAreas;
   bool verboseDebug;
-
-  struct isolationVariables{
-    //Non PF variables
-    double correctedIso_Andrew;
-    double tauSumChargedHadronPt;
-    double tauSumNeutralHadronEt;
-    double tauSumPhotonEt;
-
-    //commmon variables
-    double rho;
-    double ea;
-
-  }
-
-  struct PFisolationVariables{
-    //Non PF variables
-    double correctedIso_Andrew;
-    double tauSumChargedHadronPt;
-    double tauSumNeutralHadronEt;
-    double tauSumPhotonEt;
-
-    //commmon variables
-    double rho;
-    double ea;
-
-  }
 
 };
 
@@ -119,7 +93,6 @@ electronBoostedTopologyIsoCorrectionTool::electronBoostedTopologyIsoCorrectionTo
     verboseDebug = iConfig.exists("verboseDebug") ? iConfig.getParameter<bool>("verboseDebug"): false;
     produces<edm::ValueMap<float>>("TauCorrIso");
     produces<edm::ValueMap<float>>("TauCorrPfIso");
-    produces<edm::ValueMap<float>>("PfSumChaHadPt"); 
    //register your products
 /* Examples
    produces<ExampleData2>();
@@ -185,7 +158,6 @@ electronBoostedTopologyIsoCorrectionTool::produce(edm::Event& iEvent, const edm:
    std::vector<float> theCorrIsoVector, theCorrPFIsoVector;
    theCorrIsoVector.reserve(nElectrons);
    theCorrPFIsoVector.reserve(nElectrons);
-   thePFSumHadPtVector.reserve(nElectrons);
 
    for (std::vector<pat::Electron>::const_iterator theElectron = electronHandle->begin();
 	theElectron != electronHandle->end();
@@ -199,16 +171,11 @@ electronBoostedTopologyIsoCorrectionTool::produce(edm::Event& iEvent, const edm:
        double altNano0p3ConeCalculation = theElectron->chargedHadronIso()+std::max(0.0, theElectron->neutralHadronIso()+theElectron->photonIso()-(*rho)*effectiveArea);
        double nano0p4ConeCalculation = theElectron->chargedHadronIso()+std::max(0.0, theElectron->neutralHadronIso()+theElectron->photonIso()-(*rho)*effectiveArea*16.0/9.0); // 16/9 for 0.4 vs 0.3 cone?
        
-       //double theCorrIso = this->electronCorrectIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
-       //double theCorrPFIso = this->electronCorrectPFIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
+       double theCorrIso = this->electronCorrectIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
+       double theCorrPFIso = this->electronCorrectPFIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
 
-       isolationVariables theCorrIso = this->electronCorrectIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
-       PFisolationVariables theCorrPFIso = this->electronCorrectPFIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
-
-       theCorrIsoVector.push_back(theCorrIso.correctedIso_Andrew);
-
-       theCorrPFIsoVector.push_back(theCorrPFIso.correctedIso_Andrew);
-       thePFSumHadPtVector.push_back(theCorrPFIso.tauSumChargedHadronPt);
+       theCorrIsoVector.push_back(theCorrIso);
+       theCorrPFIsoVector.push_back(theCorrPFIso);
 
        if(verboseDebug)
 	 {
@@ -250,16 +217,9 @@ electronBoostedTopologyIsoCorrectionTool::produce(edm::Event& iEvent, const edm:
    fillerCorrPFIso.insert(electronHandle, theCorrPFIsoVector.begin(), theCorrPFIsoVector.end());
    fillerCorrPFIso.fill();
 
-   std::unique_ptr<edm::ValueMap<float>> PFsumHadChaV(new edm::ValueMap<float>());
-   edm::ValueMap<float>::Filler fillerPFsumHadCha(*PFsumHadChaV);
-   fillerPFsumHadCha.insert(electronHandle, thePFSumHadPtVector.begin(), thePFSumHadPtVector.end());
-   fillerPFsumHadCha.fill();
-
 
    iEvent.put(std::move(corrIsoV), "TauCorrIso");
    iEvent.put(std::move(corrPFIsoV), "TauCorrPfIso");
-   iEvent.put(std::move(PFsumHadChaV), "PfSumChaHad");
-   
  
 }
 
@@ -316,7 +276,7 @@ electronBoostedTopologyIsoCorrectionTool::fillDescriptions(edm::ConfigurationDes
   descriptions.addDefault(desc);
 }
 
-std::vector<double> electronBoostedTopologyIsoCorrectionTool::electronCorrectIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle)
+double electronBoostedTopologyIsoCorrectionTool::electronCorrectIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle)
 {
   double tauSumChargedHadronPt = 0.0;
   double tauSumNeutralHadronEt = 0.0;
@@ -368,10 +328,10 @@ std::vector<double> electronBoostedTopologyIsoCorrectionTool::electronCorrectIso
   double sumNeutralHadronPt = std::max(0.0, ele.neutralHadronIso()-tauSumNeutralHadronEt+ele.photonIso()-tauSumPhotonEt);
   double correctedIso = sumChargedHadronPt + std::max(sumNeutralHadronPt - rho * ea, 0.0);
 
-  return {correctedIso, sumChargedHadronPt, sumNeutralHadronPt, tauSumPhotonEt, rho, ea};
+  return correctedIso;
 }
 
-std::vector<double> electronBoostedTopologyIsoCorrectionTool::electronCorrectPFIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle)
+double electronBoostedTopologyIsoCorrectionTool::electronCorrectPFIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle)
 {
   double tauSumChargedHadronPt = 0.0;
   double tauSumNeutralHadronEt = 0.0;
@@ -421,10 +381,9 @@ std::vector<double> electronBoostedTopologyIsoCorrectionTool::electronCorrectPFI
 
   double sumChargedHadronPt = std::max(0.0, ele.pfIsolationVariables().sumChargedHadronPt-tauSumChargedHadronPt);
   double sumNeutralHadronPt = std::max(0.0, ele.pfIsolationVariables().sumNeutralHadronEt-tauSumNeutralHadronEt+ele.pfIsolationVariables().sumPhotonEt-tauSumPhotonEt);
-  double correctedIso = sumChargedHadronPt + std::max(sumNeutralHadronPt - rho * ea
-  , 0.0);
+  double correctedIso = sumChargedHadronPt + std::max(sumNeutralHadronPt - rho * ea, 0.0);
 
-  return {correctedIso, sumChargedHadronPt, sumNeutralHadronPt, tauSumPhotonEt, rho, ea};
+  return correctedIso;
 }
 
 
