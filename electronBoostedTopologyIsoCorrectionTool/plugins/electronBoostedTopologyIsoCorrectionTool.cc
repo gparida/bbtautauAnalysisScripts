@@ -182,7 +182,7 @@ electronBoostedTopologyIsoCorrectionTool::produce(edm::Event& iEvent, const edm:
    if (verboseDebug) std::cout<<"nElectrons: "<<nElectrons<<std::endl;
 
 
-   std::vector<float> theCorrIsoVector, theCorrPFIsoVector;
+   std::vector<float> theCorrIsoVector, theCorrPFIsoVector,thePFSumHadPtVector;
    theCorrIsoVector.reserve(nElectrons);
    theCorrPFIsoVector.reserve(nElectrons);
    thePFSumHadPtVector.reserve(nElectrons);
