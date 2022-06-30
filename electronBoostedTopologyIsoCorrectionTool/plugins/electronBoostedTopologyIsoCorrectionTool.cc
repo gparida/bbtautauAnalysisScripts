@@ -201,9 +201,10 @@ electronBoostedTopologyIsoCorrectionTool::produce(edm::Event& iEvent, const edm:
        
        //double theCorrIso = this->electronCorrectIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
        //double theCorrPFIso = this->electronCorrectPFIso(*theElectron, *rho, effectiveArea, boostedTauHandle);
-
-       isolationVariables theCorrIso.correctedIso_Andrew = this->electronCorrectIso(*theElectron, *rho, effectiveArea, boostedTauHandle)[0];
-       PFisolationVariables theCorrPFIso.correctedIso_Andrew = this->electronCorrectPFIso(*theElectron, *rho, effectiveArea, boostedTauHandle)[0];
+       isolationVariables theCorrIso;
+       theCorrIso.correctedIso_Andrew = this->electronCorrectIso(*theElectron, *rho, effectiveArea, boostedTauHandle)[0];
+       PFisolationVariables theCorrPFIso;
+       theCorrPFIso.correctedIso_Andrew = this->electronCorrectPFIso(*theElectron, *rho, effectiveArea, boostedTauHandle)[0];
 
        theCorrIsoVector.push_back(theCorrIso.correctedIso_Andrew);
 
