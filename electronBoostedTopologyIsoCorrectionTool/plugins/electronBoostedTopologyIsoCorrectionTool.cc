@@ -376,7 +376,7 @@ IsolationVariables electronBoostedTopologyIsoCorrectionTool::electronCorrectIso(
   return {correctedIso, sumChargedHadronPt, sumNeutralHadronPt, tauSumPhotonEt, rho, ea};
 }
 
-std::vector<double> electronBoostedTopologyIsoCorrectionTool::electronCorrectPFIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle)
+PFIsolationVariables electronBoostedTopologyIsoCorrectionTool::electronCorrectPFIso(pat::Electron ele, double rho, double ea, edm::Handle<std::vector<pat::Tau>> boostedTauCollectionHandle)
 {
   double tauSumChargedHadronPt = 0.0;
   double tauSumNeutralHadronEt = 0.0;
