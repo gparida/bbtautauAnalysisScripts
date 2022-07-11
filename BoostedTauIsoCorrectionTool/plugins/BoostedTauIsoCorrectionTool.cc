@@ -20,6 +20,7 @@
 #include "DataFormats/PatCandidates/interface/Tau.h"
 #include "DataFormats/PatCandidates/interface/Electron.h"
 #include "DataFormats/PatCandidates/interface/Muon.h"
+#include "DataFormats/MuonReco/interface/MuonSelectors.h"
 
 
 struct Electron_IsoCompForTausColl{
@@ -72,7 +73,7 @@ class BoostedTauIsoCorrectionTool : public edm::stream::EDProducer<> {
       void produce(edm::Event&, const edm::EventSetup&) override;
 
     Electron_IsoCompForTausColl compElectron_IsoCompForTausColl(double rho, int index, edm::Handle<std::vector<pat::Electron>> electronCollection, edm::Handle<std::vector<pat::Tau>> boostedTauCollection);
-    Muon_IsoCompForTausColl compMuon_IsoCompForTausColl (int index, edm::Handle<std::vector<pat::Muon>> muonCollection, edm::Handle<std::vector<pat::Tau>> boostedTauCollection)
+    Muon_IsoCompForTausColl compMuon_IsoCompForTausColl (int index, edm::Handle<std::vector<pat::Muon>> muonCollection, edm::Handle<std::vector<pat::Tau>> boostedTauCollection);
 
     edm::EDGetTokenT< std::vector<pat::Electron> > electronCollection;
     edm::EDGetTokenT< std::vector<pat::Tau> > boostedTauCollection;
@@ -92,46 +93,46 @@ BoostedTauIsoCorrectionTool::BoostedTauIsoCorrectionTool(const edm::ParameterSet
   boostedTauCollection(consumes< std::vector<pat::Tau> >(iConfig.getParameter< edm::InputTag >("boostedTauCollection"))),
   muonCollection(consumes< std::vector<pat::Muon> >(iConfig.getParameter< edm::InputTag >("muonCollection"))),
   rhoSrc(consumes<double> (iConfig.getParameter<edm::InputTag> ("rhoSrc"))),
-  theEffectiveAreas(iConfig.getParameter< edm::FileInPath>("EAConfigFile").fullPath())
+  theEffectiveAreas(iConfig.getParameter< edm::FileInPath>("EAConfigFile").fullPath()),
   theEffectiveAreas2(iConfig.getParameter< edm::FileInPath>("EAConfigFile2").fullPath())
 {
     verboseDebug = iConfig.exists("verboseDebug") ? iConfig.getParameter<bool>("verboseDebug"): false;
 
     // Create variables for Electron Isolation
-    produces<edm::ValueMap<float>>("ForE_tau_SumChargedHadronPt");
-    produces<edm::ValueMap<float>>("ForE_tau_SumPhotonEt");
-    produces<edm::ValueMap<float>>("ForE_tau_SumNeutralHadronEt");
+    produces<edm::ValueMap<float>>("ForEtauSumChargedHadronPt");
+    produces<edm::ValueMap<float>>("ForEtauSumPhotonEt");
+    produces<edm::ValueMap<float>>("ForEtauSumNeutralHadronEt");
 
-    produces<edm::ValueMap<float>>("E_SumChargedHadronPt");
-    produces<edm::ValueMap<float>>("E_SumNeutralHadronEt");
-    produces<edm::ValueMap<float>>("E_SumPhotonEt");
-    produces<edm::ValueMap<float>>("E_rho");
-    produces<edm::ValueMap<float>>("E_ea");
+    produces<edm::ValueMap<float>>("ESumChargedHadronPt");
+    produces<edm::ValueMap<float>>("ESumNeutralHadronEt");
+    produces<edm::ValueMap<float>>("ESumPhotonEt");
+    produces<edm::ValueMap<float>>("Erho");
+    produces<edm::ValueMap<float>>("Eea");
 
-    produces<edm::ValueMap<int>>("E_counter");
-    produces<edm::ValueMap<float>>("E_matchedPt");
-    produces<edm::ValueMap<float>>("E_matchedEta");
-    produces<edm::ValueMap<float>>("E_matchedPhi");
-    produces<edm::ValueMap<float>>("E_matchedMass");
+    produces<edm::ValueMap<int>>("Ecounter");
+    produces<edm::ValueMap<float>>("EmatchedPt");
+    produces<edm::ValueMap<float>>("EmatchedEta");
+    produces<edm::ValueMap<float>>("EmatchedPhi");
+    produces<edm::ValueMap<float>>("EmatchedMass");
      
     // Create variables for Muon Isolation
 
 
-    produces<edm::ValueMap<float>>("ForM_tau_SumChargedHadronPt");
-    produces<edm::ValueMap<float>>("ForM_tau_SumPhotonEt");
-    produces<edm::ValueMap<float>>("ForM_tau_SumNeutralHadronEt");
+    produces<edm::ValueMap<float>>("ForMtauSumChargedHadronPt");
+    produces<edm::ValueMap<float>>("ForMtauSumPhotonEt");
+    produces<edm::ValueMap<float>>("ForMtauSumNeutralHadronEt");
 
-    produces<edm::ValueMap<float>>("M_SumChargedHadronPt");
-    produces<edm::ValueMap<float>>("M_SumNeutralHadronEt");
-    produces<edm::ValueMap<float>>("M_SumPhotonEt");
-    produces<edm::ValueMap<float>>("M_sumPUPt");
+    produces<edm::ValueMap<float>>("MSumChargedHadronPt");
+    produces<edm::ValueMap<float>>("MSumNeutralHadronEt");
+    produces<edm::ValueMap<float>>("MSumPhotonEt");
+    produces<edm::ValueMap<float>>("MsumPUPt");
   
 
-    produces<edm::ValueMap<int>>("M_counter");
-    produces<edm::ValueMap<float>>("M_matchedPt");
-    produces<edm::ValueMap<float>>("M_matchedEta");
-    produces<edm::ValueMap<float>>("M_matchedPhi");
-    produces<edm::ValueMap<float>>("M_matchedMass");    
+    produces<edm::ValueMap<int>>("Mcounter");
+    produces<edm::ValueMap<float>>("MmatchedPt");
+    produces<edm::ValueMap<float>>("MmatchedEta");
+    produces<edm::ValueMap<float>>("MmatchedPhi");
+    produces<edm::ValueMap<float>>("MmatchedMass");    
 
     
     //produces<edm::ValueMap<float>>("PfSumChaHad"); 
@@ -267,7 +268,7 @@ BoostedTauIsoCorrectionTool::produce(edm::Event& iEvent, const edm::EventSetup& 
 
      }
    
-   std::cout<<"Returned after calling the function"<<std::endl;
+   //std::cout<<"Returned after calling the function"<<std::endl;
 
    //value maps for electrons
    std::unique_ptr<edm::ValueMap<float>> ForE_tau_SumChargedHadronPtV(new edm::ValueMap<float>());
@@ -281,7 +282,7 @@ BoostedTauIsoCorrectionTool::produce(edm::Event& iEvent, const edm::EventSetup& 
    fillerForE_tau_SumPhotonEt.fill();
 
    std::unique_ptr<edm::ValueMap<float>> ForE_tau_SumNeutralHadronEtV(new edm::ValueMap<float>());
-   edm::ValueMap<float>::Filler fillerForE_tau_SumNeutralHadronEt(*ForE_tau_SumNeutralHadronEt);
+   edm::ValueMap<float>::Filler fillerForE_tau_SumNeutralHadronEt(*ForE_tau_SumNeutralHadronEtV);
    fillerForE_tau_SumNeutralHadronEt.insert(boostedTauHandle, ForE_tau_SumNeutralHadronEtVec.begin(), ForE_tau_SumNeutralHadronEtVec.end());
    fillerForE_tau_SumNeutralHadronEt.fill();
 
@@ -404,37 +405,37 @@ BoostedTauIsoCorrectionTool::produce(edm::Event& iEvent, const edm::EventSetup& 
 
    /////////////////////////////////////////////////////////////////////////////////////////////////
 
-   std::cout<<"No error after filler 2"<<std::endl;
+   //std::cout<<"No error after filler 2"<<std::endl;
 
 
    //Register for Electrons
-   iEvent.put(std::move(ForE_tau_SumChargedHadronPtV), "ForE_tau_SumChargedHadronPt");
-   iEvent.put(std::move(ForE_tau_SumPhotonEtV), "ForE_tau_SumPhotonEt");
-   iEvent.put(std::move(ForE_tau_SumNeutralHadronEtV), "ForE_tau_SumNeutralHadronEt");
-   iEvent.put(std::move(E_SumChargedHadronPtV), "E_SumChargedHadronPt");
-   iEvent.put(std::move(E_SumNeutralHadronEtV), "E_SumNeutralHadronEt");
-   iEvent.put(std::move(E_SumPhotonEtV), "E_SumPhotonEt");
-   iEvent.put(std::move(E_rhoV), "E_rho");
-   iEvent.put(std::move(E_eaV), "E_ea"); 
-   iEvent.put(std::move(E_counterV), "E_counter");
-   iEvent.put(std::move(E_matchedPtV), "E_matchedPt");
-   iEvent.put(std::move(E_matchedEtaV), "E_matchedEta");
-   iEvent.put(std::move(E_matchedPhiV), "E_matchedPhi");
-   iEvent.put(std::move(E_matchedMassV), "E_matchedMass");
+   iEvent.put(std::move(ForE_tau_SumChargedHadronPtV), "ForEtauSumChargedHadronPt");
+   iEvent.put(std::move(ForE_tau_SumPhotonEtV), "ForEtauSumPhotonEt");
+   iEvent.put(std::move(ForE_tau_SumNeutralHadronEtV), "ForEtauSumNeutralHadronEt");
+   iEvent.put(std::move(E_SumChargedHadronPtV), "ESumChargedHadronPt");
+   iEvent.put(std::move(E_SumNeutralHadronEtV), "ESumNeutralHadronEt");
+   iEvent.put(std::move(E_SumPhotonEtV), "ESumPhotonEt");
+   iEvent.put(std::move(E_rhoV), "Erho");
+   iEvent.put(std::move(E_eaV), "Eea"); 
+   iEvent.put(std::move(E_counterV), "Ecounter");
+   iEvent.put(std::move(E_matchedPtV), "EmatchedPt");
+   iEvent.put(std::move(E_matchedEtaV), "EmatchedEta");
+   iEvent.put(std::move(E_matchedPhiV), "EmatchedPhi");
+   iEvent.put(std::move(E_matchedMassV), "EmatchedMass");
    
    //Register for Muons
-   iEvent.put(std::move(ForM_tau_SumChargedHadronPtV), "ForM_tau_SumChargedHadronPt");
-   iEvent.put(std::move(ForM_tau_SumPhotonEtV), "ForM_tau_SumPhotonEt");
-   iEvent.put(std::move(ForM_tau_SumNeutralHadronEtV), "ForM_tau_SumNeutralHadronEt");
-   iEvent.put(std::move(M_SumChargedHadronPtV), "M_SumChargedHadronPt");
-   iEvent.put(std::move(M_SumNeutralHadronEtV), "M_SumNeutralHadronEt");
-   iEvent.put(std::move(M_SumPhotonEtV), "M_SumPhotonEt");
-   iEvent.put(std::move(M_sumPUPtV), "M_sumPUPt");
-   iEvent.put(std::move(M_counterV), "M_counter");
-   iEvent.put(std::move(M_matchedPtV), "M_matchedPt");
-   iEvent.put(std::move(M_matchedEtaV), "M_matchedEta");
-   iEvent.put(std::move(M_matchedPhiV), "M_matchedPhi");
-   iEvent.put(std::move(M_matchedMassV), "M_matchedMass");
+   iEvent.put(std::move(ForM_tau_SumChargedHadronPtV), "ForMtauSumChargedHadronPt");
+   iEvent.put(std::move(ForM_tau_SumPhotonEtV), "ForMtauSumPhotonEt");
+   iEvent.put(std::move(ForM_tau_SumNeutralHadronEtV), "ForMtauSumNeutralHadronEt");
+   iEvent.put(std::move(M_SumChargedHadronPtV), "MSumChargedHadronPt");
+   iEvent.put(std::move(M_SumNeutralHadronEtV), "MSumNeutralHadronEt");
+   iEvent.put(std::move(M_SumPhotonEtV), "MSumPhotonEt");
+   iEvent.put(std::move(M_sumPUPtV), "MsumPUPt");
+   iEvent.put(std::move(M_counterV), "Mcounter");
+   iEvent.put(std::move(M_matchedPtV), "MmatchedPt");
+   iEvent.put(std::move(M_matchedEtaV), "MmatchedEta");
+   iEvent.put(std::move(M_matchedPhiV), "MmatchedPhi");
+   iEvent.put(std::move(M_matchedMassV), "MmatchedMass");
 
 
 }
@@ -473,46 +474,57 @@ Electron_IsoCompForTausColl BoostedTauIsoCorrectionTool::compElectron_IsoCompFor
   
   //double tauSumNeutralHadronEt = 0.0;
   //double tauSumPhotonEt        = 0.0;
-  //double dRmin = 0.4;
+  double dRmin = 0.4;
   //pat::Electron& matchedElectron;
   //std::cout<<"without Error so Far 1"<<std::endl;
 
   pat::TauRef tau(boostedTauCollection, index);
   pat::Electron matchedElectron;
+  std::vector<pat::Electron>::const_iterator matIteEle;
 
   //std::cout<<"without Error so Far 2"<<std::endl; 
     
 
-  for(auto& theEle: *electronCollection)
-  //for (std::vector<pat::Electron>::const_iterator theEle = electronCollection->begin(); theEle != electronCollection->end(); ++theEle)
+  //for(auto& theEle: *electronCollection)
+  for (std::vector<pat::Electron>::const_iterator IteEle = electronCollection->begin(); IteEle != electronCollection->end(); ++IteEle)
     {
+
+      pat::Electron theEle = *IteEle;
+      
       //pat::ElectronRef theEle(electronCollection, eleIndex);
-      std::cout<<"without Error so Far 3 "<< tau->eta()<<tau->phi()<<theEle.eta()<<theEle.phi()<<std::endl;
+      //std::cout<<"without Error so Far 3 "<< tau->eta()<<tau->phi()<<theEle.eta()<<theEle.phi()<<std::endl;
       double deltaR = reco::deltaR(theEle.eta(), theEle.phi(), tau->eta(), tau->phi());
-      std::cout<<"without Error so Far 3.5 deltaR = "<<deltaR<<std::endl;
+      //std::cout<<"without Error so Far 3.5 deltaR = "<<deltaR<<std::endl;
+      std::cout<<"Before Matching Pt = "<<theEle.pt()<<" mass = "<<theEle.mass()<<std::endl;
+      std::cout<<"ID = "<<theEle.electronID("cutBasedElectronID-Fall17-94X-V2-loose")<<" if it is 0 go to next Ele"<<std::endl;
       if (deltaR < dRmin && deltaR > 0.02)
+      //if (deltaR < dRmin && deltaR > 0.02 && theEle.electronID("cutBasedElectronID-Fall17-94X-V2-loose"))
       {
          E_counter = E_counter + 1;
-         if (theEle.pt() > matchedPt)
+         std::cout<<"After Matching Pt = "<<theEle.pt()<<" mass = "<<theEle.mass()<<" ELectron Counter = "<< E_counter<<std::endl;
+         if (theEle.pt() > E_matchedPt)
          {
-            std::cout<<"without Error so Far 4"<<std::endl;
-            pat::Electron matchedElectron = theEle;
-            matchedPt = theEle.pt();
+
+            std::cout<<"Pt is greater than previous match = "<<theEle.pt()<<" mass = "<<theEle.mass()<<std::endl;
+            //std::cout<<"without Error so Far 4"<<std::endl;
+            matchedElectron = theEle;
+            matIteEle = IteEle;
+            E_matchedPt = theEle.pt();
          }
 
       }
 
     }
 
-  if(matchedPt > 0.0)
+  if(E_matchedPt > 0.0)
    {
 
-      std::cout<<"without Error so Far 5"<<std::endl;
+      //std::cout<<"without Error so Far 5"<<std::endl;
       for (size_t hadrCandInd = 0;
 	   hadrCandInd <tau->signalChargedHadrCands().size();
 	   hadrCandInd++)
 	{
-    std::cout<<"without Error so Far 6"<<std::endl;
+    //std::cout<<"without Error so Far 6"<<std::endl;
 	  double dRConst = reco::deltaR(matchedElectron.eta(), matchedElectron.phi(), tau->signalChargedHadrCands()[hadrCandInd]->eta(),tau->signalChargedHadrCands()[hadrCandInd]->phi());
 	  if (dRConst < 0.3) ForE_tau_SumChargedHadronPt += tau->signalChargedHadrCands()[hadrCandInd]->pt();
 	}
@@ -534,14 +546,18 @@ Electron_IsoCompForTausColl BoostedTauIsoCorrectionTool::compElectron_IsoCompFor
    E_SumChargedHadronPt = matchedElectron.pfIsolationVariables().sumChargedHadronPt;
    E_SumNeutralHadronEt = matchedElectron.pfIsolationVariables().sumNeutralHadronEt;
    E_SumPhotonEt = matchedElectron.pfIsolationVariables().sumPhotonEt;
-   E_rho = rho;.
-   E_ea = theEffectiveAreas.getEffectiveArea(fabs(matchedElectron.superCluster()->eta()));
+   E_rho = rho;
+   //std::cout <<"no error 7 "<<std::endl;//"<<matchedElectron.mass() <<" EA = "<<theEffectiveAreas.getEffectiveArea(fabs(matchedElectron.superCluster()->eta()));
+   E_ea = theEffectiveAreas.getEffectiveArea(fabs(matIteEle->superCluster()->eta()));
+   //std::cout <<"no error 7.5 and the effective area is "<<E_ea<<std::endl;
    E_matchedPt = matchedElectron.pt();
    E_matchedEta = matchedElectron.eta();
    E_matchedPhi = matchedElectron.phi();
+   //std::cout <<"no error 8 "<<std::endl;
    E_matchedMass = matchedElectron.mass();
+   //std::cout <<"no error 9, mass = "<<matchedElectron.mass()<<"Phi = "<<matchedElectron.phi()<<std::endl;
    }
-   
+   std::cout<<"ForE_tau_SumChargedHadronPt = "<<ForE_tau_SumChargedHadronPt<<" ForE_tau_SumPhotonEt = "<<ForE_tau_SumPhotonEt<<" ForE_tau_SumNeutralHadronEt = "<<ForE_tau_SumNeutralHadronEt<<" E_SumChargedHadronPt = "<<E_SumChargedHadronPt<<" E_SumNeutralHadronEt = "<<E_SumNeutralHadronEt<<" E_SumPhotonEt = "<<E_SumPhotonEt<<std::endl;
 
 
 
@@ -583,13 +599,15 @@ Muon_IsoCompForTausColl BoostedTauIsoCorrectionTool::compMuon_IsoCompForTausColl
     double M_matchedPhi = 0.0;
     double M_matchedMass = 0.0;
 
+    double dRmin = 0.4;
+
     pat::TauRef tau(boostedTauCollection, index);
     pat::Muon matchedMuon;
 
     for(auto& theMuo: *muonCollection)
     {
       double deltaR = reco::deltaR(theMuo.eta(), theMuo.phi(), tau->eta(), tau->phi());
-      if (deltaR < dRmin && deltaR > 0.02)
+      if (deltaR < dRmin && deltaR > 0.02 && theMuo.passed(reco::Muon::CutBasedIdLoose))
       {
         M_counter = M_counter + 1;
         if (theMuo.pt() > M_matchedPt)
@@ -602,7 +620,7 @@ Muon_IsoCompForTausColl BoostedTauIsoCorrectionTool::compMuon_IsoCompForTausColl
       
     }
 
-    if(matchedPt > 0.0)
+    if(M_matchedPt > 0.0)
     {
       for (size_t hadrCandInd = 0;
 	   hadrCandInd <tau->signalChargedHadrCands().size();
@@ -636,7 +654,7 @@ Muon_IsoCompForTausColl BoostedTauIsoCorrectionTool::compMuon_IsoCompForTausColl
     }
     
 
-    return {ForE_tau_SumChargedHadronPt, 
+    return {ForM_tau_SumChargedHadronPt, 
             ForM_tau_SumPhotonEt, 
             ForM_tau_SumNeutralHadronEt, 
             M_SumChargedHadronPt, 
@@ -648,7 +666,7 @@ Muon_IsoCompForTausColl BoostedTauIsoCorrectionTool::compMuon_IsoCompForTausColl
             M_matchedEta,
             M_matchedPhi,
             M_matchedMass,
-            }
+            };
 
 
 

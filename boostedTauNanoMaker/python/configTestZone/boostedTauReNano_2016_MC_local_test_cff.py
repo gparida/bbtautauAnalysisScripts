@@ -53,7 +53,7 @@ process.NANOAODSIMoutput = cms.OutputModule("NanoAODOutputModule",
         dataTier = cms.untracked.string('NANOAODSIM'),
         filterName = cms.untracked.string('')
     ),
-    fileName = cms.untracked.string('file:RadionNano.root'),
+    fileName = cms.untracked.string('file:RadionNano_2.root'),
     outputCommands = process.NANOAODSIMEventContent.outputCommands,
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('nanoAOD_step')
