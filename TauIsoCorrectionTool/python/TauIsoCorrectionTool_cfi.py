@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
-BoostedTauIsoCorrectionTool = cms.EDProducer('BoostedTauIsoCorrectionTool',
+IsoCorrectionTool = cms.EDProducer('TauIsoCorrectionTool',
                                            #boostedTauCollection = cms.InputTag('slimmedTausBoosted'),
                                            TauCollection = cms.InputTag('slimmedTaus'),
                                            electronCollection = cms.InputTag('slimmedElectrons'),
