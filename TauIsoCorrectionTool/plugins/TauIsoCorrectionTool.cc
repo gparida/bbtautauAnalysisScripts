@@ -72,7 +72,7 @@ class TauIsoCorrectionTool : public edm::stream::EDProducer<> {
       void produce(edm::Event&, const edm::EventSetup&) override;
 
     Electron_IsoCompForTausColl compElectron_IsoCompForTausColl(double rho, int index, edm::Handle<std::vector<pat::Electron>> electronCollection, edm::Handle<std::vector<pat::Tau>> TauCollection);
-    Muon_IsoCompForTausColl compMuon_IsoCompForTausColl (int index, edm::Handle<std::vector<pat::Muon>> muonCollection, edm::Handle<std::vector<pat::Tau>> TauCollection)
+    Muon_IsoCompForTausColl compMuon_IsoCompForTausColl (int index, edm::Handle<std::vector<pat::Muon>> muonCollection, edm::Handle<std::vector<pat::Tau>> TauCollection);
 
     edm::EDGetTokenT< std::vector<pat::Electron> > electronCollection;
     edm::EDGetTokenT< std::vector<pat::Tau> > TauCollection;
