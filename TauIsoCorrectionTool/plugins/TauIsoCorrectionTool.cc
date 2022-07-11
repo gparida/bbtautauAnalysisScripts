@@ -92,7 +92,7 @@ TauIsoCorrectionTool::TauIsoCorrectionTool(const edm::ParameterSet& iConfig):
   TauCollection(consumes< std::vector<pat::Tau> >(iConfig.getParameter< edm::InputTag >("TauCollection"))),
   muonCollection(consumes< std::vector<pat::Muon> >(iConfig.getParameter< edm::InputTag >("muonCollection"))),
   rhoSrc(consumes<double> (iConfig.getParameter<edm::InputTag> ("rhoSrc"))),
-  theEffectiveAreas(iConfig.getParameter< edm::FileInPath>("EAConfigFile").fullPath())
+  theEffectiveAreas(iConfig.getParameter< edm::FileInPath>("EAConfigFile").fullPath()),
   theEffectiveAreas2(iConfig.getParameter< edm::FileInPath>("EAConfigFile2").fullPath())
 {
     verboseDebug = iConfig.exists("verboseDebug") ? iConfig.getParameter<bool>("verboseDebug"): false;
