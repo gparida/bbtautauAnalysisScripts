@@ -165,8 +165,12 @@ TauIsoCorrectionTool::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
    using namespace edm;
    int tau_index = 0; 
-   
+
+   std::cout<<""<<std::endl;
+   std::cout<<""<<std::endl;
    std::cout<<"New Event begins"<<std::endl;
+   
+   //std::cout<<"New Event begins"<<std::endl;
 
    edm::Handle< std::vector<pat::Muon> > muonHandle;
    iEvent.getByToken(muonCollection, muonHandle);
@@ -226,6 +230,9 @@ TauIsoCorrectionTool::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	theTau != TauHandle->end();
 	++theTau)
      {
+       std::cout<<""<<std::endl;
+       std::cout<<""<<std::endl;
+       std::cout << "Next Tau Begins, index = "<<tau_index<<std::endl;
 
        Electron_IsoCompForTausColl PF = this->compElectron_IsoCompForTausColl(*rho, tau_index, electronHandle, TauHandle);
        Muon_IsoCompForTausColl PF2 =  this->compMuon_IsoCompForTausColl(tau_index, muonHandle, TauHandle);
@@ -495,17 +502,19 @@ Electron_IsoCompForTausColl TauIsoCorrectionTool::compElectron_IsoCompForTausCol
       //std::cout<<"without Error so Far 3 "<< tau->eta()<<tau->phi()<<theEle.eta()<<theEle.phi()<<std::endl;
       double deltaR = reco::deltaR(theEle.eta(), theEle.phi(), tau->eta(), tau->phi());
       //std::cout<<"without Error so Far 3.5 deltaR = "<<deltaR<<std::endl;
-      std::cout<<"Before Matching Pt = "<<theEle.pt()<<" mass = "<<theEle.mass()<<std::endl;
-      std::cout<<"ID = "<<theEle.electronID("cutBasedElectronID-Fall17-94X-V2-loose")<<" if it is 0 go to next Ele"<<std::endl;
+      //std::cout<<"Before Matching Pt = "<<theEle.pt()<<" mass = "<<theEle.mass()<<std::endl;
+      //std::cout<<"ID = "<<theEle.electronID("cutBasedElectronID-Fall17-94X-V2-loose")<<" if it is 0 go to next Ele"<<std::endl;
+      std::cout<<"Electron Pt = "<<theEle.pt()<<" mass = "<<theEle.mass()<<" deltaR ="<<deltaR<<" ID = "<<theEle.electronID("cutBasedElectronID-Fall17-94X-V2-loose")<<std::endl;
       if (deltaR < dRmin && deltaR > 0.02)
       //if (deltaR < dRmin && deltaR > 0.02 && theEle.electronID("cutBasedElectronID-Fall17-94X-V2-loose"))
       {
          E_counter = E_counter + 1;
-         std::cout<<"After Matching Pt = "<<theEle.pt()<<" mass = "<<theEle.mass()<<" ELectron Counter = "<< E_counter<<std::endl;
+         std::cout<<"Matched Pt = "<<theEle.pt()<<" mass = "<<theEle.mass()<<" deltaR ="<<deltaR<<" ID = "<<theEle.electronID("cutBasedElectronID-Fall17-94X-V2-loose")<<" sumChargedHadronPt= "<<theEle.pfIsolationVariables().sumChargedHadronPt<<" SumNeutralHadronEt= "<<theEle.pfIsolationVariables().sumNeutralHadronEt<<" sumPhotonEt= "<<theEle.pfIsolationVariables().sumPhotonEt<<std::endl;
+         //std::cout<<"After Matching Pt = "<<theEle.pt()<<" mass = "<<theEle.mass()<<" ELectron Counter = "<< E_counter<<std::endl;
          if (theEle.pt() > E_matchedPt)
          {
-
-            std::cout<<"Pt is greater than previous match = "<<theEle.pt()<<" mass = "<<theEle.mass()<<std::endl;
+            std::cout<<"Pt greater than 0 or grater than previous match"<<std::endl;
+           // std::cout<<"Pt is greater than previous match = "<<theEle.pt()<<" mass = "<<theEle.mass()<<std::endl;
             //std::cout<<"without Error so Far 4"<<std::endl;
             matchedElectron = theEle;
             matIteEle = IteEle;
@@ -557,8 +566,8 @@ Electron_IsoCompForTausColl TauIsoCorrectionTool::compElectron_IsoCompForTausCol
    E_matchedMass = matchedElectron.mass();
    //std::cout <<"no error 9, mass = "<<matchedElectron.mass()<<"Phi = "<<matchedElectron.phi()<<std::endl;
    }
-   std::cout<<"ForE_tau_SumChargedHadronPt = "<<ForE_tau_SumChargedHadronPt<<" ForE_tau_SumPhotonEt = "<<ForE_tau_SumPhotonEt<<" ForE_tau_SumNeutralHadronEt = "<<ForE_tau_SumNeutralHadronEt<<" E_SumChargedHadronPt = "<<E_SumChargedHadronPt<<" E_SumNeutralHadronEt = "<<E_SumNeutralHadronEt<<" E_SumPhotonEt = "<<E_SumPhotonEt<<std::endl;
-
+   //std::cout<<"ForE_tau_SumChargedHadronPt = "<<ForE_tau_SumChargedHadronPt<<" ForE_tau_SumPhotonEt = "<<ForE_tau_SumPhotonEt<<" ForE_tau_SumNeutralHadronEt = "<<ForE_tau_SumNeutralHadronEt<<" E_SumChargedHadronPt = "<<E_SumChargedHadronPt<<" E_SumNeutralHadronEt = "<<E_SumNeutralHadronEt<<" E_SumPhotonEt = "<<E_SumPhotonEt<<std::endl;
+   std::cout<<"Electron ForE_tau_SumChargedHadronPt = "<<ForE_tau_SumChargedHadronPt<<" ForE_tau_SumPhotonEt = "<<ForE_tau_SumPhotonEt<<" ForE_tau_SumNeutralHadronEt = "<<ForE_tau_SumNeutralHadronEt<<" E_SumChargedHadronPt = "<<E_SumChargedHadronPt<<" E_SumNeutralHadronEt = "<<E_SumNeutralHadronEt<<" E_SumPhotonEt = "<<E_SumPhotonEt<<std::endl;
 
 
 
@@ -607,12 +616,15 @@ Muon_IsoCompForTausColl TauIsoCorrectionTool::compMuon_IsoCompForTausColl (int i
     for(auto& theMuo: *muonCollection)
     {
       double deltaR = reco::deltaR(theMuo.eta(), theMuo.phi(), tau->eta(), tau->phi());
+      std::cout<<"Muon Pt = "<<theMuo.pt()<<" mass = "<<theMuo.mass()<<" deltaR ="<<deltaR<<" ID = "<<theMuo.passed(reco::Muon::CutBasedIdLoose)<<std::endl;
       if (deltaR < dRmin && deltaR > 0.02 && theMuo.passed(reco::Muon::CutBasedIdLoose))
       {
         M_counter = M_counter + 1;
+        std::cout<<"Matched Pt = "<<theMuo.pt()<<" mass = "<<theMuo.mass()<<" deltaR ="<<deltaR<<" ID = "<<theMuo.passed(reco::Muon::CutBasedIdLoose)<<" sumChargedHadronPt= "<<theMuo.pfIsolationR03().sumChargedHadronPt<<" SumNeutralHadronEt= "<<theMuo.pfIsolationR03().sumNeutralHadronEt<<" sumPhotonEt= "<<theMuo.pfIsolationR03().sumPhotonEt<<" M_sumPUPt= "<<theMuo.pfIsolationR03().sumPUPt<<std::endl;
         if (theMuo.pt() > M_matchedPt)
         {
-          pat::Muon matchedMuon = theMuo;
+          std::cout<<"Pt greater than 0 or grater than previous match"<<std::endl;
+          matchedMuon = theMuo;
           M_matchedPt = theMuo.pt();
         }
 
@@ -653,7 +665,7 @@ Muon_IsoCompForTausColl TauIsoCorrectionTool::compMuon_IsoCompForTausColl (int i
     M_matchedMass = matchedMuon.mass();  
     }
     
-
+    std::cout<<"Muon ForM_tau_SumChargedHadronPt = "<<ForM_tau_SumChargedHadronPt<<" ForM_tau_SumPhotonEt = "<<ForM_tau_SumPhotonEt<<" ForM_tau_SumNeutralHadronEt = "<<ForM_tau_SumPhotonEt<<" M_SumChargedHadronPt = "<<M_SumChargedHadronPt<<" M_SumNeutralHadronEt = "<<M_SumNeutralHadronEt<<" M_SumPhotonEt = "<<M_SumPhotonEt<<" M_sumPUpt= "<<M_sumPUPt<<std::endl;
     return {ForM_tau_SumChargedHadronPt, 
             ForM_tau_SumPhotonEt, 
             ForM_tau_SumNeutralHadronEt, 

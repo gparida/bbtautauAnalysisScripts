@@ -25,13 +25,13 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(1000)
+    input = cms.untracked.int32(50)
 )
 
 process.MessageLogger.cerr.FwkReport.reportEvery = 10000
 
 process.source = cms.Source('PoolSource',
-                            fileNames =cms.untracked.vstring("/store/mc/RunIISummer20UL16MiniAODv2/RadionTohhTohtatahbb_narrow_M-1400_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_v17-v2/270000/A603AE59-3531-784B-8FBA-57291369443C.root")
+                            fileNames =cms.untracked.vstring("/store/mc/RunIISummer20UL16MiniAODv2/RadionTohhTohtatahbb_narrow_M-4500_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_v17-v1/270000/5AE5F099-0889-5C4E-9335-16859FD90751.root")
 )
 
 process.options = cms.untracked.PSet(
