@@ -8,10 +8,8 @@ def main(args):
     with open(args.inputFile, 'r') as readFile:
         datasets = json.load(readFile)
     #print(json.dumps(datasets,sort_keys=True,indent=4))
-    listOfPaths = []
     for campaign in datasets:
         for datasetName in datasets[campaign]:
-            #listOfPaths.append(('/'+datasets[campaign][datasetName]+'/'+campaign+'/'+args.dataTier).strip())
             dumpTXT.write(('/'+datasets[campaign][datasetName]+'/'+campaign+'/'+args.dataTier).strip() + '\n')
     
 
@@ -27,6 +25,6 @@ if __name__ == '__main__':
         main(args)
 
 
-    #dumpTXT = open(args.outputFile+".txt","w")
+
 
     
