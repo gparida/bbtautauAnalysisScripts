@@ -505,7 +505,7 @@ Electron_IsoCompForTausColl TauIsoCorrectionTool::compElectron_IsoCompForTausCol
       //std::cout<<"Before Matching Pt = "<<theEle.pt()<<" mass = "<<theEle.mass()<<std::endl;
       //std::cout<<"ID = "<<theEle.electronID("cutBasedElectronID-Fall17-94X-V2-loose")<<" if it is 0 go to next Ele"<<std::endl;
       std::cout<<"Electron Pt = "<<theEle.pt()<<" mass = "<<theEle.mass()<<" deltaR ="<<deltaR<<" ID = "<<theEle.electronID("cutBasedElectronID-Fall17-94X-V2-loose")<<std::endl;
-      if (deltaR < dRmin && deltaR > 0.02)
+      if (deltaR < dRmin && deltaR > 0.02 && theEle.electronID("cutBasedElectronID-Fall17-94X-V2-loose"))
       //if (deltaR < dRmin && deltaR > 0.02 && theEle.electronID("cutBasedElectronID-Fall17-94X-V2-loose"))
       {
          E_counter = E_counter + 1;
