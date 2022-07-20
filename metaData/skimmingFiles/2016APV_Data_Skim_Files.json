@@ -1,8 +1,8 @@
 {
-    "Run2016Bv1": "/hdfs/store/user/aloeliger/2016APV_Data_10Dec2021/Run2016B-21Feb2020_ver1_UL2016_HIPM-v1/MET/*.root",
-    "Run2016Bv2": "/hdfs/store/user/aloeliger/2016APV_Data_ReAttempt_12Jan2022/Run2016B-21Feb2020_ver2_UL2016_HIPM-v1/MET/*.root",
-    "Run2016C": "/hdfs/store/user/aloeliger/2016APV_Data_10Dec2021/Run2016C-21Feb2020_UL2016_HIPM-v1/MET/*.root",
-    "Run2016D": "/hdfs/store/user/aloeliger/2016APV_Data_10Dec2021/Run2016D-21Feb2020_UL2016_HIPM-v1/MET/*.root",
-    "Run2016E": "/hdfs/store/user/aloeliger/2016APV_Data_10Dec2021/Run2016E-21Feb2020_UL2016_HIPM-v1/MET/*.root",
-    "Run2016F": "/hdfs/store/user/aloeliger/2016APV_Data_10Dec2021/Run2016F-21Feb2020_UL2016_HIPM-v1/MET/*.root"
+    "Run2016Bv1": "/hdfs/store/user/aloeliger/2016APV_Data_25Jan2022/Run2016B-21Feb2020_ver1_UL2016_HIPM-v1/MET/*.root",
+    "Run2016Bv2": "/hdfs/store/user/aloeliger/2016APV_Data_25Jan2022/Run2016B-21Feb2020_ver2_UL2016_HIPM-v1/MET/*.root",
+    "Run2016C": "/hdfs/store/user/aloeliger/2016APV_Data_25Jan2022/Run2016C-21Feb2020_UL2016_HIPM-v1/MET/*.root",
+    "Run2016D": "/hdfs/store/user/aloeliger/2016APV_Data_25Jan2022/Run2016D-21Feb2020_UL2016_HIPM-v1/MET/*.root",
+    "Run2016E": "/hdfs/store/user/aloeliger/2016APV_Data_25Jan2022/Run2016E-21Feb2020_UL2016_HIPM-v1/MET/*.root",
+    "Run2016F": "/hdfs/store/user/aloeliger/2016APV_Data_25Jan2022/Run2016F-21Feb2020_UL2016_HIPM-v1/MET/*.root"
 }
