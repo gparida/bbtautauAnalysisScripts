@@ -291,5 +291,15 @@
     "HLT_L1MinimumBiasHF_OR_part6":"HLT_L1MinimumBiasHF_OR_part6",
     "HLT_L1MinimumBiasHF_OR_part7":"HLT_L1MinimumBiasHF_OR_part7",
     "HLT_L1MinimumBiasHF_OR_part8":"HLT_L1MinimumBiasHF_OR_part8",
-    "HLT_L1MinimumBiasHF_OR_part9":"HLT_L1MinimumBiasHF_OR_part9"
+    "HLT_L1MinimumBiasHF_OR_part9":"HLT_L1MinimumBiasHF_OR_part9",
+    "Flag_trkPOGFilters":"Flag_trkPOGFilters",
+    "Flag_trkPOG_manystripclus53X":"Flag_trkPOG_manystripclus53X",
+    "Flag_trkPOG_toomanystripclus53X":"Flag_trkPOG_toomanystripclus53X",
+    "Flag_trkPOG_logErrorTooManyClusters":"Flag_trkPOG_logErrorTooManyClusters",
+    "HLT_TripleMu_12_10_5":"HLT_TripleMu_12_10_5",
+    "HLT_AK8DiPFJet280_200_TrimMass30":"HLT_AK8DiPFJet280_200_TrimMass30",
+    "HLT_AK8DiPFJet280_200_TrimMass30_BTagCSV_p20":"HLT_AK8DiPFJet280_200_TrimMass30_BTagCSV_p20",
+    "HLT_DoubleMu8_Mass8_PFHT300":"HLT_DoubleMu8_Mass8_PFHT300",
+    "HLT_ZeroBias_FirstCollisionAfterAbortGap":"HLT_ZeroBias_FirstCollisionAfterAbortGap",
+    "HLT_ZeroBias_FirstCollisionAfterAbortGap_copy":"HLT_ZeroBias_FirstCollisionAfterAbortGap_copy"
 }
