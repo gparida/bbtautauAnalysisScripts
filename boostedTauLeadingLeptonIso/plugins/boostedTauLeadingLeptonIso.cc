@@ -137,6 +137,8 @@ boostedTauLeadingLeptonIso::boostedTauLeadingLeptonIso(const edm::ParameterSet& 
   produces<edm::ValueMap<float>>("SubSubLeadingMuonM");
   produces<edm::ValueMap<float>>("SubSubLeadingMuonCorrIso");
 
+  produces<edm::ValueMap<int>>("Mcounter");
+
   //Electron isolation products
   //Stores pt eta phi m
   //and implied isolation of leading, sub-leading, and sub-subleading electons
@@ -159,6 +161,8 @@ boostedTauLeadingLeptonIso::boostedTauLeadingLeptonIso(const edm::ParameterSet& 
   produces<edm::ValueMap<float>>("SubSubLeadingElectronPhi");
   produces<edm::ValueMap<float>>("SubSubLeadingElectronM");
   produces<edm::ValueMap<float>>("SubSubLeadingElectronCorrIso");
+
+  produces<edm::ValueMap<int>>("Ecounter");
 }
 
 
@@ -198,27 +202,39 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
    if (verboseDebug) std::cout<<"nMuons: "<<nMuons<<std::endl;
    if (verboseDebug) std::cout<<"nElectrons: "<<nElectrons<<std::endl;
 
+   double dRmin = 0.4;
+   double deltaR = 0.0;
+
+   int eleCounter = 0;
+   int mCounter = 0;
+
 
    //These vectors will store the information about corrected leptons that we make later
    std::vector<float> leadingMuonVector_pt, leadingMuonVector_eta, leadingMuonVector_phi, leadingMuonVector_m, leadingMuonVector_corrIso;
    std::vector<float> subleadingMuonVector_pt, subleadingMuonVector_eta, subleadingMuonVector_phi, subleadingMuonVector_m, subleadingMuonVector_corrIso;
    std::vector<float> subsubleadingMuonVector_pt, subsubleadingMuonVector_eta, subsubleadingMuonVector_phi, subsubleadingMuonVector_m, subsubleadingMuonVector_corrIso;
+   std::vector<int> Mcounter;
 
    std::vector<float> leadingElectronVector_pt, leadingElectronVector_eta, leadingElectronVector_phi, leadingElectronVector_m, leadingElectronVector_corrIso;
    std::vector<float> subleadingElectronVector_pt, subleadingElectronVector_eta, subleadingElectronVector_phi, subleadingElectronVector_m, subleadingElectronVector_corrIso;
    std::vector<float> subsubleadingElectronVector_pt, subsubleadingElectronVector_eta, subsubleadingElectronVector_phi, subsubleadingElectronVector_m, subsubleadingElectronVector_corrIso;
+   std::vector<int> Ecounter;
 
    //Okay, the idea here is that for each boosted tau we have,
    //we go through and check each lepton
    //we first make a structure that contains it's 4 vector info,
    //and then the corrected isolation values that would be implied from that boosted tau
    //we store this for the leading, subleading, and sub-sub-leading electrons, and muons
+
    leptonInfo nullInfo;
 
    for(std::vector<pat::Tau>::const_iterator theBoostedTau = boostedTauHandle->begin();
        theBoostedTau != boostedTauHandle->end();
        ++theBoostedTau)
      {
+       eleCounter = 0;
+       mCounter = 0;
+
        std::vector< leptonInfo > electronInformation;
        std::vector< leptonInfo > muonInformation;
 
@@ -244,8 +260,14 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
 
 	   //loop through our information collection
 	   //If we have higher pt than the current entry, we insert this lepton's information before
-	   bool insertAtEnd = true;
-	   for (std::vector< leptonInfo >::const_iterator muonInfoIt = muonInformation.begin();
+
+     deltaR = reco::deltaR(currentMuonInfo.eta, currentMuonInfo.phi, theBoostedTau->eta(), theBoostedTau->phi());
+
+     if (deltaR < dRmin && deltaR > 0.02 && theMuon->passed(reco::Muon::CutBasedIdLoose))
+     {
+        bool insertAtEnd = true;
+        mCounter++;
+        for (std::vector< leptonInfo >::const_iterator muonInfoIt = muonInformation.begin();
 		muonInfoIt != muonInformation.end();
 		++muonInfoIt)
 	     {
@@ -261,6 +283,9 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
 	   //then if we have more than 3 entries in the list of information, get rid of the 
 	   //last entry
 	   if (muonInformation.size() > 3) muonInformation.pop_back();
+
+     }
+	   
 	 }
        //Now that we have all of the leading muons and their information, let's go through
        //and calculated a rectified muon isolation for each of them
@@ -270,7 +295,11 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
        //if any slots in the information vector are empty, let's create null information
        //to fill them
        int nullMuonEntriesNeeded = (int)(3-muonInformation.size());
-       for (int i=0; i< nullMuonEntriesNeeded; ++i) muonInformation.push_back(nullInfo);
+       for (int i=0; i< nullMuonEntriesNeeded;++i)
+	 {
+	   //leptonInfo nullInfo;
+	   muonInformation.push_back(nullInfo);
+	 }
 
        //Now we do something similar for the electrons
        for(std::vector<pat::Electron>::const_iterator theElectron = electronHandle->begin();
@@ -291,6 +320,11 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
 
 	   //loop through our information collection
 	   //if we have a higher pt than the current entry, we insert this lepton's information before
+     deltaR = reco::deltaR(currentElectronInfo.eta, currentElectronInfo.phi, theBoostedTau->eta(), theBoostedTau->phi());
+
+     if (deltaR < dRmin && deltaR > 0.02 && theElectron->electronID("cutBasedElectronID-Fall17-94X-V2-loose"))
+     {
+     eleCounter++;
 	   bool insertAtEnd = true;
 	   for(std::vector< leptonInfo >::const_iterator electronInfoIt = electronInformation.begin();
 	       electronInfoIt != electronInformation.end();
@@ -307,6 +341,7 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
 	   if (insertAtEnd) electronInformation.insert(electronInformation.end(), currentElectronInfo);
 	   //now, if we have more than 3 entries, get rid of the last entry in the list
 	   if (electronInformation.size() > 3) electronInformation.pop_back();
+     }
 	 }
        //Now that we have all of the leading electrons and their information, let's go through
        //and calculated a rectified electron isolation for each of them
@@ -316,7 +351,11 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
        //if any slots in the information vector are empty, let's create null information
        //to fill them
        int nullElectronEntriesNeeded = (int)(3-electronInformation.size());
-       for (int i=0; i< nullElectronEntriesNeeded;++i) electronInformation.push_back(nullInfo);
+       for (int i=0; i<nullElectronEntriesNeeded;++i)
+	 {
+	   leptonInfo nullInfo;
+	   electronInformation.push_back(nullInfo);
+	 }
        //Now that we have all the correct information for this tau, we can read out all the information
        //to a series of vectors that we will store later
        leadingMuonVector_pt.push_back(muonInformation[0].pt); 
@@ -334,6 +373,8 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
        subsubleadingMuonVector_phi.push_back(muonInformation[2].phi);
        subsubleadingMuonVector_m.push_back(muonInformation[2].m);
        subsubleadingMuonVector_corrIso.push_back(muonInformation[2].correctedIso);
+       Mcounter.push_back(mCounter);
+
 
        leadingElectronVector_pt.push_back(electronInformation[0].pt); 
        leadingElectronVector_eta.push_back(electronInformation[0].eta); 
@@ -350,10 +391,23 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
        subsubleadingElectronVector_phi.push_back(electronInformation[2].phi);
        subsubleadingElectronVector_m.push_back(electronInformation[2].m);
        subsubleadingElectronVector_corrIso.push_back(electronInformation[2].correctedIso);
+       Ecounter.push_back(eleCounter);
+       
      }
 
    //we have all of the information for the taus in this event. We read this out to the 
    //edm format, and we're done.
+
+   std::unique_ptr< edm::ValueMap < int > > Mcounter_valueMap(new edm::ValueMap < int >());
+   edm::ValueMap< int >::Filler filler_Mcounter_valueMap(*Mcounter_valueMap);
+   filler_Mcounter_valueMap.insert(boostedTauHandle, Mcounter.begin(), Mcounter.end());
+   filler_Mcounter_valueMap.fill();   
+
+   std::unique_ptr< edm::ValueMap < int > > Ecounter_valueMap(new edm::ValueMap < int >());
+   edm::ValueMap< int >::Filler filler_Ecounter_valueMap(*Ecounter_valueMap);
+   filler_Ecounter_valueMap.insert(boostedTauHandle, Ecounter.begin(), Ecounter.end());
+   filler_Ecounter_valueMap.fill();
+
    std::unique_ptr< edm::ValueMap < float > > leadingMuonVector_pt_valueMap(new edm::ValueMap < float >());
    edm::ValueMap< float >::Filler filler_leadingMuonVector_pt_valueMap(*leadingMuonVector_pt_valueMap);
    filler_leadingMuonVector_pt_valueMap.insert(boostedTauHandle, leadingMuonVector_pt.begin(), leadingMuonVector_pt.end());
@@ -503,6 +557,9 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
    edm::ValueMap< float >::Filler filler_subsubleadingElectronVector_corrIso_valueMap(*subsubleadingElectronVector_corrIso_valueMap);
    filler_subsubleadingElectronVector_corrIso_valueMap.insert(boostedTauHandle, subsubleadingElectronVector_corrIso.begin(), subsubleadingElectronVector_corrIso.end());
    filler_subsubleadingElectronVector_corrIso_valueMap.fill();
+
+   iEvent.put(std::move(Mcounter_valueMap), "Mcounter");
+   iEvent.put(std::move(Ecounter_valueMap), "Ecounter");
 
    iEvent.put(std::move(leadingMuonVector_pt_valueMap), "LeadingMuonPt");
    iEvent.put(std::move(leadingMuonVector_eta_valueMap), "LeadingMuonEta");
