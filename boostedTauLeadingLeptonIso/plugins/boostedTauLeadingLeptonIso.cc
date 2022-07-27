@@ -226,6 +226,8 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
    //and then the corrected isolation values that would be implied from that boosted tau
    //we store this for the leading, subleading, and sub-sub-leading electrons, and muons
 
+   leptonInfo nullInfo;
+
    for(std::vector<pat::Tau>::const_iterator theBoostedTau = boostedTauHandle->begin();
        theBoostedTau != boostedTauHandle->end();
        ++theBoostedTau)
@@ -292,9 +294,10 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
 	    ++muonInfoIt) this->calculateCorrectedMuonIsoInformation(*theBoostedTau, *muonInfoIt);
        //if any slots in the information vector are empty, let's create null information
        //to fill them
-       for (int i=0; i< (int)(3-muonInformation.size());++i)
+       int nullMuonEntriesNeeded = (int)(3-muonInformation.size());
+       for (int i=0; i< nullMuonEntriesNeeded;++i)
 	 {
-	   leptonInfo nullInfo;
+	   //leptonInfo nullInfo;
 	   muonInformation.push_back(nullInfo);
 	 }
 
@@ -347,7 +350,8 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
 	    ++electronInfoIt) this->calculateCorrectedMuonIsoInformation(*theBoostedTau, *electronInfoIt);
        //if any slots in the information vector are empty, let's create null information
        //to fill them
-       for (int i=0; i<(int)(3-electronInformation.size());++i)
+       int nullElectronEntriesNeeded = (int)(3-electronInformation.size());
+       for (int i=0; i<nullElectronEntriesNeeded;++i)
 	 {
 	   leptonInfo nullInfo;
 	   electronInformation.push_back(nullInfo);
