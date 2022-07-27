@@ -213,6 +213,7 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
    //we first make a structure that contains it's 4 vector info,
    //and then the corrected isolation values that would be implied from that boosted tau
    //we store this for the leading, subleading, and sub-sub-leading electrons, and muons
+   leptonInfo nullInfo;
 
    for(std::vector<pat::Tau>::const_iterator theBoostedTau = boostedTauHandle->begin();
        theBoostedTau != boostedTauHandle->end();
@@ -268,11 +269,8 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
 	    ++muonInfoIt) this->calculateCorrectedMuonIsoInformation(*theBoostedTau, *muonInfoIt);
        //if any slots in the information vector are empty, let's create null information
        //to fill them
-       for (int i=0; i< (int)(3-muonInformation.size());++i)
-	 {
-	   leptonInfo nullInfo;
-	   muonInformation.push_back(nullInfo);
-	 }
+       int nullMuonEntriesNeeded = (int)(3-muonInformation.size());
+       for (int i=0; i< nullMuonEntriesNeeded; ++i) muonInformation.push_back(nullInfo);
 
        //Now we do something similar for the electrons
        for(std::vector<pat::Electron>::const_iterator theElectron = electronHandle->begin();
@@ -317,11 +315,8 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
 	    ++electronInfoIt) this->calculateCorrectedMuonIsoInformation(*theBoostedTau, *electronInfoIt);
        //if any slots in the information vector are empty, let's create null information
        //to fill them
-       for (int i=0; i<(int)(3-electronInformation.size());++i)
-	 {
-	   leptonInfo nullInfo;
-	   electronInformation.push_back(nullInfo);
-	 }
+       int nullElectronEntriesNeeded = (int)(3-electronInformation.size());
+       for (int i=0; i< nullElectronEntriesNeeded;++i) electronInformation.push_back(nullInfo);
        //Now that we have all the correct information for this tau, we can read out all the information
        //to a series of vectors that we will store later
        leadingMuonVector_pt.push_back(muonInformation[0].pt); 
@@ -339,7 +334,6 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
        subsubleadingMuonVector_phi.push_back(muonInformation[2].phi);
        subsubleadingMuonVector_m.push_back(muonInformation[2].m);
        subsubleadingMuonVector_corrIso.push_back(muonInformation[2].correctedIso);
-
 
        leadingElectronVector_pt.push_back(electronInformation[0].pt); 
        leadingElectronVector_eta.push_back(electronInformation[0].eta); 

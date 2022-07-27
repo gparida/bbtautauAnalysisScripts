@@ -5,7 +5,7 @@ process = cms.Process('IsoCorrection')
 
 process.load('FWCore.MessageService.MessageLogger_cfi')
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(-1)
+    input = cms.untracked.int32(10)
 )
 
 process.source = cms.Source('PoolSource',fileNames=cms.untracked.vstring('/store/mc/RunIISummer20UL16MiniAOD/RadionTohhTohtatahbb_narrow_M-4500_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_v13-v2/270000/2F58DACF-8A1D-A244-A50D-FA9B05849E66.root'))
