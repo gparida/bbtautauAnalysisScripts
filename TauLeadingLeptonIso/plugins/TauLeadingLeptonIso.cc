@@ -258,7 +258,7 @@ TauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
 	   //loop through our information collection
 	   //If we have higher pt than the current entry, we insert this lepton's information before
-     deltaR = reco::deltaR(currentMuonInfo.eta(), currentMuonInfo.phi(), theBoostedTau->eta(), theBoostedTau->phi());
+     deltaR = reco::deltaR(currentMuonInfo.eta, currentMuonInfo.phi, theTau->eta(), theTau->phi());
      
     if (deltaR < dRmin && deltaR > 0.02 && theMuon->passed(reco::Muon::CutBasedIdLoose))
     {
@@ -314,7 +314,7 @@ TauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
 	   //loop through our information collection
 	   //if we have a higher pt than the current entry, we insert this lepton's information before
-     deltaR = reco::deltaR(currentElectronInfo.eta(), currentElectronInfo.phi(), theBoostedTau->eta(), theBoostedTau->phi());
+     deltaR = reco::deltaR(currentElectronInfo.eta, currentElectronInfo.phi, theTau->eta(), theTau->phi());
 
      if (deltaR < dRmin && deltaR > 0.02 && theElectron->electronID("cutBasedElectronID-Fall17-94X-V2-loose"))
      {
@@ -391,12 +391,12 @@ TauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
    std::unique_ptr< edm::ValueMap < int > > Mcounter_valueMap(new edm::ValueMap < int >());
    edm::ValueMap< int >::Filler filler_Mcounter_valueMap(*Mcounter_valueMap);
-   filler_Mcounter_valueMap.insert(boostedTauHandle, Mcounter.begin(), Mcounter.end());
+   filler_Mcounter_valueMap.insert(TauHandle, Mcounter.begin(), Mcounter.end());
    filler_Mcounter_valueMap.fill();   
 
    std::unique_ptr< edm::ValueMap < int > > Ecounter_valueMap(new edm::ValueMap < int >());
    edm::ValueMap< int >::Filler filler_Ecounter_valueMap(*Ecounter_valueMap);
-   filler_Ecounter_valueMap.insert(boostedTauHandle, Ecounter.begin(), Ecounter.end());
+   filler_Ecounter_valueMap.insert(TauHandle, Ecounter.begin(), Ecounter.end());
    filler_Ecounter_valueMap.fill();
 
    std::unique_ptr< edm::ValueMap < float > > leadingMuonVector_pt_valueMap(new edm::ValueMap < float >());

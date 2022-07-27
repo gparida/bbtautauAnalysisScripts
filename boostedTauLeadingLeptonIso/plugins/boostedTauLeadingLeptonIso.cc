@@ -259,7 +259,7 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
 	   //loop through our information collection
 	   //If we have higher pt than the current entry, we insert this lepton's information before
 
-     deltaR = reco::deltaR(currentMuonInfo.eta(), currentMuonInfo.phi(), theBoostedTau->eta(), theBoostedTau->phi());
+     deltaR = reco::deltaR(currentMuonInfo.eta, currentMuonInfo.phi, theBoostedTau->eta(), theBoostedTau->phi());
 
      if (deltaR < dRmin && deltaR > 0.02 && theMuon->passed(reco::Muon::CutBasedIdLoose))
      {
@@ -317,7 +317,7 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
 
 	   //loop through our information collection
 	   //if we have a higher pt than the current entry, we insert this lepton's information before
-     deltaR = reco::deltaR(currentElectronInfo.eta(), currentElectronInfo.phi(), theBoostedTau->eta(), theBoostedTau->phi());
+     deltaR = reco::deltaR(currentElectronInfo.eta, currentElectronInfo.phi, theBoostedTau->eta(), theBoostedTau->phi());
 
      if (deltaR < dRmin && deltaR > 0.02 && theElectron->electronID("cutBasedElectronID-Fall17-94X-V2-loose"))
      {
