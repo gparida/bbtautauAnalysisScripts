@@ -253,10 +253,10 @@ TauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	   currentMuonInfo.eta = theMuon->eta();
 	   currentMuonInfo.phi = theMuon->phi();
 	   currentMuonInfo.m = theMuon->mass();
-	   currentMuonInfo.sumPFChargedHadronPt = theMuon->pfIsolationR03().sumChargedHadronPt;
-	   currentMuonInfo.sumPFNeutralHadronPt = theMuon->pfIsolationR03().sumNeutralHadronEt;
-	   currentMuonInfo.sumPFPhotonPt = theMuon->pfIsolationR03().sumPhotonEt;
-	   currentMuonInfo.sumPUPt = theMuon->pfIsolationR03().sumPUPt;
+	   currentMuonInfo.sumPFChargedHadronPt = theMuon->pfIsolationR04().sumChargedHadronPt;
+	   currentMuonInfo.sumPFNeutralHadronPt = theMuon->pfIsolationR04().sumNeutralHadronEt;
+	   currentMuonInfo.sumPFPhotonPt = theMuon->pfIsolationR04().sumPhotonEt;
+	   currentMuonInfo.sumPUPt = theMuon->pfIsolationR04().sumPUPt;
 
 	   //loop through our information collection
 	   //If we have higher pt than the current entry, we insert this lepton's information before
@@ -655,7 +655,7 @@ void TauLeadingLeptonIso::calculateCorrectedMuonIsoInformation(pat::Tau theTau, 
       ++hadrCandInd)
     {
       double dRConst = reco::deltaR(theMuonInfo.eta, theMuonInfo.phi, theTau.signalChargedHadrCands()[hadrCandInd]->eta(), theTau.signalChargedHadrCands()[hadrCandInd]->phi());
-      if (dRConst < 0.3) tauSumChargedHadronPt += theTau.signalChargedHadrCands()[hadrCandInd]->pt();
+      if (dRConst < 0.4) tauSumChargedHadronPt += theTau.signalChargedHadrCands()[hadrCandInd]->pt();
     }
 
   for(size_t neutCandInd = 0;
@@ -663,7 +663,7 @@ void TauLeadingLeptonIso::calculateCorrectedMuonIsoInformation(pat::Tau theTau, 
       ++neutCandInd)
     {
       double dRConst = reco::deltaR(theMuonInfo.eta, theMuonInfo.phi, theTau.signalNeutrHadrCands()[neutCandInd]->eta(), theTau.signalNeutrHadrCands()[neutCandInd]->phi());
-      if (dRConst < 0.3) tauSumNeutralHadronEt += theTau.signalNeutrHadrCands()[neutCandInd]->pt();
+      if (dRConst < 0.4) tauSumNeutralHadronEt += theTau.signalNeutrHadrCands()[neutCandInd]->pt();
     }
 
   for(size_t photonCandInd = 0;
@@ -671,7 +671,7 @@ void TauLeadingLeptonIso::calculateCorrectedMuonIsoInformation(pat::Tau theTau, 
       ++photonCandInd)
     {
       double dRConst = reco::deltaR(theMuonInfo.eta, theMuonInfo.phi, theTau.signalGammaCands()[photonCandInd]->eta(), theTau.signalGammaCands()[photonCandInd]->phi());
-      if (dRConst < 0.3) tauSumPhotonEt += theTau.signalGammaCands()[photonCandInd]->pt();
+      if (dRConst < 0.4) tauSumPhotonEt += theTau.signalGammaCands()[photonCandInd]->pt();
     }
   
   theMuonInfo.correctedSumPFChargedHadronPt = std::max(0.0, theMuonInfo.sumPFChargedHadronPt - tauSumChargedHadronPt);
