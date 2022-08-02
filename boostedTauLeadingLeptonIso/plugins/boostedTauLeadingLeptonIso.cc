@@ -906,7 +906,7 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
    iEvent.put(std::move(leadingMuonVector_phi_valueMap), "LeadingMuonPhi");
    iEvent.put(std::move(leadingMuonVector_m_valueMap), "LeadingMuonM");
    iEvent.put(std::move(leadingMuonVector_corrIso_valueMap), "LeadingMuonCorrIso");
-   iEvent.put(std::move(leadingMuonVector_sumPFChargedHadronPt_valueMap), "leadingMuonsumPFChargedHadronPt");
+   iEvent.put(std::move(leadingMuonVector_sumPFChargedHadronPt_valueMap), "LeadingMuonsumPFChargedHadronPt");
    iEvent.put(std::move(leadingMuonVector_sumPFNeutralHadronPt_valueMap), "LeadingMuonsumPFNeutralHadronPt");
    iEvent.put(std::move(leadingMuonVector_sumPFPhotonPt_valueMap), "LeadingMuonsumPFPhotonPt");
    iEvent.put(std::move(leadingMuonVector_sumPUPt_valueMap), "LeadingMuonsumPUPt");
@@ -921,13 +921,13 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
    iEvent.put(std::move(subleadingMuonVector_phi_valueMap), "SubLeadingMuonPhi");
    iEvent.put(std::move(subleadingMuonVector_m_valueMap), "SubLeadingMuonM");
    iEvent.put(std::move(subleadingMuonVector_corrIso_valueMap), "SubLeadingMuonCorrIso");
-   iEvent.put(std::move(subleadingMuonVector_sumPFChargedHadronPt_valueMap), "SubleadingMuonsumPFChargedHadronPt");
-   iEvent.put(std::move(subleadingMuonVector_sumPFNeutralHadronPt_valueMap), "SubleadingMuonsumPFNeutralHadronPt");
-   iEvent.put(std::move(subleadingMuonVector_sumPFPhotonPt_valueMap), "SubleadingMuonsumPFPhotonPt");
-   iEvent.put(std::move(subleadingMuonVector_sumPUPt_valueMap), "SubleadingMuonsumPUPt");
-   iEvent.put(std::move(subleadingMuonVector_tausumPFChargedHadronPt_valueMap), "SubleadingMuontausumPFChargedHadronPt");
-   iEvent.put(std::move(subleadingMuonVector_tausumPFNeutralHadronPt_valueMap), "SubleadingMuontausumPFNeutralHadronPt");
-   iEvent.put(std::move(subleadingMuonVector_tausumPFPhotonPt_valueMap), "SubleadingMuontausumPFPhotonPt");   
+   iEvent.put(std::move(subleadingMuonVector_sumPFChargedHadronPt_valueMap), "SubLeadingMuonsumPFChargedHadronPt");
+   iEvent.put(std::move(subleadingMuonVector_sumPFNeutralHadronPt_valueMap), "SubLeadingMuonsumPFNeutralHadronPt");
+   iEvent.put(std::move(subleadingMuonVector_sumPFPhotonPt_valueMap), "SubLeadingMuonsumPFPhotonPt");
+   iEvent.put(std::move(subleadingMuonVector_sumPUPt_valueMap), "SubLeadingMuonsumPUPt");
+   iEvent.put(std::move(subleadingMuonVector_tausumPFChargedHadronPt_valueMap), "SubLeadingMuontausumPFChargedHadronPt");
+   iEvent.put(std::move(subleadingMuonVector_tausumPFNeutralHadronPt_valueMap), "SubLeadingMuontausumPFNeutralHadronPt");
+   iEvent.put(std::move(subleadingMuonVector_tausumPFPhotonPt_valueMap), "SubLeadingMuontausumPFPhotonPt");   
 
 
    iEvent.put(std::move(subsubleadingMuonVector_pt_valueMap), "SubSubLeadingMuonPt");
@@ -935,20 +935,20 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
    iEvent.put(std::move(subsubleadingMuonVector_phi_valueMap), "SubSubLeadingMuonPhi");
    iEvent.put(std::move(subsubleadingMuonVector_m_valueMap), "SubSubLeadingMuonM");
    iEvent.put(std::move(subsubleadingMuonVector_corrIso_valueMap), "SubSubLeadingMuonCorrIso");
-   iEvent.put(std::move(subsubleadingMuonVector_sumPFChargedHadronPt_valueMap), "SubSubleadingMuonsumPFChargedHadronPt");
-   iEvent.put(std::move(subsubleadingMuonVector_sumPFNeutralHadronPt_valueMap), "SubSubleadingMuonsumPFNeutralHadronPt");
-   iEvent.put(std::move(subsubleadingMuonVector_sumPFPhotonPt_valueMap), "SubSubleadingMuonsumPFPhotonPt");
-   iEvent.put(std::move(subsubleadingMuonVector_sumPUPt_valueMap), "SubSubleadingMuonsumPUPt");
-   iEvent.put(std::move(subsubleadingMuonVector_tausumPFChargedHadronPt_valueMap), "SubSubleadingMuontausumPFChargedHadronPt");
-   iEvent.put(std::move(subsubleadingMuonVector_tausumPFNeutralHadronPt_valueMap), "SubSubleadingMuontausumPFNeutralHadronPt");
-   iEvent.put(std::move(subsubleadingMuonVector_tausumPFPhotonPt_valueMap), "SubSubleadingMuontausumPFPhotonPt");    
+   iEvent.put(std::move(subsubleadingMuonVector_sumPFChargedHadronPt_valueMap), "SubSubLeadingMuonsumPFChargedHadronPt");
+   iEvent.put(std::move(subsubleadingMuonVector_sumPFNeutralHadronPt_valueMap), "SubSubLeadingMuonsumPFNeutralHadronPt");
+   iEvent.put(std::move(subsubleadingMuonVector_sumPFPhotonPt_valueMap), "SubSubLeadingMuonsumPFPhotonPt");
+   iEvent.put(std::move(subsubleadingMuonVector_sumPUPt_valueMap), "SubSubLeadingMuonsumPUPt");
+   iEvent.put(std::move(subsubleadingMuonVector_tausumPFChargedHadronPt_valueMap), "SubSubLeadingMuontausumPFChargedHadronPt");
+   iEvent.put(std::move(subsubleadingMuonVector_tausumPFNeutralHadronPt_valueMap), "SubSubLeadingMuontausumPFNeutralHadronPt");
+   iEvent.put(std::move(subsubleadingMuonVector_tausumPFPhotonPt_valueMap), "SubSubLeadingMuontausumPFPhotonPt");    
 
    iEvent.put(std::move(leadingElectronVector_pt_valueMap), "LeadingElectronPt");
    iEvent.put(std::move(leadingElectronVector_eta_valueMap), "LeadingElectronEta");
    iEvent.put(std::move(leadingElectronVector_phi_valueMap), "LeadingElectronPhi");
    iEvent.put(std::move(leadingElectronVector_m_valueMap), "LeadingElectronM");
    iEvent.put(std::move(leadingElectronVector_corrIso_valueMap), "LeadingElectronCorrIso");
-   iEvent.put(std::move(leadingElectronVector_sumPFChargedHadronPt_valueMap), "leadingElectronsumPFChargedHadronPt");
+   iEvent.put(std::move(leadingElectronVector_sumPFChargedHadronPt_valueMap), "LeadingElectronsumPFChargedHadronPt");
    iEvent.put(std::move(leadingElectronVector_sumPFNeutralHadronPt_valueMap), "LeadingElectronsumPFNeutralHadronPt");
    iEvent.put(std::move(leadingElectronVector_sumPFPhotonPt_valueMap), "LeadingElectronsumPFPhotonPt");
    iEvent.put(std::move(leadingElectronVector_tausumPFChargedHadronPt_valueMap), "LeadingElectrontausumPFChargedHadronPt");
@@ -962,12 +962,12 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
    iEvent.put(std::move(subleadingElectronVector_phi_valueMap), "SubLeadingElectronPhi");
    iEvent.put(std::move(subleadingElectronVector_m_valueMap), "SubLeadingElectronM");
    iEvent.put(std::move(subleadingElectronVector_corrIso_valueMap), "SubLeadingElectronCorrIso");
-   iEvent.put(std::move(subleadingElectronVector_sumPFChargedHadronPt_valueMap), "SubleadingElectronsumPFChargedHadronPt");
-   iEvent.put(std::move(subleadingElectronVector_sumPFNeutralHadronPt_valueMap), "SubleadingElectronsumPFNeutralHadronPt");
-   iEvent.put(std::move(subleadingElectronVector_sumPFPhotonPt_valueMap), "SubleadingElectronsumPFPhotonPt");
-   iEvent.put(std::move(subleadingElectronVector_tausumPFChargedHadronPt_valueMap), "SubleadingElectrontausumPFChargedHadronPt");
-   iEvent.put(std::move(subleadingElectronVector_tausumPFNeutralHadronPt_valueMap), "SubleadingElectrontausumPFNeutralHadronPt");
-   iEvent.put(std::move(subleadingElectronVector_tausumPFPhotonPt_valueMap), "SubleadingElectrontausumPFPhotonPt");
+   iEvent.put(std::move(subleadingElectronVector_sumPFChargedHadronPt_valueMap), "SubLeadingElectronsumPFChargedHadronPt");
+   iEvent.put(std::move(subleadingElectronVector_sumPFNeutralHadronPt_valueMap), "SubLeadingElectronsumPFNeutralHadronPt");
+   iEvent.put(std::move(subleadingElectronVector_sumPFPhotonPt_valueMap), "SubLeadingElectronsumPFPhotonPt");
+   iEvent.put(std::move(subleadingElectronVector_tausumPFChargedHadronPt_valueMap), "SubLeadingElectrontausumPFChargedHadronPt");
+   iEvent.put(std::move(subleadingElectronVector_tausumPFNeutralHadronPt_valueMap), "SubLeadingElectrontausumPFNeutralHadronPt");
+   iEvent.put(std::move(subleadingElectronVector_tausumPFPhotonPt_valueMap), "SubLeadingElectrontausumPFPhotonPt");
    iEvent.put(std::move(subleadingElectronVector_rho_valueMap), "SubLeadingElectronrho");
    iEvent.put(std::move(subleadingElectronVector_ea_valueMap), "SubLeadingElectronea");   
 
@@ -977,12 +977,12 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
    iEvent.put(std::move(subsubleadingElectronVector_phi_valueMap), "SubSubLeadingElectronPhi");
    iEvent.put(std::move(subsubleadingElectronVector_m_valueMap), "SubSubLeadingElectronM");
    iEvent.put(std::move(subsubleadingElectronVector_corrIso_valueMap), "SubSubLeadingElectronCorrIso");
-   iEvent.put(std::move(subsubleadingElectronVector_sumPFChargedHadronPt_valueMap), "SubSubleadingElectronsumPFChargedHadronPt");
-   iEvent.put(std::move(subsubleadingElectronVector_sumPFNeutralHadronPt_valueMap), "SubSubleadingElectronsumPFNeutralHadronPt");
-   iEvent.put(std::move(subsubleadingElectronVector_sumPFPhotonPt_valueMap), "SubSubleadingElectronsumPFPhotonPt");
-   iEvent.put(std::move(subsubleadingElectronVector_tausumPFChargedHadronPt_valueMap), "SubSubleadingElectrontausumPFChargedHadronPt");
-   iEvent.put(std::move(subsubleadingElectronVector_tausumPFNeutralHadronPt_valueMap), "SubSubleadingElectrontausumPFNeutralHadronPt");
-   iEvent.put(std::move(subsubleadingElectronVector_tausumPFPhotonPt_valueMap), "SubSubleadingElectrontausumPFPhotonPt");
+   iEvent.put(std::move(subsubleadingElectronVector_sumPFChargedHadronPt_valueMap), "SubSubLeadingElectronsumPFChargedHadronPt");
+   iEvent.put(std::move(subsubleadingElectronVector_sumPFNeutralHadronPt_valueMap), "SubSubLeadingElectronsumPFNeutralHadronPt");
+   iEvent.put(std::move(subsubleadingElectronVector_sumPFPhotonPt_valueMap), "SubSubLeadingElectronsumPFPhotonPt");
+   iEvent.put(std::move(subsubleadingElectronVector_tausumPFChargedHadronPt_valueMap), "SubSubLeadingElectrontausumPFChargedHadronPt");
+   iEvent.put(std::move(subsubleadingElectronVector_tausumPFNeutralHadronPt_valueMap), "SubSubLeadingElectrontausumPFNeutralHadronPt");
+   iEvent.put(std::move(subsubleadingElectronVector_tausumPFPhotonPt_valueMap), "SubSubLeadingElectrontausumPFPhotonPt");
    iEvent.put(std::move(subsubleadingElectronVector_rho_valueMap), "SubSubLeadingElectronrho");
    iEvent.put(std::move(subsubleadingElectronVector_ea_valueMap), "SubSubLeadingElectronea");   
 }
