@@ -630,12 +630,12 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
    filler_leadingElectronVector_sumPFPhotonPt_valueMap.fill();
 
    std::unique_ptr< edm::ValueMap < float > > leadingElectronVector_rho_valueMap(new edm::ValueMap < float >());
-   edm::ValueMap< float >::Filler filler_leadingElectronVector_rho_valueMap(*leadingElectronVector_rho);
+   edm::ValueMap< float >::Filler filler_leadingElectronVector_rho_valueMap(*leadingElectronVector_rho_valueMap);
    filler_leadingElectronVector_rho_valueMap.insert(boostedTauHandle, leadingElectronVector_rho.begin(), leadingElectronVector_rho.end());
    filler_leadingElectronVector_rho_valueMap.fill(); 
 
    std::unique_ptr< edm::ValueMap < float > > leadingElectronVector_ea_valueMap(new edm::ValueMap < float >());
-   edm::ValueMap< float >::Filler filler_leadingElectronVector_ea_valueMap(*leadingElectronVector_ea);
+   edm::ValueMap< float >::Filler filler_leadingElectronVector_ea_valueMap(*leadingElectronVector_ea_valueMap);
    filler_leadingElectronVector_ea_valueMap.insert(boostedTauHandle, leadingElectronVector_ea.begin(), leadingElectronVector_ea.end());
    filler_leadingElectronVector_ea_valueMap.fill();
 
@@ -670,12 +670,12 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
    filler_subleadingElectronVector_sumPFPhotonPt_valueMap.fill();
 
    std::unique_ptr< edm::ValueMap < float > > subleadingElectronVector_rho_valueMap(new edm::ValueMap < float >());
-   edm::ValueMap< float >::Filler filler_subleadingElectronVector_rho_valueMap(*subleadingElectronVector_rho);
+   edm::ValueMap< float >::Filler filler_subleadingElectronVector_rho_valueMap(*subleadingElectronVector_rho_valueMap);
    filler_subleadingElectronVector_rho_valueMap.insert(boostedTauHandle, subleadingElectronVector_rho.begin(), subleadingElectronVector_rho.end());
    filler_subleadingElectronVector_rho_valueMap.fill(); 
 
    std::unique_ptr< edm::ValueMap < float > > subleadingElectronVector_ea_valueMap(new edm::ValueMap < float >());
-   edm::ValueMap< float >::Filler filler_subleadingElectronVector_ea_valueMap(*subleadingElectronVector_ea);
+   edm::ValueMap< float >::Filler filler_subleadingElectronVector_ea_valueMap(*subleadingElectronVector_ea_valueMap);
    filler_subleadingElectronVector_ea_valueMap.insert(boostedTauHandle, subleadingElectronVector_ea.begin(), subleadingElectronVector_ea.end());
    filler_subleadingElectronVector_ea_valueMap.fill();
 
@@ -711,12 +711,12 @@ boostedTauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& i
    filler_subsubleadingElectronVector_sumPFPhotonPt_valueMap.fill();
 
    std::unique_ptr< edm::ValueMap < float > > subsubleadingElectronVector_rho_valueMap(new edm::ValueMap < float >());
-   edm::ValueMap< float >::Filler filler_subsubleadingElectronVector_rho_valueMap(*subsubleadingElectronVector_rho);
+   edm::ValueMap< float >::Filler filler_subsubleadingElectronVector_rho_valueMap(*subsubleadingElectronVector_rho_valueMap);
    filler_subsubleadingElectronVector_rho_valueMap.insert(boostedTauHandle, subsubleadingElectronVector_rho.begin(), subsubleadingElectronVector_rho.end());
    filler_subsubleadingElectronVector_rho_valueMap.fill(); 
 
    std::unique_ptr< edm::ValueMap < float > > subsubleadingElectronVector_ea_valueMap(new edm::ValueMap < float >());
-   edm::ValueMap< float >::Filler filler_subsubleadingElectronVector_ea_valueMap(*subsubleadingElectronVector_ea);
+   edm::ValueMap< float >::Filler filler_subsubleadingElectronVector_ea_valueMap(*subsubleadingElectronVector_ea_valueMap);
    filler_subsubleadingElectronVector_ea_valueMap.insert(boostedTauHandle, subsubleadingElectronVector_ea.begin(), subsubleadingElectronVector_ea.end());
    filler_subsubleadingElectronVector_ea_valueMap.fill(); 
 
