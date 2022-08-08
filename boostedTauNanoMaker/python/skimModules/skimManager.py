@@ -19,11 +19,14 @@ class skimManager():
                   outputFileName):
 
         try:
+            #print("trying to open the file")
+	    #hdfsFileName = fileName.replace('/hdfs','root://cmsxrootd.hep.wisc.edu//')
             theLoadFile = ROOT.TFile(fileName)
             theInputTree = theLoadFile.Events
             theRunTree = theLoadFile.Runs
         except: #we failed to open the file properly, so let's try it the other way
             try:
+		#print ("Went to Ecept statement")
                 theLoadFile = ROOT.TFile.Open(fileName)
                 theInputTree = theLoadFile.Events
                 theRunTree = theLoadFile.Runs

@@ -26,15 +26,18 @@ for dataset in base_path.iterdir():
     
 
     if searchPhrase in dataset.name:
-        for name in glob.glob(args.basePath+ '/' + dataset.name+'/*/*/*'): 
+        for name in glob.glob(args.basePath+ '/' + dataset.name+'/*/*'): 
             keyname = f'{dataset.name[:dataset.name.index(searchPhrase)]}'
+            print ("keyname = ",keyname, '/n')
             if any(keyname in i for i in keyname_list):
+                print ("keyname = ",keyname, keyname_list)
                 name2 = args.basePath+ '/' + dataset.name+ '/' + name.split('/')[-3]
+                #print ("name 2 = ", name2)
                 keyname = keyname + "_" + (name2.split('/')[-1]).split('_')[-2] + "_" + (name2.split('/')[-1]).split('_')[-1]
                 keyname_list.append(keyname)
             else:
                 keyname_list.append(keyname)
-            listDict[keyname]=name+"/*.root"
+            listDict[keyname]=name+"/*/*.root"
 
 
 with open(args.out, 'w') as writeFile:

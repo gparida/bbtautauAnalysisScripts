@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #script for skimming large nano-aod ntuples on hdfs down to size.
-
-import ROOT
+import ROOT 
+ROOT.PyConfig.IgnoreCommandLineOptions = True
 import argparse
 import glob
 import re
@@ -45,7 +45,7 @@ def main(args):
         if args.prepareCondorSubmission: #prepare submission files for condor sub, and submit
             #farmoutAnalysisJobs --fwklite --infer-cmssw-path --input-files-per-job=1 --input-file-list=inputFileList.txt --assume-input-files-exist --input-dir=/ skimTest_20 boostedTauNanoMaker/scripts/singleFileSkimForSubmission.py -- '--inputFile=$inputFileNames' "--theCutFile=$CMSSW_BASE/src/bbtautauAnalysisScripts/metaData/skimmingCuttingConfigurations/testCutConfiguration.json" "--outputFileName=Test.root"
             #make the dag area so we can resubmit in the future
-            overallSubmitDir = args.submitDirPath+globKey+'_'+datetime.datetime.now().strftime('%d%B%y_%H%M_skim')+ ('' if args.skimSuffix == '' else '_'+args.skimSuffix)
+            overallSubmitDir = args.submitDirPath+'/'+globKey+'_'+datetime.datetime.now().strftime('%d%B%y_%H%M_skim')+ ('' if args.skimSuffix == '' else '_'+args.skimSuffix)
 
             dagLocation = overallSubmitDir+'/dags'
             os.system('mkdir -p '+dagLocation+'/daginputs')
@@ -69,6 +69,7 @@ def main(args):
                 '"--submit-dir=%s"' % (overallSubmitDir+'/submit'),
                 '--output-dag-file=%s' %(dagLocation+'/dag'),
                 #'--output-dir=%s' % overallSubmitDir,
+                '--output-dir=%s' % (args.destination + '/' +globKey+'_'+datetime.datetime.now().strftime('%d%B%y_%H%M_skim')+ ('' if args.skimSuffix == '' else '_'+args.skimSuffix)),
                 '--extra-inputs="'+args.skimCutConfiguration+' '+args.skimBranchCancelations+'"',
                 '--input-dir=/',
                 globKey+'_'+datetime.datetime.now().strftime('%d%B%y_%H%M_skim')+ ('' if args.skimSuffix == '' else '_'+args.skimSuffix),#name of what we're doing. 
@@ -106,8 +107,6 @@ if __name__ == '__main__':
     parser.add_argument('--destination',nargs='?',type=str,required=True,help='destination path for resut files')
     parser.add_argument('--skimSuffix',nargs='?',type=str,default='',help='String to identify the set of skims with')
     parser.add_argument('--prepareCondorSubmission',action='store_true',help='Instead of attempting the overall skimming on a local CPU, prepare a "Combine-style" submission to condor')
-    parser.add_argument('--submitDirPath',nargs='?',default='/nfs_scratch/'+os.environ['USER']+'/')
-
+    parser.add_argument('--submitDirPath',nargs='?',default='/nfs_scratch/'+os.environ['USER']+'/',help='usually a place in nfs_scratch where the submit files wil be stored. Please do not end it with /')
     args = parser.parse_args()
-
     main(args)
