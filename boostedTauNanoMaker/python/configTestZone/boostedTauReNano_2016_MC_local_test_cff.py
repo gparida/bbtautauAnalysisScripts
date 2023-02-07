@@ -25,13 +25,13 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(50)
+    input = cms.untracked.int32(100)
 )
 
 process.MessageLogger.cerr.FwkReport.reportEvery = 10000
 
 process.source = cms.Source('PoolSource',
-                            fileNames =cms.untracked.vstring("/store/mc/RunIISummer20UL16MiniAODv2/RadionTohhTohtatahbb_narrow_M-4500_TuneCP5_13TeV-madgraph-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_v17-v1/270000/5AE5F099-0889-5C4E-9335-16859FD90751.root")
+                            fileNames =cms.untracked.vstring("/store/mc/RunIISummer20UL16MiniAODv2/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/MINIAODSIM/106X_mcRun2_asymptotic_v17-v1/2510000/4A4573A1-E8CD-DE4B-9A14-083E1CF7DE85.root")
 )
 
 process.options = cms.untracked.PSet(
@@ -53,7 +53,7 @@ process.NANOAODSIMoutput = cms.OutputModule("NanoAODOutputModule",
         dataTier = cms.untracked.string('NANOAODSIM'),
         filterName = cms.untracked.string('')
     ),
-    fileName = cms.untracked.string('file:RadionNano_2.root'),
+    fileName = cms.untracked.string('file:finaltest_oct17.root'),
     outputCommands = process.NANOAODSIMEventContent.outputCommands,
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('nanoAOD_step')

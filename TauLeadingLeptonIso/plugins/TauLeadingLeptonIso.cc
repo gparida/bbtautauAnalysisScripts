@@ -374,7 +374,9 @@ TauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	   //if we have a higher pt than the current entry, we insert this lepton's information before
      deltaR = reco::deltaR(currentElectronInfo.eta, currentElectronInfo.phi, theTau->eta(), theTau->phi());
 
-     if (deltaR < dRmin && deltaR > 0.02 && theElectron->electronID("cutBasedElectronID-Fall17-94X-V2-loose"))
+     //if (deltaR < dRmin && deltaR > 0.02 && theElectron->electronID("cutBasedElectronID-Fall17-94X-V2-loose"))
+     //std::cout<< "Debug Electron ID = "<<((theElectron->userInt("cutBasedElectronID-Fall17-94X-V2-loose") & 0x37F ) == 0x37F)<<" fullID = "<<theElectron->electronID("cutBasedElectronID-Fall17-94X-V2-loose")<<"\n";
+     if (deltaR < dRmin && deltaR > 0.02 && ((theElectron->userInt("cutBasedElectronID-Fall17-94X-V2-loose") & 0x37F ) == 0x37F))
      {
      eleCounter++;
 	   bool insertAtEnd = true;
