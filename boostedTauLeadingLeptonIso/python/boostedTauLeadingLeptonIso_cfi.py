@@ -6,5 +6,5 @@ boostedTauLeadingLeptonIso = cms.EDProducer('boostedTauLeadingLeptonIso',
                                             muonCollection = cms.InputTag('slimmedMuons'),
                                             verboseDebug=cms.bool(False),
                                             rhoSrc = cms.InputTag("fixedGridRhoFastjetAll"),
-                                            EAConfigFile = cms.FileInPath("PhysicsTools/NanoAOD/data/effAreaMuons_cone03_pfNeuHadronsAndPhotons_94X.txt"),
+                                            EAConfigFile = cms.FileInPath("RecoEgamma/ElectronIdentification/data/Fall17/effAreaElectrons_cone03_pfNeuHadronsAndPhotons_94X.txt"),
 )
