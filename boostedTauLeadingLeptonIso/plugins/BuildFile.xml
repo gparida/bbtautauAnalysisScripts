@@ -7,5 +7,5 @@
 <use name="DataFormats/HepMCCandidate"/>
 <use name="FWCore/ServiceRegistry"/>
 <use name="CommonTools/UtilAlgos"/>
-<use name="RecoEgamma/EgammaTools"/>
+<use name="CommonTools/Egamma"/>
 <flags EDM_PLUGIN="1"/>

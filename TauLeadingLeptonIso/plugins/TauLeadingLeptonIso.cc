@@ -31,7 +31,8 @@
 #include "FWCore/Utilities/interface/StreamID.h"
 #include "FWCore/Utilities/interface/InputTag.h"
 
-#include "RecoEgamma/EgammaTools/interface/EffectiveAreas.h"
+//#include "RecoEgamma/EgammaTools/interface/EffectiveAreas.h"
+#include "CommonTools/Egamma/interface/EffectiveAreas.h"
 
 #include "DataFormats/Candidate/interface/Candidate.h"
 #include "DataFormats/Common/interface/RefToPtr.h"
@@ -60,6 +61,10 @@ float sumPUPt = 0.0;
 
 float rho = 0.0;
 float ea = 0.0;
+
+//Adding the addtional delR variable
+float delR = -404.0;
+//end
 
 float correctedSumPFChargedHadronPt = 0.0;
 float correctedSumPFNeutralHadronPt = 0.0;
@@ -122,7 +127,14 @@ TauLeadingLeptonIso::TauLeadingLeptonIso(const edm::ParameterSet& iConfig):
   //Muon isolation products
   //Stores pt eta phi m
   //and implied isolation of leading, sub-leading, and sub-subleading muons
-  //if this boosted tau is used
+  //if this tau is used
+
+  //Adding the addtional DelR branches for muons
+  produces<edm::ValueMap<float>>("LeadingMuondelR");
+  produces<edm::ValueMap<float>>("SubLeadingMuondelR");
+  produces<edm::ValueMap<float>>("SubSubLeadingMuondelR");
+  //end
+
   produces<edm::ValueMap<float>>("LeadingMuonPt");
   produces<edm::ValueMap<float>>("LeadingMuonEta");
   produces<edm::ValueMap<float>>("LeadingMuonPhi");
@@ -168,7 +180,14 @@ TauLeadingLeptonIso::TauLeadingLeptonIso(const edm::ParameterSet& iConfig):
   //Electron isolation products
   //Stores pt eta phi m
   //and implied isolation of leading, sub-leading, and sub-subleading electons
-  //if this boosted tau is used 
+  //if this tau is used
+
+  //Adding the addtional DelR branches for electrons
+  produces<edm::ValueMap<float>>("LeadingElectrondelR"); 
+  produces<edm::ValueMap<float>>("SubLeadingElectrondelR");
+  produces<edm::ValueMap<float>>("SubSubLeadingElectrondelR");
+  //end 
+
 
   produces<edm::ValueMap<float>>("LeadingElectronPt");
   produces<edm::ValueMap<float>>("LeadingElectronEta");
@@ -254,7 +273,8 @@ TauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
    if (verboseDebug) std::cout<<"nMuons: "<<nMuons<<std::endl;
    if (verboseDebug) std::cout<<"nElectrons: "<<nElectrons<<std::endl;
 
-   double dRmin = 0.4;
+   double dRcutoff_ele = 0.6; //0.3 reco cone for tau and 0.3 for electron
+   double dRcutoff_muon = 0.7; //0.3 reco cone for tau and 0.4 for muon
    double deltaR = 0.0;
 
    int eleCounter = 0;
@@ -262,20 +282,20 @@ TauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
 
    //These vectors will store the information about corrected leptons that we make later
-   std::vector<float> leadingMuonVector_pt, leadingMuonVector_eta, leadingMuonVector_phi, leadingMuonVector_m, leadingMuonVector_corrIso, leadingMuonVector_sumPFChargedHadronPt, leadingMuonVector_sumPFNeutralHadronPt, leadingMuonVector_sumPFPhotonPt, leadingMuonVector_sumPUPt, leadingMuonVector_tausumPFChargedHadronPt, leadingMuonVector_tausumPFNeutralHadronPt, leadingMuonVector_tausumPFPhotonPt;
-   std::vector<float> subleadingMuonVector_pt, subleadingMuonVector_eta, subleadingMuonVector_phi, subleadingMuonVector_m, subleadingMuonVector_corrIso, subleadingMuonVector_sumPFChargedHadronPt, subleadingMuonVector_sumPFNeutralHadronPt, subleadingMuonVector_sumPFPhotonPt, subleadingMuonVector_sumPUPt, subleadingMuonVector_tausumPFChargedHadronPt, subleadingMuonVector_tausumPFNeutralHadronPt, subleadingMuonVector_tausumPFPhotonPt;
-   std::vector<float> subsubleadingMuonVector_pt, subsubleadingMuonVector_eta, subsubleadingMuonVector_phi, subsubleadingMuonVector_m, subsubleadingMuonVector_corrIso, subsubleadingMuonVector_sumPFChargedHadronPt, subsubleadingMuonVector_sumPFNeutralHadronPt, subsubleadingMuonVector_sumPFPhotonPt, subsubleadingMuonVector_sumPUPt, subsubleadingMuonVector_tausumPFChargedHadronPt, subsubleadingMuonVector_tausumPFNeutralHadronPt, subsubleadingMuonVector_tausumPFPhotonPt;
+   std::vector<float> leadingMuonVector_delR, leadingMuonVector_pt, leadingMuonVector_eta, leadingMuonVector_phi, leadingMuonVector_m, leadingMuonVector_corrIso, leadingMuonVector_sumPFChargedHadronPt, leadingMuonVector_sumPFNeutralHadronPt, leadingMuonVector_sumPFPhotonPt, leadingMuonVector_sumPUPt, leadingMuonVector_tausumPFChargedHadronPt, leadingMuonVector_tausumPFNeutralHadronPt, leadingMuonVector_tausumPFPhotonPt;
+   std::vector<float> subleadingMuonVector_delR, subleadingMuonVector_pt, subleadingMuonVector_eta, subleadingMuonVector_phi, subleadingMuonVector_m, subleadingMuonVector_corrIso, subleadingMuonVector_sumPFChargedHadronPt, subleadingMuonVector_sumPFNeutralHadronPt, subleadingMuonVector_sumPFPhotonPt, subleadingMuonVector_sumPUPt, subleadingMuonVector_tausumPFChargedHadronPt, subleadingMuonVector_tausumPFNeutralHadronPt, subleadingMuonVector_tausumPFPhotonPt;
+   std::vector<float> subsubleadingMuonVector_delR, subsubleadingMuonVector_pt, subsubleadingMuonVector_eta, subsubleadingMuonVector_phi, subsubleadingMuonVector_m, subsubleadingMuonVector_corrIso, subsubleadingMuonVector_sumPFChargedHadronPt, subsubleadingMuonVector_sumPFNeutralHadronPt, subsubleadingMuonVector_sumPFPhotonPt, subsubleadingMuonVector_sumPUPt, subsubleadingMuonVector_tausumPFChargedHadronPt, subsubleadingMuonVector_tausumPFNeutralHadronPt, subsubleadingMuonVector_tausumPFPhotonPt;
    std::vector<int> Mcounter;
 
-   std::vector<float> leadingElectronVector_pt, leadingElectronVector_eta, leadingElectronVector_phi, leadingElectronVector_m, leadingElectronVector_corrIso, leadingElectronVector_sumPFChargedHadronPt, leadingElectronVector_sumPFNeutralHadronPt, leadingElectronVector_sumPFPhotonPt, leadingElectronVector_ea, leadingElectronVector_rho, leadingElectronVector_tausumPFChargedHadronPt, leadingElectronVector_tausumPFNeutralHadronPt, leadingElectronVector_tausumPFPhotonPt;
-   std::vector<float> subleadingElectronVector_pt, subleadingElectronVector_eta, subleadingElectronVector_phi, subleadingElectronVector_m, subleadingElectronVector_corrIso, subleadingElectronVector_sumPFChargedHadronPt, subleadingElectronVector_sumPFNeutralHadronPt, subleadingElectronVector_sumPFPhotonPt, subleadingElectronVector_ea, subleadingElectronVector_rho, subleadingElectronVector_tausumPFChargedHadronPt, subleadingElectronVector_tausumPFNeutralHadronPt, subleadingElectronVector_tausumPFPhotonPt;
-   std::vector<float> subsubleadingElectronVector_pt, subsubleadingElectronVector_eta, subsubleadingElectronVector_phi, subsubleadingElectronVector_m, subsubleadingElectronVector_corrIso, subsubleadingElectronVector_sumPFChargedHadronPt, subsubleadingElectronVector_sumPFNeutralHadronPt, subsubleadingElectronVector_sumPFPhotonPt, subsubleadingElectronVector_ea, subsubleadingElectronVector_rho, subsubleadingElectronVector_tausumPFChargedHadronPt, subsubleadingElectronVector_tausumPFNeutralHadronPt, subsubleadingElectronVector_tausumPFPhotonPt;
+   std::vector<float> leadingElectronVector_delR, leadingElectronVector_pt, leadingElectronVector_eta, leadingElectronVector_phi, leadingElectronVector_m, leadingElectronVector_corrIso, leadingElectronVector_sumPFChargedHadronPt, leadingElectronVector_sumPFNeutralHadronPt, leadingElectronVector_sumPFPhotonPt, leadingElectronVector_ea, leadingElectronVector_rho, leadingElectronVector_tausumPFChargedHadronPt, leadingElectronVector_tausumPFNeutralHadronPt, leadingElectronVector_tausumPFPhotonPt;
+   std::vector<float> subleadingElectronVector_delR, subleadingElectronVector_pt, subleadingElectronVector_eta, subleadingElectronVector_phi, subleadingElectronVector_m, subleadingElectronVector_corrIso, subleadingElectronVector_sumPFChargedHadronPt, subleadingElectronVector_sumPFNeutralHadronPt, subleadingElectronVector_sumPFPhotonPt, subleadingElectronVector_ea, subleadingElectronVector_rho, subleadingElectronVector_tausumPFChargedHadronPt, subleadingElectronVector_tausumPFNeutralHadronPt, subleadingElectronVector_tausumPFPhotonPt;
+   std::vector<float> subsubleadingElectronVector_delR, subsubleadingElectronVector_pt, subsubleadingElectronVector_eta, subsubleadingElectronVector_phi, subsubleadingElectronVector_m, subsubleadingElectronVector_corrIso, subsubleadingElectronVector_sumPFChargedHadronPt, subsubleadingElectronVector_sumPFNeutralHadronPt, subsubleadingElectronVector_sumPFPhotonPt, subsubleadingElectronVector_ea, subsubleadingElectronVector_rho, subsubleadingElectronVector_tausumPFChargedHadronPt, subsubleadingElectronVector_tausumPFNeutralHadronPt, subsubleadingElectronVector_tausumPFPhotonPt;
    std::vector<int> Ecounter;
 
-   //Okay, the idea here is that for each boosted tau we have,
+   //Okay, the idea here is that for each tau we have,
    //we go through and check each lepton
    //we first make a structure that contains it's 4 vector info,
-   //and then the corrected isolation values that would be implied from that boosted tau
+   //and then the corrected isolation values that would be implied from that tau
    //we store this for the leading, subleading, and sub-sub-leading electrons, and muons
 
    leptonInfo nullInfo;
@@ -290,128 +310,144 @@ TauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
        std::vector< leptonInfo > electronInformation;
        std::vector< leptonInfo > muonInformation;
 
-       //For each boosted tau we now go through the list of muons and electrons, and select 
+       //For each tau we now go through the list of muons and electrons, and select 
        // the three leading candidates of each, and store their information in our vectors of
        // lepton information
 
        //once we have their information, we ca go through and calculate the corrected isolation
-       //of each of the supplied leptons, with respect to the given boosted tau
+       //of each of the supplied leptons, with respect to the given tau
        for(std::vector<pat::Muon>::const_iterator theMuon = muonHandle->begin();
-	   theMuon != muonHandle->end();
-	   ++theMuon)
-	 {
-	   leptonInfo currentMuonInfo;
-	   currentMuonInfo.pt = theMuon->pt();
-	   currentMuonInfo.eta = theMuon->eta();
-	   currentMuonInfo.phi = theMuon->phi();
-	   currentMuonInfo.m = theMuon->mass();
-	   currentMuonInfo.sumPFChargedHadronPt = theMuon->pfIsolationR04().sumChargedHadronPt;
-	   currentMuonInfo.sumPFNeutralHadronPt = theMuon->pfIsolationR04().sumNeutralHadronEt;
-	   currentMuonInfo.sumPFPhotonPt = theMuon->pfIsolationR04().sumPhotonEt;
-	   currentMuonInfo.sumPUPt = theMuon->pfIsolationR04().sumPUPt;
+      theMuon != muonHandle->end();
+      ++theMuon)
+    {
+      leptonInfo currentMuonInfo;
+      currentMuonInfo.pt = theMuon->pt();
+      currentMuonInfo.eta = theMuon->eta();
+      currentMuonInfo.phi = theMuon->phi();
+      currentMuonInfo.m = theMuon->mass();
+      currentMuonInfo.sumPFChargedHadronPt = theMuon->pfIsolationR04().sumChargedHadronPt;
+      currentMuonInfo.sumPFNeutralHadronPt = theMuon->pfIsolationR04().sumNeutralHadronEt;
+      currentMuonInfo.sumPFPhotonPt = theMuon->pfIsolationR04().sumPhotonEt;
+      currentMuonInfo.sumPUPt = theMuon->pfIsolationR04().sumPUPt;
 
-	   //loop through our information collection
-	   //If we have higher pt than the current entry, we insert this lepton's information before
+      //loop through our information collection
+      //If we have higher pt than the current entry, we insert this lepton's information before
 
      deltaR = reco::deltaR(currentMuonInfo.eta, currentMuonInfo.phi, theTau->eta(), theTau->phi());
 
-     if (deltaR < dRmin && deltaR > 0.02 && theMuon->passed(reco::Muon::CutBasedIdLoose))
+     //add the delR variable to lepton info
+     currentMuonInfo.delR = deltaR;
+     //end     
+
+     //if (deltaR < dRmin_muon && deltaR > 0.05 && theMuon->passed(reco::Muon::CutBasedIdLoose))
+     if ((deltaR < dRcutoff_muon) && (deltaR > 0.05) && theMuon->passed(reco::Muon::CutBasedIdLoose) && (theMuon->pt()>15))
      {
         bool insertAtEnd = true;
         mCounter++;
         for (std::vector< leptonInfo >::const_iterator muonInfoIt = muonInformation.begin();
-		muonInfoIt != muonInformation.end();
-		++muonInfoIt)
-	     {
-	       if (currentMuonInfo.pt > (*muonInfoIt).pt) 
-		 {
-		   insertAtEnd = false;
-		   muonInformation.insert(muonInfoIt, currentMuonInfo);
-		   break;
-		 }
-	     }
-	   //If we are at the end, insert the information at the end
-	   if (insertAtEnd) muonInformation.insert(muonInformation.end(), currentMuonInfo);
-	   //then if we have more than 3 entries in the list of information, get rid of the 
-	   //last entry
-	   if (muonInformation.size() > 3) muonInformation.pop_back();
+      muonInfoIt != muonInformation.end();
+      ++muonInfoIt)
+        {
+          if (currentMuonInfo.pt > (*muonInfoIt).pt) 
+       {
+         insertAtEnd = false;
+         muonInformation.insert(muonInfoIt, currentMuonInfo);
+         break;
+       }
+        }
+      //If we are at the end, insert the information at the end
+      if (insertAtEnd) muonInformation.insert(muonInformation.end(), currentMuonInfo);
+      //then if we have more than 3 entries in the list of information, get rid of the 
+      //last entry
+      if (muonInformation.size() > 3) muonInformation.pop_back();
 
      }
-	   
-	 }
+      
+    }
        //Now that we have all of the leading muons and their information, let's go through
        //and calculated a rectified muon isolation for each of them
        for (std::vector< leptonInfo >::iterator muonInfoIt = muonInformation.begin();
-	    muonInfoIt != muonInformation.end();
-	    ++muonInfoIt) this->calculateCorrectedMuonIsoInformation(*theTau, *muonInfoIt);
+       muonInfoIt != muonInformation.end();
+       ++muonInfoIt) this->calculateCorrectedMuonIsoInformation(*theTau, *muonInfoIt);
        //if any slots in the information vector are empty, let's create null information
        //to fill them
        int nullMuonEntriesNeeded = (int)(3-muonInformation.size());
        for (int i=0; i< nullMuonEntriesNeeded;++i)
-	 {
-	   //leptonInfo nullInfo;
-	   muonInformation.push_back(nullInfo);
-	 }
+    {
+      //leptonInfo nullInfo;
+      muonInformation.push_back(nullInfo);
+    }
 
        //Now we do something similar for the electrons
        for(std::vector<pat::Electron>::const_iterator theElectron = electronHandle->begin();
-	   theElectron != electronHandle->end();
-	   ++theElectron)
-	 {
-	   leptonInfo currentElectronInfo;
-	   currentElectronInfo.pt = theElectron->pt();
-	   currentElectronInfo.eta = theElectron->eta();
-	   currentElectronInfo.phi = theElectron->phi();
-	   currentElectronInfo.m = theElectron->mass();
-	   currentElectronInfo.sumPFChargedHadronPt = theElectron->pfIsolationVariables().sumChargedHadronPt;
-	   currentElectronInfo.sumPFNeutralHadronPt = theElectron->pfIsolationVariables().sumNeutralHadronEt;
-	   currentElectronInfo.sumPFPhotonPt = theElectron->pfIsolationVariables().sumPhotonEt;
-	   
-	   currentElectronInfo.rho = *rho;
-	   currentElectronInfo.ea = theEffectiveAreas.getEffectiveArea(fabs(theElectron->superCluster()->eta()));
+      theElectron != electronHandle->end();
+      ++theElectron)
+    {
+      leptonInfo currentElectronInfo;
+      currentElectronInfo.pt = theElectron->pt();
+      currentElectronInfo.eta = theElectron->eta();
+      currentElectronInfo.phi = theElectron->phi();
+      currentElectronInfo.m = theElectron->mass();
+      currentElectronInfo.sumPFChargedHadronPt = theElectron->pfIsolationVariables().sumChargedHadronPt;
+      currentElectronInfo.sumPFNeutralHadronPt = theElectron->pfIsolationVariables().sumNeutralHadronEt;
+      currentElectronInfo.sumPFPhotonPt = theElectron->pfIsolationVariables().sumPhotonEt;
+      
+      currentElectronInfo.rho = *rho;
+      currentElectronInfo.ea = theEffectiveAreas.getEffectiveArea(fabs(theElectron->superCluster()->eta()));
 
-	   //loop through our information collection
-	   //if we have a higher pt than the current entry, we insert this lepton's information before
+      //loop through our information collection
+      //if we have a higher pt than the current entry, we insert this lepton's information before
      deltaR = reco::deltaR(currentElectronInfo.eta, currentElectronInfo.phi, theTau->eta(), theTau->phi());
 
-     //if (deltaR < dRmin && deltaR > 0.02 && theElectron->electronID("cutBasedElectronID-Fall17-94X-V2-loose"))
+     //add the deltaR variale to lepton info
+     currentElectronInfo.delR = deltaR;
+     //end
+
+     //if (deltaR < dRmin && deltaR > 0.05 && theElectron->electronID("cutBasedElectronID-Fall17-94X-V2-loose"))
      //std::cout<< "Debug Electron ID = "<<((theElectron->userInt("cutBasedElectronID-Fall17-94X-V2-loose") & 0x37F ) == 0x37F)<<" fullID = "<<theElectron->electronID("cutBasedElectronID-Fall17-94X-V2-loose")<<"\n";
-     if (deltaR < dRmin && deltaR > 0.02 && ((theElectron->userInt("cutBasedElectronID-Fall17-94X-V2-loose") & 0x37F ) == 0x37F))
+     //if (deltaR < dRmin_ele && deltaR > 0.05 && ((theElectron->userInt("cutBasedElectronID-Fall17-94X-V2-loose") & 0x37F ) == 0x37F))
+     if ((deltaR < dRcutoff_ele) && (deltaR > 0.05) && ((theElectron->userInt("cutBasedElectronID-Fall17-94X-V2-loose") & 0x37F ) == 0x37F) && (theElectron->pt()>5))
      {
      eleCounter++;
-	   bool insertAtEnd = true;
-	   for(std::vector< leptonInfo >::const_iterator electronInfoIt = electronInformation.begin();
-	       electronInfoIt != electronInformation.end();
-	       ++electronInfoIt)
-	     {
-	       if(currentElectronInfo.pt > (*electronInfoIt).pt)
-		 {
-		   insertAtEnd = false;
-		   electronInformation.insert(electronInfoIt, currentElectronInfo);
-		   break;
-		 }
-	     }
-	   //if we are at the end, insert the information at the end
-	   if (insertAtEnd) electronInformation.insert(electronInformation.end(), currentElectronInfo);
-	   //now, if we have more than 3 entries, get rid of the last entry in the list
-	   if (electronInformation.size() > 3) electronInformation.pop_back();
+      bool insertAtEnd = true;
+      for(std::vector< leptonInfo >::const_iterator electronInfoIt = electronInformation.begin();
+          electronInfoIt != electronInformation.end();
+          ++electronInfoIt)
+        {
+          if(currentElectronInfo.pt > (*electronInfoIt).pt)
+       {
+         insertAtEnd = false;
+         electronInformation.insert(electronInfoIt, currentElectronInfo);
+         break;
+       }
+        }
+      //if we are at the end, insert the information at the end
+      if (insertAtEnd) electronInformation.insert(electronInformation.end(), currentElectronInfo);
+      //now, if we have more than 3 entries, get rid of the last entry in the list
+      if (electronInformation.size() > 3) electronInformation.pop_back();
      }
-	 }
+    }
        //Now that we have all of the leading electrons and their information, let's go through
        //and calculated a rectified electron isolation for each of them
        for (std::vector< leptonInfo >::iterator electronInfoIt = electronInformation.begin();
-	    electronInfoIt != electronInformation.end();
-	    ++electronInfoIt) this->calculateCorrectedMuonIsoInformation(*theTau, *electronInfoIt);
+       electronInfoIt != electronInformation.end();
+       ++electronInfoIt) this->calculateCorrectedMuonIsoInformation(*theTau, *electronInfoIt);
        //if any slots in the information vector are empty, let's create null information
        //to fill them
        int nullElectronEntriesNeeded = (int)(3-electronInformation.size());
        for (int i=0; i<nullElectronEntriesNeeded;++i)
-	 {
-	   leptonInfo nullInfo;
-	   electronInformation.push_back(nullInfo);
-	 }
+    {
+      leptonInfo nullInfo;
+      electronInformation.push_back(nullInfo);
+    }
        //Now that we have all the correct information for this tau, we can read out all the information
        //to a series of vectors that we will store later
+      //Add delR info for muons
+       leadingMuonVector_delR.push_back(muonInformation[0].delR);
+       subleadingMuonVector_delR.push_back(muonInformation[1].delR);
+       subsubleadingMuonVector_delR.push_back(muonInformation[2].delR);
+       //end
+
        leadingMuonVector_pt.push_back(muonInformation[0].pt); 
        leadingMuonVector_eta.push_back(muonInformation[0].eta); 
        leadingMuonVector_phi.push_back(muonInformation[0].phi);
@@ -454,6 +490,12 @@ TauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
 
        Mcounter.push_back(mCounter);
+
+      //Add delR info for electrons
+       leadingElectronVector_delR.push_back(electronInformation[0].delR);
+       subleadingElectronVector_delR.push_back(electronInformation[1].delR);
+       subsubleadingElectronVector_delR.push_back(electronInformation[2].delR);
+       //end
 
 
        leadingElectronVector_pt.push_back(electronInformation[0].pt); 
@@ -506,6 +548,9 @@ TauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
    //we have all of the information for the taus in this event. We read this out to the 
    //edm format, and we're done.
    //New valueMaps added
+
+   //Adding MUONS value Maps - Stuff that was not originally inlcuded by Andrew
+
    std::unique_ptr< edm::ValueMap < float > > leadingMuonVector_sumPFChargedHadronPt_valueMap(new edm::ValueMap < float >());
    edm::ValueMap< float >::Filler filler_leadingMuonVector_sumPFChargedHadronPt_valueMap(*leadingMuonVector_sumPFChargedHadronPt_valueMap);
    filler_leadingMuonVector_sumPFChargedHadronPt_valueMap.insert(TauHandle, leadingMuonVector_sumPFChargedHadronPt.begin(), leadingMuonVector_sumPFChargedHadronPt.end());
@@ -614,7 +659,11 @@ TauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
 
 
+   //End of MUONS value Maps - Stuff that was not originally inlcuded by Andrew
 
+
+
+  //Adding ELECTRONS value Maps - Stuff that was not originally inlcuded by Andrew
 
    std::unique_ptr< edm::ValueMap < float > > leadingElectronVector_sumPFChargedHadronPt_valueMap(new edm::ValueMap < float >());
    edm::ValueMap< float >::Filler filler_leadingElectronVector_sumPFChargedHadronPt_valueMap(*leadingElectronVector_sumPFChargedHadronPt_valueMap);
@@ -737,8 +786,30 @@ TauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
    filler_subsubleadingElectronVector_tausumPFPhotonPt_valueMap.insert(TauHandle, subsubleadingElectronVector_tausumPFPhotonPt.begin(), subsubleadingElectronVector_tausumPFPhotonPt.end());
    filler_subsubleadingElectronVector_tausumPFPhotonPt_valueMap.fill(); 
 
+     //End of ELECTRONS value Maps - Stuff that was not originally inlcuded by Andrew
 
    ///////////
+
+   //MUON value maps - Originally included by Andrew- total correction, kinematic variables and new delRs
+
+     //delR for muon valuemaps (for all three cases leading, subleading, subsubleading)
+
+
+   std::unique_ptr< edm::ValueMap < float > > leadingMuonVector_delR_valueMap(new edm::ValueMap < float >());
+   edm::ValueMap< float >::Filler filler_leadingMuonVector_delR_valueMap(*leadingMuonVector_delR_valueMap);
+   filler_leadingMuonVector_delR_valueMap.insert(TauHandle, leadingMuonVector_delR.begin(), leadingMuonVector_delR.end());
+   filler_leadingMuonVector_delR_valueMap.fill();
+
+   std::unique_ptr< edm::ValueMap < float > > subleadingMuonVector_delR_valueMap(new edm::ValueMap < float >());
+   edm::ValueMap< float >::Filler filler_subleadingMuonVector_delR_valueMap(*subleadingMuonVector_delR_valueMap);
+   filler_subleadingMuonVector_delR_valueMap.insert(TauHandle, subleadingMuonVector_delR.begin(), subleadingMuonVector_delR.end());
+   filler_subleadingMuonVector_delR_valueMap.fill();
+
+   std::unique_ptr< edm::ValueMap < float > > subsubleadingMuonVector_delR_valueMap(new edm::ValueMap < float >());
+   edm::ValueMap< float >::Filler filler_subsubleadingMuonVector_delR_valueMap(*subsubleadingMuonVector_delR_valueMap);
+   filler_subsubleadingMuonVector_delR_valueMap.insert(TauHandle, subsubleadingMuonVector_delR.begin(), subsubleadingMuonVector_delR.end());
+   filler_subsubleadingMuonVector_delR_valueMap.fill();
+     //end
 
    std::unique_ptr< edm::ValueMap < int > > Mcounter_valueMap(new edm::ValueMap < int >());
    edm::ValueMap< int >::Filler filler_Mcounter_valueMap(*Mcounter_valueMap);
@@ -825,6 +896,30 @@ TauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
    filler_subsubleadingMuonVector_corrIso_valueMap.insert(TauHandle, subsubleadingMuonVector_corrIso.begin(), subsubleadingMuonVector_corrIso.end());
    filler_subsubleadingMuonVector_corrIso_valueMap.fill();
 
+
+     //End of MUON value maps - Originally included by Andrew- total correction, kinematic variables and new delRs
+
+   ////////////////
+
+   //ELECTRONS value maps - Originally included by Andrew- total correction, kinematic variables and new delRs
+  
+  //delR for electrons valuemaps (for all three cases leading, subleading and subsubleading)
+   std::unique_ptr< edm::ValueMap < float > > leadingElectronVector_delR_valueMap(new edm::ValueMap < float >());
+   edm::ValueMap< float >::Filler filler_leadingElectronVector_delR_valueMap(*leadingElectronVector_delR_valueMap);
+   filler_leadingElectronVector_delR_valueMap.insert(TauHandle, leadingElectronVector_delR.begin(), leadingElectronVector_delR.end());
+   filler_leadingElectronVector_delR_valueMap.fill();  
+
+   std::unique_ptr< edm::ValueMap < float > > subleadingElectronVector_delR_valueMap(new edm::ValueMap < float >());
+   edm::ValueMap< float >::Filler filler_subleadingElectronVector_delR_valueMap(*subleadingElectronVector_delR_valueMap);
+   filler_subleadingElectronVector_delR_valueMap.insert(TauHandle, subleadingElectronVector_delR.begin(), subleadingElectronVector_delR.end());
+   filler_subleadingElectronVector_delR_valueMap.fill();
+
+   std::unique_ptr< edm::ValueMap < float > > subsubleadingElectronVector_delR_valueMap(new edm::ValueMap < float >());
+   edm::ValueMap< float >::Filler filler_subsubleadingElectronVector_delR_valueMap(*subsubleadingElectronVector_delR_valueMap);
+   filler_subsubleadingElectronVector_delR_valueMap.insert(TauHandle, subsubleadingElectronVector_delR.begin(), subsubleadingElectronVector_delR.end());
+   filler_subsubleadingElectronVector_delR_valueMap.fill();
+   //end
+
    std::unique_ptr< edm::ValueMap < float > > leadingElectronVector_pt_valueMap(new edm::ValueMap < float >());
    edm::ValueMap< float >::Filler filler_leadingElectronVector_pt_valueMap(*leadingElectronVector_pt_valueMap);
    filler_leadingElectronVector_pt_valueMap.insert(TauHandle, leadingElectronVector_pt.begin(), leadingElectronVector_pt.end());
@@ -900,8 +995,16 @@ TauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
    filler_subsubleadingElectronVector_corrIso_valueMap.insert(TauHandle, subsubleadingElectronVector_corrIso.begin(), subsubleadingElectronVector_corrIso.end());
    filler_subsubleadingElectronVector_corrIso_valueMap.fill();
 
+   //End of ELECTRONS value maps - Originally included by Andrew- total correction, kinematic variables and new delRs
+
    iEvent.put(std::move(Mcounter_valueMap), "Mcounter");
    iEvent.put(std::move(Ecounter_valueMap), "Ecounter");
+
+   //put Muon delR in the event for all three cases
+   iEvent.put(std::move(leadingMuonVector_delR_valueMap), "LeadingMuondelR");
+   iEvent.put(std::move(subleadingMuonVector_delR_valueMap), "SubLeadingMuondelR");
+   iEvent.put(std::move(subsubleadingMuonVector_delR_valueMap), "SubSubLeadingMuondelR");
+   //end
 
    iEvent.put(std::move(leadingMuonVector_pt_valueMap), "LeadingMuonPt");
    iEvent.put(std::move(leadingMuonVector_eta_valueMap), "LeadingMuonEta");
@@ -943,7 +1046,16 @@ TauLeadingLeptonIso::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
    iEvent.put(std::move(subsubleadingMuonVector_sumPUPt_valueMap), "SubSubLeadingMuonsumPUPt");
    iEvent.put(std::move(subsubleadingMuonVector_tausumPFChargedHadronPt_valueMap), "SubSubLeadingMuontausumPFChargedHadronPt");
    iEvent.put(std::move(subsubleadingMuonVector_tausumPFNeutralHadronPt_valueMap), "SubSubLeadingMuontausumPFNeutralHadronPt");
-   iEvent.put(std::move(subsubleadingMuonVector_tausumPFPhotonPt_valueMap), "SubSubLeadingMuontausumPFPhotonPt");    
+   iEvent.put(std::move(subsubleadingMuonVector_tausumPFPhotonPt_valueMap), "SubSubLeadingMuontausumPFPhotonPt");
+
+
+     //put Electron delR in the event for all three cases
+   
+   iEvent.put(std::move(leadingElectronVector_delR_valueMap), "LeadingElectrondelR");
+   iEvent.put(std::move(subleadingElectronVector_delR_valueMap), "SubLeadingElectrondelR");
+   iEvent.put(std::move(subsubleadingElectronVector_delR_valueMap), "SubSubLeadingElectrondelR");
+    //END
+    
 
    iEvent.put(std::move(leadingElectronVector_pt_valueMap), "LeadingElectronPt");
    iEvent.put(std::move(leadingElectronVector_eta_valueMap), "LeadingElectronEta");
