@@ -14,7 +14,7 @@ config.General.transferLogs=True
 
 config.section_('JobType')
 #config.JobType.psetName = '../bbtautauAnalysisScripts/boostedTauNanoMaker/python/boostedTauReNano_2016_MC_cff.py'
-config.JobType.sendPythonFolder = True
+#config.JobType.sendPythonFolder = True
 config.JobType.maxMemoryMB = 4000
 
 
