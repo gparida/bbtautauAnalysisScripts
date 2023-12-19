@@ -17,11 +17,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = 'Generate file list JSONs from a list of samples')
     parser.add_argument('--dataTier',nargs = '?', choices=['MINIAODSIM','NANOAODSIM','MINIAOD','NANOAOD'],help='Datatier to form the list of files for',default='MINIAODSIM')
     parser.add_argument('--inputFile',nargs='?',help='Input JSON file that has campaign:{name:dataset} format',required=True)
-    parser.add_argument('--outputFile',nargs='?',help='Output file name to dump the final list of file in JSON format',required=True)
+    parser.add_argument('--outputFile',nargs='?',help='Output file is a text file with list of dataset for crab submit. Please incluse full directory path with name.txt at the end',required=True)
 
     args = parser.parse_args()
 
-    with open(args.outputFile+".txt","w") as dumpTXT:
+    with open(args.outputFile,"w") as dumpTXT:
         main(args)
 
 
