@@ -15,7 +15,7 @@ config.General.transferLogs=True
 config.section_('JobType')
 #config.JobType.psetName = '../bbtautauAnalysisScripts/boostedTauNanoMaker/python/boostedTauReNano_2016_MC_cff.py'
 #config.JobType.sendPythonFolder = True
-config.JobType.maxMemoryMB = 4000
+config.JobType.maxMemoryMB = 2500
 
 
 config.section_('Data')
@@ -43,7 +43,8 @@ if __name__ == '__main__':
     parser.add_argument('-c','--configFile',help='the file that you would cmsRun on - relative to this file',required=True)
     parser.add_argument('-w','--workArea', help='CRAB work area HHbbtt/year_Data/MC',required=True)
     parser.add_argument('-o','--outputDir',help='file path to be created in the hdfs to store files HHbbtt/Year_Data/MC',required=True)
-    parser.add_argument('-t','--type',choices=['Data','MC'],help='Whether these are Data or MC. This will decide the request Name')
+    parser.add_argument('-t','--type',choices=['Data','MC'],help='Whether these are Data or MC. This will decide the request Name',required=True)
+    parser.add_argument('-n','--username',help="Wisconsin T2 user name. so that the files are output in the right area in hdfs",required=True)
     args = parser.parse_args()
 
     with open(args.datasetListFile, 'r') as readFile:
@@ -70,8 +71,8 @@ if __name__ == '__main__':
 
                        
             print ("creating a request name = " + config.General.requestName + '\n')
-            config.Data.outLFNDirBase = '/store/user/gparida/' + args.outputDir
-            
+            #config.Data.outLFNDirBase = '/store/user/gparida/' + args.outputDir
+            config.Data.outLFNDirBase = '/store/user/'+args.username+'/' + args.outputDir            
             config.JobType.psetName = args.configFile
             config.General.workArea = args.workArea
             crabCommand('submit', config = config)
