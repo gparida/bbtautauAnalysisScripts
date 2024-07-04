@@ -44,7 +44,8 @@ if __name__ == '__main__':
     parser.add_argument('-w','--workArea', help='CRAB work area HHbbtt/year_Data/MC',required=True)
     parser.add_argument('-o','--outputDir',help='file path to be created in the hdfs to store files HHbbtt/Year_Data/MC',required=True)
     parser.add_argument('-t','--type',choices=['Data','MC'],help='Whether these are Data or MC. This will decide the request Name',required=True)
-    parser.add_argument('-n','--username',help="Wisconsin T2 user name. so that the files are output in the right area in hdfs",required=True)
+    parser.add_argument('-u','--username',help="Wisconsin T2 user name. so that the files are output in the right area in hdfs",required=True)
+    parser.add_argument('-n','--unitsperjob',help="Setting for number of files files processed per Job. 2018TTToSemileptonic had issues",default=1)
     args = parser.parse_args()
 
     with open(args.datasetListFile, 'r') as readFile:
@@ -72,6 +73,9 @@ if __name__ == '__main__':
                        
             print ("creating a request name = " + config.General.requestName + '\n')
             #config.Data.outLFNDirBase = '/store/user/gparida/' + args.outputDir
+            if (args.unitsperjob!=1):
+                print("Changing the number of units per job to = ",int(args.unitsperjob))
+                config.Data.unitsPerJob = int(args.unitsperjob)
             config.Data.outLFNDirBase = '/store/user/'+args.username+'/' + args.outputDir            
             config.JobType.psetName = args.configFile
             config.General.workArea = args.workArea
